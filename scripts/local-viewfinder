@@ -1,0 +1,46 @@
+#!/bin/bash
+# Run a local viewfinder backend instance.
+#
+# If running for the first time, or after clearing the local db, run:
+# scripts/local-viewfinder-prep <user>
+# Add <user> in the AdminPermissions table with rights ROOT.
+
+if [ -z "${VF_HOME}" ]; then
+  echo "Missing VF_HOME env variable, exiting.";
+  exit
+fi
+
+LOCAL_DB_DIR="${HOME}/local/db"
+LOCAL_OBJ_STORE="${HOME}/local/fileobjstore"
+LOCAL_VF_TEMP_DIR="${HOME}/local/vf_temp"
+LOCAL_LOG_DIR="${HOME}/local/server_log_backup"
+UI_AUTOTEST_DIR="${VF_HOME}/clients/ios/testing"
+
+cd ${VF_HOME}
+echo "###################################################################"
+echo "You may need to populate the AdminPermissions table by running:"
+echo "scripts/local-viewfinder-prep <user>"
+echo "###################################################################"
+echo ""
+
+${PYTHON:-python} scripts/viewfinder \
+  --blocking_log_threshold=1.0 \
+  --devbox \
+  --domain=goviewfinder.com \
+  --enable_xsrf=True \
+  --fileobjstore=True \
+  --fileobjstore_dir=${LOCAL_OBJ_STORE} \
+  --insecure_port=8080 \
+  --localdb=True \
+  --localdb_dir=${LOCAL_DB_DIR} \
+  --local_services=True \
+  --vf_temp_dir=${LOCAL_VF_TEMP_DIR} \
+  --port=8443 \
+  --redirect_port=8443 \
+  --server_log_backup_dir=${LOCAL_LOG_DIR} \
+  --short_domain=short.goviewfinder.com \
+  --testing_path=${UI_AUTOTEST_DIR} \
+  --upload_metrics=False \
+  --validate_cert=False \
+  --xheaders=false \
+  "$@"

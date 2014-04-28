@@ -1,0 +1,49 @@
+.noselect { -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none; }
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(30,24,29);
+}
+
+#layout {
+    visibility : visible;
+    overflow: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    font-family: "proxima-nova-alt", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: rgb(255,255,255);
+    background: none;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+
+#photo { position:absolute; }
+#photo .layout_photo { display:none;    position: absolute; top: 0; left: 0;  }
+
+
+/* Applied when aspect ratio of image is greater than container.*/
+.imgwide img {
+    height: 100%;
+    width: auto;
+}
+
+/* Applied when aspect ratio of image is less than container. */
+.imgtall img {
+    width: 100%;
+    height: auto;
+}
+
+span.orange {
+    color: rgb(255, 146, 19);
+}

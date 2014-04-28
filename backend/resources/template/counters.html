@@ -1,0 +1,409 @@
+{% extends "admin.html" %}
+{% block title %}{{ page_title }}{% end %}
+
+{% block admin %}
+<script type="text/javascript">
+/**
+ * Current jqplot instance, maintained as a global for convenience.
+ */
+var plotInstance = null;
+var selectedCounters = [];
+
+function ValOrNull(el) {
+  if (el.val() == "") {
+    return null;
+  }
+  return el.val();
+}
+
+/**
+ * Method to refresh the chart whenever new data arrives, or when a different set of counters
+ * is selected for display.
+ *
+ * @param {object} data Current counter data for the chart to display.
+ */
+function RefreshChart(data) {
+  var filteredSeries = []
+  var interval = data.end_time - data.start_time
+  var days = interval / (3600*24);
+  var yMinVal = ValOrNull($('#ymin'));
+  var yMaxVal = ValOrNull($('#ymax'));
+  var yInterval = ValOrNull($('#yinterval'));
+  var tickInterval = interval / $('#xticks').val();
+  var legend_pos = $('#legend-pos option:selected').val();
+  var legend_inout = $('#legend-show option:selected').val();
+  var legend_show = true;
+  var rate_show = $('#rate-show').is(':checked');
+  if (legend_inout == "off") {
+    legend_show = false;
+    legend_inout = "insideGrid";
+  }
+
+  var chartOptions = {
+    axes: {
+      yaxis: {
+        min: yMinVal,
+        max: yMaxVal,
+        tickInterval: yInterval
+      },
+      xaxis: {
+        min: data.start_time,
+        max: data.end_time,
+        tickInterval: tickInterval,
+        tickOptions: {
+          formatter: function(format, value){
+            var d = new Date(value * 1000)
+            var month_day = $.datepicker.formatDate('mm/dd', d);
+            var time = $.datepicker.formatTime('hh:mm:ss', {
+              hour: d.getHours(),
+              minute: d.getMinutes(),
+              second: d.getSeconds()
+              });
+            var hour = $.datepicker.formatTime('hh', {
+              hour: d.getHours()
+              });
+            if (days < 2) {
+              return time;
+            } else if (days < 20) {
+              return month_day + '-' + hour + 'h';
+            } else {
+              return month_day;
+            }
+          }
+        }
+      }
+    },
+    noDataIndicator: {
+      show: true,
+      indicator: 'No data to display.'
+    },
+    legend: {
+      show: legend_show,
+      location: legend_pos,
+      placement: legend_inout
+    },
+    series: []
+  };
+
+  for(i=0;i<selectedCounters.length;i++) {
+    var c = data.data[selectedCounters[i]];
+    if (rate_show) {
+      filteredSeries.push(c.cluster_rate);
+    } else {
+      filteredSeries.push(c.is_average ? c.cluster_avg : c.cluster_total);
+    }
+    chartOptions.series.push({
+      label: c.description,
+      breakOnNull: true
+    });
+  }
+
+  if (plotInstance != null) {
+    plotInstance.destroy();
+  }
+
+  plotInstance = $.jqplot('chart', filteredSeries, chartOptions);
+}
+
+function jq(myid) {
+  return "#" + myid.replace(/([:\/]|\.)/g, "\\$1");
+}
+
+function flip(id) {
+  var el = $(jq(id));
+  var index = selectedCounters.indexOf(id);
+  if (index >= 0) {
+    selectedCounters.splice(index, 1);
+    el.removeClass('checked');
+  } else {
+    selectedCounters.push(id);
+    el.addClass('checked');
+  }
+  FetchData();
+}
+
+/**
+ * Method to refresh the set of viewable counters whenever new data arrives.
+ *
+ * @param {object} data Latest counter data recieved.
+ */
+function RefreshCounters(data) {
+  var filtered = [ /(active_users\.requests_\w+)\.([A-Za-z0-9]+)/,
+                   /(db\.table\.\w+)\.([A-Za-z0-9]+)/,
+                   /(itunes)\.([A-Za-z0-9]+)/,
+                   /(user_analytics\.scans_gt1s_speed_percentile)\.([0-9]+)/,
+                   /(user_analytics\.scans_duration_percentile)\.([0-9]+)/,
+                   /(user_analytics\.scans_num_photos_percentile)\.([0-9]+)/,
+                   /(user_analytics\.ui\.event_users)\.(.*)/,
+                   /(user_analytics\.ui\.total_events)\.(.*)/,
+                   /(watched_countries.downloads)\.([A-Za-z0-9]+)/,
+                   /(device_installs\.registration\.delay_hours_percentile)\.([0-9]+)/,
+                   /(device_installs\.registration)\.(all|yes|no)/,
+                   /(device_count.os)\.(.*)/,
+                   /(device_count.platform)\.(.*)/,
+                   /(device_count.version)\.(.*)/,
+                   /(device_count.country)\.(.*)/,
+                   /(device_count.language)\.(.*)/,
+                   /(dynamodb\.user\.identities)\.(.*)/,
+                   /(dynamodb\.user\.identity_types)\.(.*)/,
+                   /(dynamodb\.user\.locale)\.(.*)/,
+                   /(dynamodb\.user\.state)\.(.*)/,
+                   /(dynamodb\.user\.device_highest_version)\.(.*)/,
+                   /(dynamodb\.user\.device_has_notification)\.(.*)/,
+                   /(dynamodb\.user\.devices_with_notification)\.(.*)/,
+                   /(dynamodb\.user\.settings_email_alerts)\.(.*)/,
+                   /(dynamodb\.user\.settings_sms_alerts)\.(.*)/,
+                   /(dynamodb\.user\.settings_push_alerts)\.(.*)/,
+                   /(dynamodb\.user\.settings_storage)\.(.*)/,
+                   /(dynamodb\.user\.settings_marketing)\.(.*)/,
+                 ];
+  var counters = Object.keys(data.data).sort();
+
+  // Update the counter list with the counters in the returned data set.
+  // Counters which were checked previously are left
+  $counterList = $("#counters ul");
+  $counterList.empty();
+  var single_counters = [];
+  var multi_counters = [];
+  for(i=0; i<counters.length; i++) {
+    var c = counters[i];
+    var added = false;
+    for (j = 0; j < filtered.length; j++) {
+      var result = c.match(filtered[j]);
+      if (result == null || result.length != 3) {
+        continue;
+      }
+      var short_name = result[1];
+      var pushed = false;
+      for (k = 0; k < multi_counters.length; k++) {
+        if (multi_counters[k][0] == short_name) {
+          multi_counters[k].push(c);
+          pushed = true;
+          break;
+        }
+      }
+      if (!pushed) {
+        multi_counters.push([short_name, c]);
+      }
+      added = true;
+      break;
+    }
+    if (!added) {
+      single_counters.push(c);
+    }
+  }
+
+  for (i = 0; i < multi_counters.length; i++) {
+    var set = multi_counters[i];
+    var counter_html = ''
+    for (j = 1; j < set.length; j++) {
+      var trailing_name = set[j].substring(set[0].length + 1);
+      var css_class = $.inArray(set[j], selectedCounters) > -1 ? 'class="checked"' : '';
+      var on_click = 'onclick="flip(\'' + set[j] + '\');"';
+      var id = 'id="' + set[j] + '"';
+      counter_html += '<a href="javascript:void(0)" '
+                      + css_class + ' '
+                      + on_click + ' '
+                      + id + '>'
+                      + trailing_name + '</a> &nbsp ';
+    }
+    $counterList.append('<li><div><h3>' + set[0] + ':</h3></div><p>'
+                        + counter_html
+                        + '</p></li>');
+  }
+
+  for(i=0; i<single_counters.length; i++) {
+    var c = single_counters[i];
+    var css_class = $.inArray(c, selectedCounters) > -1 ? 'class="checked"' : '';
+    var on_click = 'onclick="flip(\'' + c + '\');"';
+    var id = 'id="' + c + '"';
+    $counterList.append('<li><div>'
+                        + '<a href="javascript:void(0)" class="title" '
+                        + on_click + '>' + data.data[c].description + '</a></div>'
+                        + '<p><a href="javascript:void(0)" '
+                        + css_class + ' '
+                        + on_click + ' '
+                        + id + '>'
+                        + c + '</a></p></li>');
+  }
+
+  // Configure the list items to refresh the chart on selection.
+  var refreshChart = function() {
+    RefreshChart(data);
+  }
+  $('.vf-counter').change(refreshChart);
+  refreshChart();
+}
+
+/**
+ * Parse an interval string of a number and an optional time prefix:
+ * m: minute, h: hour, d: day, w: week, M: month, y: year
+ * Returns number of seconds, or -1 if parsing failed.
+ * TODO(marc): move someplace common.
+ */
+function ParseTimeInterval(interval) {
+  var re = /(\d+)([dmhwMy]?)/;
+  var result = interval.match(re);
+  var multiplier = 1;
+  if (result[0] != interval) {
+    return -1;
+  }
+  if (result.length != 3) {
+    return -1;
+  }
+  var mult_str = result[2];
+  if (mult_str == 'm') {
+    multiplier = 60;
+  } else if (mult_str == 'h') {
+    multiplier = 60 * 60;
+  } else if (mult_str == 'd') {
+    multiplier = 60 * 60 * 24;
+  } else if (mult_str == 'w') {
+    multiplier = 60 * 60 * 24 * 7;
+  } else if (mult_str == 'M') {
+    // Assume 30 day months.
+    multiplier = 60 * 60 * 24 * 30;
+  } else if (mult_str == 'y') {
+    // Assume 365 day years.
+    multiplier = 60 * 60 * 24 * 365;
+  } else if (mult_str == '') {
+    multiplier = 1;
+  }
+  return multiplier * result[1];
+}
+
+/**
+ * Method to fetch new data from the server based on a currently selected time range.
+ */
+function FetchData() {
+  // Server operates in terms of seconds, not milliseconds.
+  var data_source = '/admin/' + '{{ url_escape(data_src) }}';
+  var endTime = $('#end-time').datetimepicker('getDate').getTime() / 1000;
+  var current_span = ParseTimeInterval($('#span').val());
+  if (current_span == -1) {
+    // TODO(marc): display an error of sorts. at the very least a help message about interval formatting.
+    return;
+  }
+  var start_time = endTime - current_span;
+  $.ajax({
+    url: data_source,
+    data:'start=' + start_time + '&end=' + endTime,
+    success: RefreshCounters,
+    error: function(jqXHR, errorText) {
+      alert('Error fetching data: ' + errorText);
+    }
+  })
+}
+
+function SetEndToNow() {
+  var $end = $('#end-time');
+  var now = new Date();
+  now.setSeconds(0);
+  now.setMilliseconds(0);
+  $end.datetimepicker('setDate', now);
+}
+
+$(document).ready(function() {
+  var $end = $('#end-time');
+  var $span = $('#span');
+  var $nowlink = $('#now-link');
+  var $optionslink = $('#options-link');
+  var $options = $('#timespan-options');
+  var $legendpos = $('#legend-pos');
+  var $legendshow = $('#legend-show');
+  var $rateshow = $('#rate-show');
+
+  $end.datetimepicker({
+    onSelect: function(selectedDateTime){
+      FetchData();
+    }
+  });
+
+  $span.change(function() {
+    FetchData();
+  });
+
+  $nowlink.click(function() {
+    SetEndToNow();
+    FetchData();
+  });
+
+  $optionslink.click(function() {
+    $options.toggle();
+  });
+
+  $options.change(function() {
+    FetchData();
+  });
+
+  $legendpos.change(function() {
+    FetchData();
+  });
+
+  $legendshow.change(function() {
+    FetchData();
+  });
+
+  $rateshow.change(function() {
+    FetchData();
+  });
+
+  bottomTop = $('#timespan-inner').position().top;
+  bottomLeft = $optionslink.position().left + $optionslink.width() + 10;
+
+  $options.css({
+    position: 'absolute',
+    top: bottomTop,
+    left: bottomLeft
+  });
+
+  // Set the initial end-time to right now.
+  SetEndToNow();
+  $options.hide();
+  FetchData();
+})
+</script>
+
+<div id="chart-container">
+  <div id="timespan-outer">
+    <div id="timespan-inner">
+      Duration (xx[mhdwMy]): <input type="text" id="span" size=3 value="{{default_interval}}" />
+      End: <input type="text" id="end-time" size=13 class="timeinput" />
+      <a href="#" id="now-link">now</a>
+       | <a href="#" id="options-link">Options</a>
+    </div>
+    <div id="timespan-options">
+      X-Ticks: <input type="text" id="xticks" size=3 value="20" />
+      Y-Interval: <input type="text" id="yinterval" size=3 value="" />
+      Y-Range: [<input type="text" id="ymin" size=3 value="0" />
+       - <input type="text" id="ymax" size=3 value="" />]
+      Legend:
+      <select id="legend-show">
+        <option value="off">Off</option>
+        <option value="insideGrid" selected>Inside</option>
+        <option value="outsideGrid">Outside</option>
+      </select>
+      pos:
+      <select id="legend-pos">
+        <option value="ne" selected>Top right</option>
+        <option value="n">Top middle</option>
+        <option value="nw">Top left</option>
+        <option value="se">Bottom right</option>
+        <option value="s">Bottom middle</option>
+        <option value="sw">Bottom left</option>
+        <option value="e">Right</option>
+        <option value="w">Left</option>
+      </select>
+      rate:
+      <input type="checkbox" id="rate-show">
+    </div>
+  </div>
+  <div id="counters">
+    <h2>Counters</h2>
+    <ul>
+    </ul>
+  </div>
+	<div id="chart">
+	</div>
+</div>
+{% end %}

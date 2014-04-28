@@ -1,0 +1,13 @@
+Compile and install iOS client:
+
+On client build machine:
+
+hg fetch to get latest source code
+Comment out "PRODUCTION" in ~/.viewfinder.DeveloperDefines.h
+
+
+On each of two test devices:
+
+Remove any existing Viewfinder app
+Go to Settings > General > Reset > Reset Location & Privacy
+Compile and run client to phone

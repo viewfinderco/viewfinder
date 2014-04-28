@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.hello"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
+
+    <!-- Query interfaces and status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Open sockets -->
+    <!-- GCM connects to Google Services. -->
+    <!-- Intent ACTION_VIEW on url -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Call MediaStore.ACTION_IMAGE_CAPTURE -->
+    <uses-feature android:name="android.hardware.camera" />
+    <!-- Write to external storage (SD card) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!-- Access photo lat/lon -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Receive GCM messages -->
+    <permission android:name="com.hello.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.hello.permission.C2D_MESSAGE" /> 
+    <!-- App receives GCM messages. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application android:name="App" android:label="@string/app_name" android:icon="@drawable/vf_icon">
+      <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
+        <intent-filter>
+          <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+          <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+          <category android:name="com.hello" />
+        </intent-filter>
+      </receiver>
+
+      <service android:name=".GCMIntentService" />
+
+      <activity android:name="HelloActivity"
+                android:label="@string/app_name">
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
+              <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+      </activity>
+      <activity android:name="HttpsFetchActivity" android:label="@string/fetch_activity_name"></activity>
+      <activity android:name="CapturePhotoActivity" android:label="@string/capture_activity_name"></activity>
+      <activity android:name="SettingsActivity" android:label="@string/settings_activity_name"></activity>
+      <activity android:name="DynamicListActivity" android:label="@string/dynamic_list_activity_name"></activity>
+    </application>
+</manifest>

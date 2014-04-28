@@ -1,0 +1,62 @@
+body {
+    background: #eaebec;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 60px;
+    padding: 0;
+    background: #58595b;
+}
+
+#layout {
+    margin-top: 60px;
+}
+
+#header-inner {
+    position: relative;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    max-width: 818px;
+    margin: 0 auto;
+    padding: 0 9px 0 9px;
+}
+
+#header-logo {
+    position: absolute;
+    top: 0;
+    left: 9px;
+    background: url(images/vf_logo.png) left center no-repeat;
+    width: 176px;
+    height: 60px;
+}
+
+#header-appstore {
+    position: absolute;
+    top: 0;
+    right: 9px;
+    background: url(images/appstore.png) center no-repeat;
+    width: 201px;
+    height: 60px;
+}
+
+
+/* Styles for devices with <= 568px horizontal resolution */
+@media screen and (max-width: 568px) {
+    #header {
+        position: relative;
+    }
+
+    #header-appstore {
+        display: none;
+    }
+    
+    #layout {
+        margin-top: 0;
+    }
+}

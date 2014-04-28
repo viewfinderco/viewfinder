@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+Viewfinder Login
+{% end %}
+
+{% block content %}
+  <script type="text/javascript">
+    $(function () {
+        var am = viewfinder.authModel = new viewfinder.models.AuthorizationModel({
+          mode : 'login_begin'
+        });
+      });
+  </script>
+  {% module Auth() %}
+{% end %}

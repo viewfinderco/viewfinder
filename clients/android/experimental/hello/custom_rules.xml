@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="custom_rules">
+  <target name="-pre-compile">
+    <!-- TODO(marc): put protoc in third_party and have path based on OS. -->
+    <!-- java_out is src/ since protoc outputs based on the package name (src/com/hello/proto/) -->
+    <echo level="info">Compiling protobufs</echo>
+    <exec executable="protoc" failonerror="true">
+      <arg value="-I=${source.dir}/com/hello/proto/" />
+      <arg value="--java_out=${gen.absolute.dir}" />
+      <arg value="${source.dir}/com/hello/proto/Hello.proto" />
+    </exec>
+  </target>
+
+  <target name="-pre-build">
+    <mkdir dir="gen"/>
+    <!--Generate the JNI header files -->
+    <exec executable="javac">
+      <arg value="-d"/>
+      <arg value="${gen.absolute.dir}"/>
+      <arg value="${source.dir}/com/hello/LocalDB.java"/>
+    </exec>
+    <exec executable="javah">
+      <arg value="-d"/>
+      <arg value="${gen.absolute.dir}"/>
+      <arg value="-classpath"/>
+      <arg value="${gen.absolute.dir}"/>
+      <arg value="com.hello.LocalDB"/>
+    </exec>
+    <exec executable="ndk-build" failonerror="true"/>
+  </target>
+
+  <target name="clean" depends="android_rules.clean">
+    <exec executable="ndk-build" failonerror="true">
+      <arg value="clean"/>
+    </exec>
+  </target>
+
+  <!-- Deploys a release build .apk to a locally attached device. -->
+  <target name="install-release-to-device">
+    <property name="apk-to-install" value="${out.absolute.dir}/hello-release.apk"/>
+    <antcall target="usb-install"/>
+  </target>
+
+  <!-- Deploys a debug build .apk to a locally attached device. -->
+  <target name="install-debug-to-device">
+      <property name="apk-to-install" value="${out.absolute.dir}/hello-debug.apk"/>
+      <antcall target="usb-install"/>
+  </target>
+
+  <!-- Copies the .apk to an ACTUAL device that is plugged into the USB.  -->
+  <target name="usb-install">
+      <echo>Installing ${apk-to-install}...</echo>
+      <exec executable="${adb}" failonerror="true">
+          <arg value="-d"/>
+          <arg value="install"/>
+          <arg value="-r"/>
+          <arg path="${apk-to-install}"/>
+      </exec>
+  </target>
+
+</project>

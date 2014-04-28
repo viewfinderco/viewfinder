@@ -1,0 +1,125 @@
+      // TODO(spencer): this is working, and I think a good idea, but
+      //   I couldn't make it look as good as it needs to. We need a
+      //   graphic designer.
+      CGPoint pts[] = { c.arc_coords(next_angle - kTickMarkAngle / 2, kInnerArcWidth),
+                        c.arc_coords(next_angle - kTickMarkAngle / 2, kArcWidth - kOuterArcHighlightWidth),
+                        c.arc_coords(next_angle + kTickMarkAngle / 2, kArcWidth - kOuterArcHighlightWidth),
+                        c.arc_coords(next_angle + kTickMarkAngle / 2, kInnerArcWidth) };
+      const float cos_a = cos(next_angle);
+      const float sin_a = sin(next_angle);
+      const float highlight = 1.0;
+      const float shadow = kTickMarkIntensity - (1.0 - kTickMarkIntensity);
+      float fgs[] = { Interp(-sin_a, -1, 1, shadow, highlight),
+                      Interp(-cos_a, -1, 1, shadow, highlight),
+                      Interp(sin_a, -1, 1, shadow, highlight),
+                      Interp(cos_a, -1, 1, shadow, highlight) };
+
+      // Fill the path.
+      CGContextBeginPath(context);
+      CGContextMoveToPoint(context, pts[0].x, pts[0].y);
+      CGContextAddLineToPoint(context, pts[1].x, pts[1].y);
+      CGContextAddArc(context, c.center.x, c.center.y,
+                      c.radius + kArcWidth - kOuterArcHighlightWidth,
+                      next_angle - kTickMarkAngle / 2, next_angle + kTickMarkAngle / 2, false);
+      CGContextAddLineToPoint(context, pts[3].x, pts[3].y);
+      CGContextAddArc(context, c.center.x, c.center.y, c.radius + kInnerArcWidth,
+                      next_angle + kTickMarkAngle / 2, next_angle - kTickMarkAngle / 2, true);
+      const float bg = kTickMarkIntensity;
+      CGContextSetRGBFillColor(context, bg, bg, bg, 1);
+      CGContextSetLineWidth(context, 0);
+      CGContextDrawPath(context, kCGPathFillStroke);
+
+      // Shade the permieter.
+      CGContextBeginPath(context);
+      CGContextMoveToPoint(context, pts[0].x, pts[0].y);
+      CGContextAddLineToPoint(context, pts[1].x, pts[1].y);
+      CGContextSetRGBStrokeColor(context, fgs[0], fgs[0], fgs[0], 1);
+      CGContextSetLineWidth(context, kDialTickMarkHighlightWidth);
+      CGContextDrawPath(context, kCGPathStroke);
+
+      CGContextBeginPath(context);
+      CGContextMoveToPoint(context, pts[1].x, pts[1].y);
+      CGContextAddArc(context, c.center.x, c.center.y,
+                      c.radius + kArcWidth - kOuterArcHighlightWidth,
+                      next_angle - kTickMarkAngle / 2, next_angle + kTickMarkAngle / 2, false);
+      CGContextSetRGBStrokeColor(context, fgs[1], fgs[1], fgs[1], 1);
+      CGContextSetLineWidth(context, kDialTickMarkHighlightWidth);
+      CGContextDrawPath(context, kCGPathStroke);
+
+      CGContextBeginPath(context);
+      CGContextMoveToPoint(context, pts[2].x, pts[2].y);
+      CGContextAddLineToPoint(context, pts[3].x, pts[3].y);
+      CGContextSetRGBStrokeColor(context, fgs[2], fgs[2], fgs[2], 1);
+      CGContextSetLineWidth(context, kDialTickMarkHighlightWidth);
+      CGContextDrawPath(context, kCGPathStroke);
+
+      CGContextBeginPath(context);
+      CGContextMoveToPoint(context, pts[3].x, pts[3].y);
+      CGContextAddArc(context, c.center.x, c.center.y, c.radius + kInnerArcWidth,
+                      next_angle + kTickMarkAngle / 2, next_angle - kTickMarkAngle / 2, true);
+      CGContextSetRGBStrokeColor(context, fgs[3], fgs[3], fgs[3], 1);
+      CGContextSetLineWidth(context, kDialTickMarkHighlightWidth);
+      CGContextDrawPath(context, kCGPathStroke);
+
+
+
+
+
+- (void)arcDrawTicks:(const Circle&)c {
+  // Space angles if we're drawing the viewfinder skeletally.
+  const Circle half_c(c.center, c.radius, kPi);
+  const float kTickMarkAngle = kDialTickMarkWidth / c.radius;
+  WallTime start_time = [self timeForPosition:[self positionForAngle:(kPi - c.theta / 2 - kEpsilon)
+                                                              circle:c]];
+  WallTime end_time = [self timeForPosition:[self positionForAngle:(kPi + c.theta / 2 + kEpsilon)
+                                                            circle:c]];
+  start_time = [self currentInnerTime:start_time];
+  end_time = [self nextInnerTime:end_time];
+
+  // Compute the number of ticks.
+  const float kTickInterval = [self nextInnerTime:start_time] - start_time;
+  const float kNumTicks = fabs(end_time / kTickInterval);
+  const float kMaxTicks = 10;
+  if (kNumTicks > kMaxTicks) {
+    return;
+  }
+
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  WallTime t = start_time;
+  for (int i = 0; i < kNumTicks; i++) {
+    CGContextSaveGState(context);
+
+    // Skip if there are no groups in the specified interval.
+    const WallTime next_t = t + kTickInterval;
+    if (std::lower_bound(timestamps_.rbegin(), timestamps_.rend(), t) ==
+        std::lower_bound(timestamps_.rbegin(), timestamps_.rend(), next_t)) {
+      t = next_t;
+      continue;
+    }
+    const float angle = [self angleForPosition:[self positionForTime:next_t] circle:half_c];
+
+    if ([self isModeDial]) {
+      const float outer_width = kOuterArcWidth - kOuterArcHighlightWidth;
+      CGContextBeginPath(context);
+      CGContextAddArc(context, c.center.x, c.center.y, c.radius + kInnerArcWidth + outer_width / 2,
+                      angle - kTickMarkAngle / 2, angle + kTickMarkAngle / 2, false);
+      const float fg = kTickMarkIntensity;
+      CGContextSetRGBStrokeColor(context, fg, fg, fg, 1);
+      CGContextSetLineWidth(context, outer_width);
+      CGContextDrawPath(context, kCGPathStroke);
+    } else {
+      CGPoint pts[] = { c.arc_coords(angle, kInnerArcWidth),
+                        c.arc_coords(angle, kArcWidth) };
+      CGContextBeginPath(context);
+      CGContextMoveToPoint(context, pts[0].x, pts[0].y);
+      CGContextAddLineToPoint(context, pts[1].x, pts[1].y);
+      const float fg = 0.4;
+      CGContextSetRGBStrokeColor(context, fg, fg, fg, kOuterAlpha);
+      CGContextSetLineWidth(context, kDialTickMarkWidth);
+      CGContextDrawPath(context, kCGPathStroke);
+    }
+
+    t = next_t;
+    CGContextRestoreGState(context);
+  }
+}

@@ -1,0 +1,234 @@
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+a, a:visited, a:active { 
+    color: inherit;
+}
+
+body, html {
+    height: 100%;
+    font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #3F3E3E;
+}
+
+#content {
+    position: relative;
+    z-index: 1;
+    padding: 0 50px;
+    margin: 0 auto;
+    max-width: 680px;
+}
+
+#header {
+    height : 100px;
+}
+
+#header:after {
+    clear: both;
+}
+
+#header_logo {
+    display: block;
+    float: left;
+    width: 170px;
+    height: 60px;
+    margin-top: 20px;
+    background-image: url(images/white_logo@2x.png);
+    background-size: 170px 60px;
+}
+
+#header_nav {
+    margin-top: 36px;
+    float: right;
+}
+
+#header_nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+#header_nav li {
+    float: left;
+    list-style: none;
+    margin: 0 35px 0 0;
+    height: 28px;
+    padding: 5px 16px;
+}
+
+#header_nav li:hover {
+    border: 2px solid #FFF;
+    padding: 3px 14px;
+    background-color: rgba(0,0,0,0.15);
+    border-radius: 14px;
+}
+
+#header_nav li:last-child {
+    margin: 0;
+}
+
+#header_nav a {
+    font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #FFF;
+    letter-spacing: 2px;
+}
+
+
+#message { 
+    clear: both;
+    background-color: #FFF;
+    border-radius: 6px;
+    padding: 60px;
+}
+
+#message h1, #message h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #3F3E3E; 
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#message h2 {
+    
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #FF9600;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#message h4 {
+    font-size: 20px;
+    color: #3F3E3E;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#message li {
+    color: #3F3E3E;
+}
+
+#message ul {
+    padding-left: 15px;
+}
+
+#message a {
+    text-decoration: underline;
+}
+
+#message p {
+    font-size: 16px;
+    color: #3F3E3E;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Styles for devices with < 568px horizontal resolution */
+@media screen and (max-width: 568px) {
+    #header_logo {
+        float: none;
+        margin-top: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #header_nav {
+        text-align:center;
+        margin-top: 0;
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #header_nav li {
+        float: none;
+        margin-right: 20px;
+        display: inline;
+    }
+
+    #message {
+        padding: 10px;
+    }
+
+    #message h1, #message h3 {
+        font-size: 21px;
+    }
+
+    #message h4 {
+        font-size: 18px;
+    }
+
+    #message p {
+        font-size: 14px;
+    }
+
+    #content {
+        padding: 0 10px;
+    }
+}
+
+#background {
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#background .photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#footer {
+    width: 100%;
+    height: 140px;
+    padding-top: 35px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    color: #FFF;
+}
+
+#footer a {
+    text-decoration: none;
+    weight: bold;
+}
+
+.photo.cropped {
+    overflow: hidden;
+}
+
+.photo.constrained img {
+    vertical-align: middle;
+}
+
+.photo.cropped img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.photo.cropped.imgtall img, .photo.constrained.imgwide img {
+    width: 100%;
+    height: auto;
+}
+
+.photo.cropped.imgwide img, .photo.constrained.imgtall img {
+    height: 100%;
+    width: auto;
+}

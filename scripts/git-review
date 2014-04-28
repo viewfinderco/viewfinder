@@ -1,0 +1,65 @@
+#!/bin/sh
+
+function usage() {
+  echo "error: $1"
+  echo "usage:"
+  echo "   git-review [-m reviewers] [-cc reviewers]"
+  exit 1
+}
+
+function parse_addrs() {
+  while IFS=', ' read -ra ADDR; do
+    for i in "${ADDR[@]}"; do
+      case "$i" in
+        *@*)
+          echo "$i"
+          ;;
+        *)
+          echo "$i@emailscrubbed.com"
+          ;;
+      esac
+    done
+  done <<< "$@"
+}
+
+declare -a re
+declare -a cc
+declare -a push_args
+
+while [ $# -ne 0 ]; do
+  case "$1" in
+    -m)
+      if [ $# -lt 2 ]; then
+        usage "$1: no reviewers specified"
+      fi
+      for addr in $(parse_addrs $2); do
+        re[${#re[*]}]="--reviewer"
+        re[${#re[*]}]="$addr"
+      done
+      shift
+      shift
+      ;;
+    -cc)
+      if [ $# -lt 2 ]; then
+        usage "$1: no reviewers specified"
+      fi
+      for addr in $(parse_addrs $2); do
+        cc[${#cc[*]}]="--cc"
+        cc[${#cc[*]}]="$addr"
+      done
+      shift
+      shift
+      ;;
+    *)
+      args[${#args[*]}]="$1"
+      shift
+      ;;
+  esac
+done
+
+if [ ${#re[*]} -eq 0 ]; then
+  usage "no reviewers specified"
+fi
+
+git push --receive-pack="git receive-pack ${re[*]} ${cc[*]}" "${args[@]}"
+

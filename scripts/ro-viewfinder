@@ -1,0 +1,28 @@
+#!/bin/bash
+# Run a read-only backend against production dynamodb/S3.
+#
+# This will not scan ops and will assert on any mutating DB or S3 operations.
+
+if [ -z "${VF_HOME}" ]; then
+  echo "Missing VF_HOME env variable, exiting.";
+  exit
+fi
+
+cd ${VF_HOME}
+
+# The following flags are checked by viewfinder-ro:
+#   --readonly_db=True
+#   --readonly_store=True
+#   --upload_metrics=False
+${PYTHON:-python} scripts/viewfinder \
+  --readonly_server=True \
+  --readonly_db=True \
+  --readonly_store=True \
+  --enable_xsrf=True \
+  --insecure_port=8080 \
+  --devbox \
+  --port=8443 \
+  --upload_metrics=False \
+  --validate_cert=False \
+  --xheaders=false \
+  "$@"

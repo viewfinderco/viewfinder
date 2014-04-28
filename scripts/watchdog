@@ -1,0 +1,14 @@
+#!/usr/bin/env python
+#
+# Copyright 2012 Viewfinder Inc. All Rights Reserved.
+
+"""Runs the Viewfinder watchdog.
+"""
+
+__author__ = 'matt@emailscrubbed.com (Matt Tracy)'
+
+import logging
+from viewfinder.backend.watchdog import watchdog
+
+if __name__ == '__main__':
+	watchdog.InitAndRun()

@@ -1,0 +1,3 @@
+This directory contains a symlink to allow viewfinder modules to be imported
+as "viewfinder.backend..." regardless of the name of the repo directory,
+and without accidentally adding siblings of the viewfinder repo to the path.

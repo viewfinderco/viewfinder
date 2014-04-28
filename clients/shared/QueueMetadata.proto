@@ -1,0 +1,10 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "QueueMetadataPB";
+
+message QueueMetadata {
+  optional int32 priority = 1;
+  optional int64 sequence = 2;
+}

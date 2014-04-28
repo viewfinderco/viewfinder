@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:switch="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/settings_fragment"
+    >
+
+  <RelativeLayout
+      android:id="@+id/titlebar"
+      style="@style/titlebar">
+
+    <view
+        style="@style/titlebar_title"
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:text="@string/settings"
+        />
+
+  </RelativeLayout>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/titlebar_content"
+      android:layout_below="@+id/titlebar"
+      android:background="@color/settings_background"
+      android:overScrollMode="always">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+      <view
+          class="co.viewfinder.widgets.ViewfinderTextView"
+          android:id="@+id/settings_help"
+          style="@style/settings_header"
+          android:text="@string/settings_help"
+          android:layout_marginTop="8dp"/>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/settings_faqLayout"
+          android:layout_below="@+id/settings_help">
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderButton"
+            android:id="@+id/settings_faq"
+            android:background="@drawable/table_cell_top_selector"
+            android:text="@string/settings_faq"
+            style="@style/settings_name"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/settings_arrow_android"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/settings_feedbackLayout"
+          android:layout_below="@+id/settings_faqLayout">
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderButton"
+            style="@style/settings_name"
+            android:id="@+id/settings_feedback"
+            android:background="@drawable/table_cell_top_selector"
+            android:text="@string/settings_feedback"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView1"
+            android:src="@drawable/settings_arrow_android"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"/>
+      </RelativeLayout>
+
+      <view
+          class="co.viewfinder.widgets.ViewfinderTextView"
+          style="@style/settings_header"
+          android:id="@+id/settings_legalese"
+          android:text="@string/settings_legalese"
+          android:layout_below="@+id/settings_feedbackLayout"
+          android:layout_marginTop="16dp"/>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/settings_termsLayout"
+          android:layout_below="@+id/settings_legalese">
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderButton"
+            style="@style/settings_name"
+            android:id="@+id/settings_terms"
+            android:background="@drawable/table_cell_top_selector"
+            android:text="@string/settings_terms"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/settings_arrow_android"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            />
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/settings_privacyLayout"
+          android:layout_below="@+id/settings_termsLayout">
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderButton"
+            style="@style/settings_name"
+            android:id="@+id/settings_privacy"
+            android:background="@drawable/table_cell_bottom_selector"
+            android:text="@string/settings_privacy"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/settings_arrow_android"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            />
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/settings_privacyLayout"
+          android:id="@+id/settings_debugLogsLayout"
+          android:layout_marginTop="24dp">
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/settings_name"
+            android:id="@+id/settings_debugLogsText"
+            android:background="@drawable/table_cell_background_single"
+            android:text="@string/settings_debugLogs"
+            />
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="org.jraf.android.backport.switchwidget.Switch"
+            android:id="@+id/settings_debugLogs"
+            switch:track="@drawable/switch_track_holo_light"
+            switch:thumb="@drawable/switch_inner_holo_light"
+            switch:textOn="@string/switch_on"
+            switch:textOff="@string/switch_off"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"/>
+
+      </RelativeLayout>
+
+      <view
+          class="co.viewfinder.widgets.ViewfinderTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/settings_version"
+          android:gravity="center_horizontal"
+          android:textSize="13dp"
+          android:textColor="@color/settings_footer"
+          android:layout_below="@+id/settings_debugLogsLayout"
+          android:text="Version 1.0"
+          android:layout_marginTop="8dp"/>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/settings_devBuild"
+          android:layout_below="@+id/settings_version"
+          android:layout_marginTop="16dp">
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_unlinkPhone"
+            android:id="@+id/settings_unlinkPhone"
+            android:textColor="@android:color/white"
+            android:background="@drawable/tall_button_red"
+            android:textSize="17dp"/>
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/settings_header"
+            android:id="@+id/settings_development"
+            android:text="@string/settings_development"
+            android:layout_below="@+id/settings_unlinkPhone"
+            android:layout_marginTop="16dp"
+            />
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderButton"
+            style="@style/settings_name"
+            android:id="@+id/settings_testStatusBar"
+            android:layout_below="@+id/settings_development"
+            android:background="@drawable/table_cell_top_selector"
+            android:text="@string/settings_testStatusBar"
+            />
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderButton"
+            style="@style/settings_name"
+            android:id="@+id/settings_crash"
+            android:layout_below="@+id/settings_testStatusBar"
+            android:background="@drawable/table_cell_bottom_selector"
+            android:text="@string/settings_crash"
+            />
+
+      </RelativeLayout>
+
+    </RelativeLayout>
+
+  </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,9 @@
+{% extends "admin.html" %}
+{% block title %}User ID Search{% end %}
+
+{% block admin %}
+<form id="user-find-form" action="/admin/find_user_id" method="get">
+  <input name="user_email" id="user-email-input" type="text" length="50" placeholder="Enter User email "/>
+  <input type="submit" value="go" />
+</form>
+{% end %}

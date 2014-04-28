@@ -1,0 +1,10 @@
+Hello {{ hello_name }},
+
+An archive of your Viewfinder photos and conversations is available here:
+      {% raw archive_url %}
+
+It will be available for 72 hours.
+Do not forward this email to anyone unless you want to give them access to your archive.
+
+Thanks,
+The Viewfinder Team

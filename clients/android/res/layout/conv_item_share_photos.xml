@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <RelativeLayout
+      android:id="@+id/convItem_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <RelativeLayout
+        android:id="@+id/convItem_sharePhotosHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        >
+
+      <FrameLayout
+          android:id="@+id/convItem_threading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentTop="true"
+          android:layout_marginLeft="@dimen/convItem_threadingMargin"
+          android:background="@drawable/convo_thread_photoshare"
+          />
+
+      <co.viewfinder.widgets.ViewfinderTextView
+          android:id="@+id/convItem_sharePhotosSharer"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentRight="true"
+          android:layout_toRightOf="@+id/convItem_threading"
+          android:layout_marginLeft="@dimen/convItem_conversationMargin"
+          android:layout_marginTop="@dimen/convItem_conversationSpacing"
+          android:layout_marginRight="@dimen/convItem_conversationMargin"
+          android:layout_marginBottom="0dp"
+          android:text="@android:string/unknownName"
+          android:textColor="@color/conv_text"
+          android:textStyle="bold"
+          />
+
+      <co.viewfinder.widgets.ViewfinderTextView
+          android:id="@+id/convItem_sharePhotosTimestamp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/convItem_sharePhotosSharer"
+          android:layout_alignParentRight="true"
+          android:layout_toRightOf="@+id/convItem_threading"
+          android:layout_marginLeft="@dimen/convItem_conversationMargin"
+          android:layout_marginTop="0dp"
+          android:layout_marginRight="@dimen/convItem_conversationMargin"
+          android:layout_marginBottom="@dimen/convItem_conversationSpacing"
+          android:text="@android:string/untitled"
+          android:textColor="@color/conv_textLight"
+          android:textStyle="italic"
+          />
+
+      <co.viewfinder.widgets.ViewfinderTextView
+          android:id="@+id/convItem_sharePhotosLocation"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/convItem_threading"
+          android:background="@color/conv_photosBackground"
+          android:ellipsize="end"
+          android:gravity="center_vertical"
+          android:maxLines="1"
+          android:paddingLeft="54dp"
+          android:paddingRight="@dimen/convItem_conversationMargin"
+          android:text="@android:string/untitled"
+          android:textColor="@color/conv_photosHeaderText"
+          android:textSize="16dp"
+          android:textStyle="bold"
+          />
+
+    </RelativeLayout>
+
+    <co.viewfinder.FullGridView
+        android:id="@+id/convItem_sharePhotosGrid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/convItem_sharePhotosHeader"
+        android:background="@color/conv_photosBackground"
+        android:horizontalSpacing="1dp"
+        android:numColumns="4"
+        android:verticalSpacing="1dp"
+        />
+
+  </RelativeLayout>
+
+</FrameLayout>

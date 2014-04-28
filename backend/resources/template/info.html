@@ -1,0 +1,86 @@
+{% extends "marketing/base.html" %}
+{% block page_id %}info{% end %}
+
+{% block content %}
+<style>
+  #info-container {
+    text-align: center;
+    padding: 100px 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+  }
+
+  #info-container .title {
+    color: #FF9600;
+    font-size: 32px;
+    font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  #info-container .message {
+    margin-top: 18px;
+    font-family: "freight-text-pro", "Times New Roman", Times, serif;
+    font-size: 13px;
+    color: #3b3b3b;
+  }
+
+  #info-container a {
+    display: inline-block;
+    margin-top: 42px;
+    padding: 15px 45px 12px;
+    border-radius: 3px;
+    background: #ffb34b;
+    background: -moz-linear-gradient(top, #ffb34b 0%, #ffa52a 2%, #ff8720 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffb34b), color-stop(2%, #ffa52a), color-stop(100%, #ff8720));
+    background: -webkit-linear-gradient(top, #ffb34b 0%, #ffa52a 2%, #ff8720 100%);
+    background: -o-linear-gradient(top, #ffb34b 0%, #ffa52a 2%, #ff8720 100%);
+    background: -ms-linear-gradient(top, #ffb34b 0%, #ffa52a 2%, #ff8720 100%);
+    background: linear-gradient(to bottom, #ffb34b 0%, #ffa52a 2%, #ff8720 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffb34b', endColorstr='#ff8720', GradientType=0);
+    font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px; 
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+  }
+
+  #info-container a:hover {
+    background: #ffa645;
+    background: -moz-linear-gradient(top, #ffa645 0%, #ff9625 2%, #ff9625 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffa645), color-stop(2%, #ff9625), color-stop(100%, #ff9625));
+    background: -webkit-linear-gradient(top, #ffa645 0%, #ff9625 2%, #ff9625 100%);
+    background: -o-linear-gradient(top, #ffa645 0%, #ff9625 2%, #ff9625 100%);
+    background: -ms-linear-gradient(top, #ffa645 0%, #ff9625 2%, #ff9625 100%);
+    background: linear-gradient(to bottom, #ffa645 0%, #ff9625 2%, #ff9625 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffa645', endColorstr='#ff9625', GradientType=0);
+    text-decoration: none;
+
+  }
+
+  #info-container a:active {
+    background: #b25e16;
+    background: -moz-linear-gradient(top, #b25e16 0%, #ff8720 2%, #ffa52a 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #b25e16), color-stop(2%, #ff8720), color-stop(100%, #ffa52a));
+    background: -webkit-linear-gradient(top, #b25e16 0%, #ff8720 2%, #ffa52a 100%);
+    background: -o-linear-gradient(top, #b25e16 0%, #ff8720 2%, #ffa52a 100%);
+    background: -ms-linear-gradient(top, #b25e16 0%, #ff8720 2%, #ffa52a 100%);
+    background: linear-gradient(to bottom, #b25e16 0%, #ff8720 2%, #ffa52a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b25e16', endColorstr='#ffa52a', GradientType=0);
+
+  }
+
+  #footer {
+    display: none;
+  }
+</style>
+<div id="info-container" class="clear">
+  <div class="title">{{ title }}</div>
+  <div class="message">{{ message }}</div>
+  {% if button_text is not None %}
+  <a class="button" href="{{ button_url }}">{{ button_text }}</a>
+  {% end %}
+</div>
+{% end %}

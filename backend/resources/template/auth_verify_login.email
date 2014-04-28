@@ -1,0 +1,8 @@
+{% extends auth_verify_base.email %}
+
+{% block greeting %}Hello {{ user_name or '' }}{% end %}
+{% block html_intro %}Just one more step to confirm your Viewfinder account.{% end %}
+{% block text_intro %}Follow this link to confirm your Viewfinder account:{% end %}
+{% block button %}Confirm&nbsp;Account{% end %}
+{% block legal %}By using Viewfinder{% end %}
+{% block closing %}Ignore this email if you are not trying to log in to Viewfinder.{% end %}

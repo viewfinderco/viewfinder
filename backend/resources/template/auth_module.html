@@ -1,0 +1,242 @@
+<script type="text/javascript">
+  var _vf_xsrf_token = {% raw json_encode(handler.xsrf_token) %};
+
+  $(document).ready(function() {
+    var $auth = $('#authentication');
+    viewfinder.auth = new viewfinder.views.AuthenticationView({el: $auth, model : viewfinder.authModel});
+    viewfinder.auth.render();
+    
+    var fullbg = {% raw json_encode(static_url('images/prospective_dashboard.jpg')) %};
+    var mobibg = {% raw json_encode(static_url('css/images/vf_prelaunchmobile_bkgd.jpg')) %};
+    var $bg = $('#background');
+    var bgmodel = viewfinder.models.PhotoModel.createStatic(fullbg, mobibg);
+    $bg.append(new viewfinder.views.PhotoView({ model : bgmodel }).render().el);
+  });
+</script>
+<script type="text/html" id="t-login-begin">
+  <form>
+    <div class="copy">
+      <div class="title">Log in to Viewfinder</div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="identity_key"></div>
+      <div class="form-line" data-fields="password"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons">
+      <a class="button submit">Log In</a>
+    </div>
+    <div class="suboption clearfix">
+      <a class="left">Forgot your Password?</a>
+      <span class="right" data-fields="keep_cookie"></div>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-login-success">
+  <div class="copy">
+    <div class="title">Success!</div>
+    <div class="info">
+      You have successfully logged in to the Viewfinder service.
+    </div>
+  </div>
+  <div class="buttons">
+    <a class="button submit">Go to Inbox</a>
+  </div>
+</script>
+<script type="text/html" id="t-register-begin">
+  <form>
+    <div class="copy">
+      <div class="title">Sign Up</div>
+      <div class="info">
+        <span class="identity"><%= identity_key %></span> has already been added to a conversation. Sign up for an account to join in!
+      </div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="identity_key"></div>
+      <div class="form-line double clearfix" data-fields="given_name,family_name"></div>
+      <div class="form-line" data-fields="password"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons">
+      <a class="button submit">Create Account</a>
+    </div>
+    <div class="suboption">
+      <a>Already have an account? Click Here</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-register-token">
+  <form>
+    <div class="copy">
+      <div class="title">Access Code</div>
+      <div class="info">
+        We've sent a secure access code to <%= email %>. Enter that code here to confirm your identity and complete account creation.  
+      </div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="access_token"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons">
+      <a class="button submit">Confirm</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-register-success">
+  <div class="copy">
+    <div class="title">Success!</div>
+    <div class="info">
+      You have successfully created your viewfinder account!
+    </div>
+  </div>
+  <div class="buttons">
+    <a class="button submit">Back to Conversation</a>
+  </div>
+</script>
+<script type="text/html" id="t-reset-begin">
+  <form>
+    <div class="copy">
+      <div class="title">Forgot Password</div>
+      <div class="info">
+        Forgot your password? It happens to all of us.  Just enter your email or mobile number for your Viewfinder account and we'll help you reset your password.
+      </div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="identity_key"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons double clearfix">
+      <a class="button alt cancel">Cancel</a>
+      <a class="button submit">Reset Password</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-reset-token">
+  <form>
+    <div class="copy">
+      <div class="title">Password Access Code</div>
+      <div class="info">
+        We've sent a secure access code to <span class="identity"><%= email %></span>. Enter that code here to confirm your identity and reset your password.
+      </div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="access_token"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons">
+      <a class="button submit">Confirm</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-reset-password">
+  <form>
+    <div class="copy">
+      <div class="title">Reset Password</div>
+      <div class="info">
+        Your identity has been confirmed. Please create a new password of at least 8 characters below.
+      </div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="identity_key"></div>
+      <div class="form-line" data-fields="password"></div>
+      <div class="form-line" data-fields="confirm_password"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons">
+      <a class="button submit">Reset Password</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-reset-success">
+  <div class="copy">
+<div class="title">New Password Accepted</div>
+    <div class="info">
+      Well done. With that behind you, get back to enjoying Viewfinder.  
+    </div>
+  </div>
+  <div class="buttons">
+    <a class="button submit">Go to Inbox</a>
+  </div>
+</script>
+<script type="text/html" id="t-reset-success-merge">
+  <div class="copy">
+    <div class="title">New Password Accepted</div>
+    <div class="info">
+      Well done. With that behind you, you can get back to the merging process.  
+    </div>
+  </div>
+  <div class="buttons">
+    <a class="button submit">Continue Merge</a>
+  </div>
+</script>
+<script type="text/html" id="t-merge-begin">
+  <form>
+    <div class="copy">
+      <div class="title">Combine Accounts</div>
+      <div class="info">
+        Already have a Viewfinder account?  We can combine <span class="identity"><%= source %></span> with your existing account.
+        <br />
+        <br/>
+        Log in to your existing account to begin.
+      </div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="identity_key"></div>
+      <div class="form-line" data-fields="password"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons clearfix double">
+      <a class="button alt cancel">Cancel</a>
+      <a class="button submit">Log In</a>
+    </div>
+    <div class="suboption">
+      <a>Forgot your Password? Click Here</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-merge-confirm">
+  <form>
+    <div class="copy">
+      <div class="title">Combine Accounts</div>
+      <div class="info">
+        Hello <span class="identity"><%= name %></span>!  <br />Selecting 'Combine' will permanently link <span class="identity"><%= source %></span> to your existing account.  Are you sure this is what you want? 
+      </div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons double clearfix">
+      <a class="button alt cancel">Cancel</a>
+      <a class="button submit">Combine</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-merge-token">
+  <form>
+    <div class="copy">
+      <div class="title">Access Code</div>
+      <div class="info">
+        We've sent a secure access code to <%= email %>. Enter that code here to confirm your identity and complete the combining process.
+      </div>
+    </div>
+    <div class="fields">
+      <div class="form-line" data-fields="access_token"></div>
+    </div>
+    <div class="errors"></div>
+    <div class="buttons">
+      <a class="button submit">Confirm and Combine</a>
+    </div>
+  </form>
+</script>
+<script type="text/html" id="t-merge-success">
+  <div class="copy">
+    <div class="title">Success</div>
+    <div class="info">
+      <span class="identity"><%= source %></span> is now combined with the account for <span class="identity"><%= target %></span>.  Now photos and messages will all flow to the same place.
+    </div>
+  </div>
+  <div class="buttons">
+    <a class="button submit">Enter Conversation</a>
+  </div>
+</script>
+<div id="authentication"></div>
+<div id="background" class="photo cropped"></div>
+

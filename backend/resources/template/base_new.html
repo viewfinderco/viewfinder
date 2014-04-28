@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name = "viewport" content = "initial-scale = 1, maximum-scale = 1" />
+    <meta name="apple-itunes-app" content="app-id=552351851" />
+    <link rel="apple-touch-icon" href="{{ static_url('images/apple-touch-icon-57x57.png') }}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ static_url('images/apple-touch-icon-72x72.png') }}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ static_url('images/apple-touch-icon-114x114.png') }}" />
+    
+
+    
+    <title>{% block title %}Viewfinder{% end %}</title>
+    <script type="text/javascript" src="{{ static_url('js/third_party/jquery.js') }}"></script>
+    <script type="text/javascript" src="//use.typekit.net/dup1ddu.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        // For mobile browsers (iphone), scroll past the location bar.
+        /mobi/i.test(navigator.userAgent) && setTimeout(
+          function () { window.scrollTo(0, 1); }, 1);
+      });
+      
+      {% block script_content %}
+      {% end %}
+    </script>
+    {% block html_templates %}
+    {% end %}
+    {% module Base() %}
+  </head>
+  
+  {% block body %}
+  <body>
+    <div id="header">
+      {% block header %}
+      {% end %}
+    </div>
+    <div id="content">
+      {% block content %}
+      {% end %}
+    </div>
+    <div id="fixed">
+    {% block fixed %}
+    {% end %}
+    </div>
+  </body>
+ {% end %}
+</html>

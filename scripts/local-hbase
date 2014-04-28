@@ -1,0 +1,7 @@
+#!/bin/bash
+
+bindir="third_party/build-hbase/bin"
+trap "$bindir/stop-hbase.sh" 0
+
+$bindir/start-hbase.sh
+$bindir/hbase thrift start -f -p 9092 -nonblocking

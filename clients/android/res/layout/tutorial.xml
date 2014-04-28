@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tutorial"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+  <view
+      android:layout_width="match_parent"
+      android:layout_height="96dp"
+      class="co.viewfinder.widgets.ViewfinderTextView"
+      android:id="@+id/tutorial_text"
+      style="@style/tutorial_content"
+      android:text="@string/tutorial_dash"
+      android:paddingTop="24dp"
+      android:paddingLeft="12dp"
+      android:paddingRight="12dp"
+      android:paddingBottom="24dp"
+      android:gravity="center_horizontal"
+      android:layout_centerHorizontal="true"/>
+
+  <android.support.v4.view.ViewPager
+      android:id="@+id/tutorial_pager"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/tutorial_text"
+      android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+{% extends "base_nohead.html" %}
+{% block title %}{{title}}{% end %}
+
+{% block body %}
+{% module Css('viewfinder.css') %}
+{% module Css('button.css') %}
+{% module Css('page.css') %}
+{% module Css('verify_id.css') %}
+
+{% comment verify_id_base.html exists so that derived templates can define "body_content"
+           once and have it applied to both the noscript and has-script cases. Supporting
+           browsers which do not have script enabled is important, because this page is
+           essential to signing up and logging in, and we do not want to lose any users
+           because of browser configuration issues. %}
+<body class="verify-id">
+    <noscript>
+        <div id="layout">
+            {% block body_content %}
+            {% end %}
+        </div>
+    </noscript>
+    <div id="layout" class="hidden">
+        {% block body_content %}
+        {% end %}
+    </div>
+</body>
+{% end %}

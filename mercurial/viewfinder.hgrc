@@ -1,0 +1,69 @@
+[alias]
+d = opendiff
+fetch = fetch -m "Merge with upstream changes."
+l = log
+lf = log -f
+lastweek = !hg log --date "-7" -u "$(hg showconfig ui.username)"
+# Pop and push all before executing the qqueue command.
+q = !hg-q $@
+# Commit all of the current applied patches.
+qc = !hg-qc $@
+# Display diff of all changes in the current queue.
+qd = diff --rev qparent
+# Display log of all changes in the current queue.
+ql = log --rev qtip:qbase
+qn = !hg qnew p$[$(hg qseries | wc -l) + 1] $@
+# Display all files changed in the current queue.
+qs = status --rev qparent
+s = status
+revert = revert --no-backup
+
+# Similar to "hg outgoing", but shows what would be pushed by "fab deploy".
+# Run "fab status" first to create or update the deployed_* bookmarks.
+out_staging = log -r ::.-::deployed_staging
+out_prod = log -r ::.-::deployed_prod
+staging_to_prod = log -r ::deployed_staging-::deployed_prod
+
+[diff]
+git = 1
+
+[extensions]
+bookmarks =
+color =
+convert =
+extdiff =
+fetch =
+graphlog =
+largefiles =
+mq =
+pager =
+progress =
+
+[extdiff]
+cmd.opendiff = opendiff-w
+
+[largefiles]
+minsize = 2
+
+[merge-tools]
+filemerge.executable = opendiff-w
+filemerge.args = $local $other -ancestor $base -merge $output
+
+[pager]
+attend = annotate, cat, d, diff, export, glog, h, incoming, l, lf, log, outgoing, qd, ql, qs, s, status, help
+pager = LESS='FSRX' less
+quiet = True
+
+[ui]
+editor = emacs -nw
+style = ~/.hglogformat
+
+[web]
+# Dummy cert - OSX will check the cert using keychain.
+# http://kiln.stackexchange.com/questions/2816/mercurial-certificate-warning-certificate-not-verified-web-cacerts
+cacerts = $VF_HOME/mercurial/dummycert.pem
+
+# Add user-specific config to ~/.hgrc.local. For example:
+# [ui]
+# username = Peter Mattis <peter@emailscrubbed.com>
+%include ~/.hgrc.local

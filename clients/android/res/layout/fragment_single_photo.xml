@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_singlePhoto"
+    >
+
+  <android.support.v4.view.ViewPager
+      android:id="@+id/viewpager_singlePhoto"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentRight="true"
+      />
+
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@+id/single_photo_buttons"
+      >
+
+    <ImageButton android:id="@+id/button_starred"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentTop="true"
+                 android:layout_alignParentRight="true"
+                 android:src="@drawable/single_photo_icon_starred"
+                 android:background="@drawable/single_photo_button_single_effect"
+                 android:paddingLeft="15dp"
+                 android:paddingRight="15dp"/>
+
+    <LinearLayout android:id="@+id/linearLayout_singlePhotoFooter"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:layout_alignParentLeft="true"
+                  >
+
+      <ImageButton android:id="@+id/button_related"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0"
+                   android:src="@drawable/single_photo_icon_related_convos"
+                   android:background="@drawable/single_photo_button_single_effect"
+                   android:paddingLeft="10dp"
+                   android:paddingRight="10dp"/>
+      <LinearLayout android:id="@+id/linearLayout_singlePhotoFooterButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/singlePhoto_unshare"
+            android:id="@+id/button_footerLeft"
+            android:background="@drawable/single_photo_button_left_effect"
+            android:textColor="@color/singlePhoto_text"
+            android:layout_weight="1"
+            android:enabled="true"
+            android:clickable="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/singlePhoto_export"
+            android:id="@+id/button_footerMiddle"
+            android:layout_weight="1"
+            android:background="@drawable/single_photo_button_middle_effect"
+            android:textColor="@color/singlePhoto_text"
+            android:enabled="true"
+            android:clickable="true"/>
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/singlePhoto_forward"
+            android:id="@+id/button_footerRight"
+            android:layout_weight="1"
+            android:background="@drawable/single_photo_button_right_effect"
+            android:textColor="@color/singlePhoto_text"/>
+
+      </LinearLayout>
+    </LinearLayout>
+  </RelativeLayout>
+
+</RelativeLayout>

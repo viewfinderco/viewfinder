@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <RelativeLayout
+      android:id="@+id/convItem_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <co.viewfinder.widgets.ViewfinderTextView
+        android:id="@+id/convItem_headerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/convItem_conversationMargin"
+        android:layout_marginRight="@dimen/convItem_conversationMargin"
+        android:padding="5dp"
+        android:text="@android:string/untitled"
+        android:textColor="@color/conv_text"
+        android:textSize="28dp"
+        />
+
+    <View
+        android:id="@+id/convItem_titleHeaderDivider"
+        android:background="#cfcbcb"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/convItem_headerTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        />
+
+    <ImageView
+        android:id="@+id/convItem_usersIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/convItem_titleHeaderDivider"
+        android:src="@drawable/convo_users_icon"
+        />
+
+    <co.viewfinder.widgets.ViewfinderTextView
+        android:id="@+id/convItem_headerFollowers"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_below="@+id/convItem_titleHeaderDivider"
+        android:layout_toRightOf="@+id/convItem_usersIcon"
+        android:layout_alignTop="@+id/convItem_usersIcon"
+        android:layout_alignBottom="@+id/convItem_usersIcon"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/convItem_conversationMargin"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="@android:string/untitled"
+        android:textColor="@color/conv_text"
+        android:textSize="15dp"
+        boldTypeface="ProximaNova-Sbold-VF.ttf"
+        />
+
+    <View
+        android:id="@+id/convItem_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/convItem_usersIcon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="#cfcbcb"
+        />
+
+  </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,6 @@
+# Symlink or copy this file to ~/.lldbinit to add some helpful aliases
+# to the xcode lldb debugger.
+
+# Run "printview" to print the entire view hierarchy, or "printview $UIVIEW_OBJECT" for the tree rooted at that view.
+# Source: http://nshipster.com/reader-submissions-new-years-2013/
+command regex printview 's/^[[:space:]]*$/po [[UIApp keyWindow] recursiveDescription]/' 's/^(.+)$/po [%1 recursiveDescription]/'

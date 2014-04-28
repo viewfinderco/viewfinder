@@ -1,0 +1,58 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+import "ContentIds.proto";
+import "QueueMetadata.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "ViewpointMetadataPB";
+
+message CoverPhoto {
+  optional PhotoId photo_id = 1;
+  optional EpisodeId episode_id = 2;
+}
+
+message ViewpointMetadata {
+  optional ViewpointId id = 1;
+  optional int64 user_id = 2;
+  optional int64 sharing_user_id = 3;
+  optional string title = 4;
+  optional string description = 5;
+  optional string name = 6;
+  optional CoverPhoto cover_photo = 11;
+  // Refer to backend/db/viewpoint.py for type specifications.
+  // As of the time of this writing there are:
+  //  ['default', 'event', 'system']
+  optional string type = 7;
+  optional int64 update_seq = 8;
+  optional int64 viewed_seq = 9;
+  optional QueueMetadata queue = 10;
+
+  // Bits indicating labels on the "follower" relation.
+  optional bool label_admin = 20;
+  optional bool label_autosave = 26;
+  optional bool label_contribute = 21;
+  optional bool DEPRECATED_label_personal = 22;
+  optional bool label_hidden = 23;
+  optional bool label_removed = 24;
+  optional bool label_muted = 25;
+  optional bool label_unrevivable = 27;
+  optional bool label_error = 30;
+
+  // The following are client-side-only attributes.
+
+  // Provisional activities are not uploaded to the server until they become
+  // permanent.
+  optional bool provisional = 45;
+  // Does this viewpoint need to be updated on the server?
+  optional bool update_metadata = 40;
+  optional bool update_follower_metadata = 41;
+  optional bool update_remove = 44;
+  optional bool update_viewed_seq = 47;
+
+  repeated string indexed_terms = 46;
+
+  // Used to display "new-content" indicators next to activities.
+  optional int64 DEPRECATED_last_viewed_seq = 42;
+  optional double DECPRECATED_last_viewed_timestamp = 43;
+}

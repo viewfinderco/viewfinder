@@ -1,0 +1,49 @@
+#!/bin/bash
+
+usage() {
+  echo "error: $1"
+  echo "usage:"
+  echo "   replace from to [from to] -- file [file]"
+  echo "   replace from to [from to] < file"
+  exit 1
+}
+
+declare -a sed_args
+sep='^'
+
+while [ $# -ne 0 ]; do
+  case "$1" in
+    --)
+      shift
+      break
+      ;;
+    *)
+      if [ $# -lt 2 ]; then
+        usage "$1: no replacement specified"
+      fi
+      from=`echo "$1" | sed 's/\\./\\\\./g'`
+      to=`echo "$2" | sed 's/\\./\\\\./g'`
+      sed_args[${#sed_args[*]}]="-e"
+      sed_args[${#sed_args[*]}]="s${sep}${from}${sep}${to}${sep}g"
+      shift
+      shift
+      ;;
+  esac
+done
+
+if test "x${sed_args[*]}" = "x"; then
+  usage "no replacements specified"
+fi
+
+if [ $# -ne 0 ]; then
+  echo "${sed_args[@]}"
+  while [ $# -ne 0 ]; do
+    filename=$1
+    echo $filename
+    shift
+
+    sed -i '' "${sed_args[@]}" $filename
+  done
+else
+  sed "${sed_args[@]}"
+fi 

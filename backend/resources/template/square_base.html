@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-language" content="en" />
+  <meta name = "viewport" content = "initial-scale = 1, maximum-scale = 1" />
+
+  
+  <title>{% block title %}Viewfinder{% end %}</title>
+  <script type="text/javascript" src="{{ static_url('js/third_party/jquery.js') }}"></script>
+  <script type="text/javascript" src="//use.typekit.net/dup1ddu.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  
+
+  {% module Base() %}
+  {% module Square() %}
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var fullbg = {% raw json_encode(static_url('css/images/campfire_bg.jpg')) %};
+      var $bg = $('#background');
+      var bgmodel = viewfinder.models.PhotoModel.createStatic(fullbg, fullbg);
+      $bg.append(new viewfinder.views.CroppedPhotoView({ model : bgmodel, dynamicResize : true }).render().el);
+      bgmodel.once('change:cached_full', function () {
+        _.delay(function () {$(window).trigger('resize'); }, 50);
+    });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="content">
+    <div id="header">
+      <a id="header_logo" href="/"></a>
+      <div id="header_nav">
+			  <ul>
+          <li><a href="/faq">Help/Faq</a></li>
+          {% if handler.current_user is not None and handler.current_user.IsRegistered() %}
+				  <li><a href="/view">Inbox</a></li>
+          {% else %}
+				  <li><a href="/auth?clear=1">Log In</a></li>
+          {% end %}
+			  </ul>
+      </div>
+    </div>
+    <div id="message">
+      {% block content %}
+      {% end %}
+    </div>
+    <div id="footer">
+      2013 Viewfinder.  All rights reserved.  
+      View our <a href="/terms">Terms</a> and <a href="/privacy">Privacy</a>.
+    </div>
+  </div>
+  <div id="background" class="photo cropped">
+  </div>
+</body>

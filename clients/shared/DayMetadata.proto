@@ -1,0 +1,276 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+import "ContentIds.proto";
+import "Location.proto";
+import "Placemark.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "DayMetadataPB";
+
+message DayContributor {
+  enum ContributorType {
+    UNVIEWED_CONTENT = 1;  // unviewed content
+    VIEWED_CONTENT   = 2;  // already-viewed content
+    NO_CONTENT       = 4;  // just a follower; no content ever added
+  }
+
+  optional int64 user_id = 1;
+  optional ContributorType type = 2;
+  // Identity is set only for contributors without user ids, i.e. prospective users after they are added
+  // to the conversation and before we have recieved their user id from the server.
+  optional string identity = 3;
+}
+
+message DayPhoto {
+  optional int64 photo_id = 1;
+  optional int64 episode_id = 2;
+  optional double aspect_ratio = 3;
+  optional double timestamp = 4;
+}
+
+// A [possibly] pared-down subset of an episode which
+// lists only photo ids which are not already part of
+// an earlier episode also occurring in this event.
+message FilteredEpisode {
+  optional int64 episode_id = 1;
+  repeated int64 photo_ids = 2;
+}
+
+message TrapdoorMetadata {
+  enum Type {
+    INBOX = 1;
+    EVENT = 2;
+  }
+
+  // The viewpoint.
+  optional int64 viewpoint_id = 1;
+  // The type of trapdoor.
+  optional Type type = 2;
+  // Cover photo id.
+  optional DayPhoto cover_photo = 3;
+  // Initial activity timestamp.
+  optional double earliest_timestamp = 4;
+  // Latest activity timestamp.
+  optional double latest_timestamp = 5;
+  // The event index if this trapdoor is anchored to an
+  // event on the same day.
+  optional int32 event_index = 6;
+  // All contributors, sorted by most recent activity.
+  repeated DayContributor contributors = 7;
+  // Sampled photos.
+  repeated DayPhoto photos = 8;
+  // True if photos is a sampling of total.
+  optional bool sub_sampled = 9;
+  // Count of photos shared to viewpoint.
+  optional int32 photo_count = 10;
+  // Count of comments posted to viewpoint.
+  optional int32 comment_count = 11;
+  // Maximum update sequence of photos.
+  optional int32 new_photo_count = 12;
+  // Maximum updates sequence of comments.
+  optional int32 new_comment_count = 13;
+  // True if there are any unviewed photos, comments or updates.
+  optional bool unviewed_content = 14;
+  // True if there are any activities still pending upload.
+  optional bool pending_content = 15;
+  // True if the viewpoint is muted.
+  optional bool muted = 16;
+  // True if the viewpoint is autosaved.
+  optional bool autosave = 17;
+}
+
+message EventMetadata {
+  // Earliest episode timestamp.
+  optional double earliest_timestamp = 1;
+  // Latest episode timestamp.
+  optional double latest_timestamp = 2;
+  // Total number of photos in all episodes.
+  optional int32 photo_count = 3;
+  // Sorted by timestamp of least recent photo in the episode.
+  repeated FilteredEpisode episodes = 4;
+  // Sorted by number of photos contributed.
+  repeated DayContributor contributors = 5;
+  // Canonical location matching centroid of all episodes.
+  optional Location location = 6;
+  // Canonical placemark matching location.
+  optional Placemark placemark = 7;
+  // Distance from location to closest "top" location.
+  optional double distance = 8;
+  // "EVENT" trapdoors into viewpoints.
+  repeated TrapdoorMetadata trapdoors = 9;
+  // Title if the event has trapdoors to viewpoints.
+  optional string title = 10;
+  optional string short_title = 11;
+}
+
+// CachedEpisode contains de-normalized episode metadata such as the
+// list of valid photo ids and location/placemark derived from
+// available photos. These are used to efficiently recompute events
+// without incurring the overhead of requerying episode data ad nauseum.
+message CachedEpisode {
+  // Episode metadata.
+  optional EpisodeId id = 1;
+  optional EpisodeId parent_id = 2;
+  optional ViewpointId viewpoint_id = 3;
+  optional int64 user_id = 4;
+  optional double timestamp = 5;
+  // Derived from constituent photos.
+  optional Location location = 6;
+  optional Placemark placemark = 7;
+  optional double earliest_photo_timestamp = 8;
+  optional double latest_photo_timestamp = 9;
+  repeated DayPhoto photos = 10;
+  // Derived metadata.
+  optional bool in_library = 11;
+}
+
+message DayMetadata {
+  optional double timestamp = 1;
+  // Episodes which occurred during this day. Used to compute
+  // events.
+  repeated CachedEpisode episodes = 2;
+}
+
+message SummaryRow {
+  enum RowType {
+    EVENT = 1;           // event summary
+    FULL_EVENT = 2;      // fully-expanded event
+    EVENT_TRAPDOOR = 4;  // convo trapdoor in events
+    TRAPDOOR = 5;        // convo trapdoor in conversations
+  }
+
+  optional RowType type = 1;
+  optional double timestamp = 2;
+
+  // day_timestamp is the day this event/trapdoor can be found in.  It is
+  // usually equal to CanonicalizeTimestamp(timestamp), but not necessarily,
+  // e.g. for events that span the 4:30am cutoff.
+  optional double day_timestamp = 3;
+  // Identifier used to locate asset summary row represents. In the case
+  // of an event, this is the index of the day's events; in the case of
+  // a trapdoor, this is the viewpoint id.
+  optional int64 identifier = 4;
+
+  optional float height = 5;
+  optional bool unviewed = 6;
+  optional float position = 7;  // position in the vertical scroll
+  optional float weight = 8;    // normalized weight for crowding algorithm
+
+  // Used for computing normalized weights.
+  optional int32 photo_count = 9;
+  optional int32 comment_count = 10;  // Only applies to trapdoor types
+  optional int32 contributor_count = 11;
+  optional int32 share_count = 12;  // Only applies to events
+  optional double distance = 13;  // Only applies to events
+
+  // For events only, this is the episode id of the first episode in
+  // the event.
+  optional int64 episode_id = 14;
+
+  // HACK: used in EventSummaryView's search feature to track rows for expansion and photo selection.
+  // TODO(ben): refactor to use a real search result abstraction.
+  // This field is never persisted to disk so it should be safe to reclaim the tag number
+  // when it's gone.
+  optional int32 original_row_index = 20;
+}
+
+// Statistics over entire day table.
+message SummaryMetadata {
+  repeated SummaryRow rows = 1;
+
+  optional int32 unviewed_count = 6;  // Only applies to conversations
+  optional int32 photo_count = 8;
+  optional float total_height = 9;
+}
+
+// Summary information for all activities in a viewpoint.
+message ViewpointSummaryMetadata {
+  message Contributor {
+    optional int64 user_id = 1;
+    optional double update_seq = 2;
+    // Identity is set only for contributors without user_ids; see comment in DayContributor above.
+    optional string identity = 3;
+  }
+
+  enum ActivityRowType {
+    HEADER = 1;
+    ACTIVITY = 2;
+    REPLY_ACTIVITY = 3;
+    PHOTOS = 4;
+    TITLE = 5;
+    UPDATE = 6;
+    FOOTER = 7;
+  }
+
+  message ActivityRow {
+    message Photo {
+      optional int64 photo_id = 1;
+      optional int64 episode_id = 2;
+      optional int64 parent_episode_id = 3;
+    }
+
+    optional int64 activity_id = 1;
+    // Contributors to activity. If share_new or add_followers, will
+    // include all added followers as well.
+    repeated int64 user_ids = 2;
+    // Identities of any added followers without user ids.
+    repeated string user_identities = 14;
+    // Timestamp of activity.
+    optional double timestamp = 3;
+    // Type of activity row.
+    optional ActivityRowType type = 4;
+    // Height of the activity row.
+    optional float height = 5;
+    // Position of the activity row in the full viewpoint.
+    optional float position = 6;
+    // Index of row, counting combined thread comments as a single row.
+    // This is used to alternate background row colors.
+    optional int32 row_count = 7;
+    // True if activity is unviewed.
+    optional int64 update_seq = 8;
+    // True if activity is pending.
+    optional bool pending = 9;
+    // Type of thread connecting this activity to previous or next activity.
+    optional int32 thread_type = 10;
+    // List of photos in this activity (applies to share_{new|existing}.
+    // This list is filtered based on preceeding activities which may
+    // already have included the same photo ids. There will be exactly
+    // one photo here in the case of REPLY_ACTIVITY.
+    repeated Photo photos = 11;
+    // True if this activity is a comment.
+    optional bool is_comment = 12;
+    // True if the activity is provisional (i.e. hasn't been cleared for send
+    // to the server). Necessary so that we can properly enter edit mode when a
+    // viewpoint with provisional activities is viewed.
+    //
+    // TODO(peter): Would it be better to just have a "provisional_activity_id"
+    // field in ViewpointSummaryMetadata.
+    optional bool is_provisional_hint = 13;
+  }
+
+  // The viewpoint.
+  optional int64 viewpoint_id = 1;
+  // Contributors, sorted by most recent activity.
+  repeated Contributor contributors = 2;
+  // The cover photo.
+  optional DayPhoto cover_photo = 3;
+  // Activity rows.
+  repeated ActivityRow activities = 4;
+  // Initial activity timestamp.
+  optional double earliest_timestamp = 5;
+  // Latest activity timestamp.
+  optional double latest_timestamp = 6;
+  // Total count of photos in viewpoint.
+  optional int32 photo_count = 7;
+  // Total count of comments in viewpoint.
+  optional int32 comment_count = 8;
+  // Count of photos part of unviewed activities.
+  optional int32 new_photo_count = 9;
+  // Count of comments part of unviewed activities.
+  optional int32 new_comment_count = 10;
+  // True if the viewpoint is provisional.
+  optional bool provisional = 11;
+  // Scroll to this row when viewpoint is viewed.
+  optional float scroll_to_row = 12;
+}

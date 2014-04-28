@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}Viewfinder{% end %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+		<link rel="stylesheet" href="{{ static_url('marketing/css/marketing.css') }}" />
+
+		<!--[if gte IE 9]>
+			<style type="text/css">
+				.gradient { filter: none; }
+			</style>
+		<![endif]-->		
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="/static/marketing/js/jquery-1.9.1.min.js"><\/script>')</script>
+		<script src="{{ static_url('marketing/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+		<script src="{{ static_url('marketing/js/jquery.color.js') }}"></script>
+		<script src="{{ static_url('marketing/js/plugins.js') }}"></script>
+		<script src="{{ static_url('marketing/js/utils.js') }}"></script>
+		<script src="/static/marketing/js/jquery.address-1.5.min.js?state=/&baseURL=/&wrap=0"></script>
+        <script src="{{ static_url('marketing/js/modernizr-2.6.2.min.js') }}"></script>
+        <script src="{{ static_url('marketing/js/css3-mediaqueries.js') }}"></script>
+		<script type="text/javascript" src="//use.typekit.net/dup1ddu.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		
+    </head>
+    <body class="{% block page_class %}{% end %}" data-current-page="{% block page_id %}{% end %}">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+
+    {% block body %}
+		
+		
+		
+<div id="top_nav" class="full_panel">
+	<div class="content_frame">
+		<h1><a href="/" title="Viewfinder"></a></h1>
+		<a href="#" class="menu">Menu</a>
+		<div class="nav_holder">
+			<ul>
+                          {% if handler.current_user is not None and handler.current_user.IsRegistered() %}
+				<li><a href="/view">Inbox</a></li>
+                          {% else %}
+				<li><a href="/auth?clear=1">Log In</a></li>
+                          {% end %}
+			</ul>
+		</div>
+	</div>
+</div>           
+		    
+		
+		
+		
+      {% block content %}
+      {% end %}
+
+			
+    {% end %}
+		
+
+
+<div id="footer" class="full_panel">
+	<div class="content_frame">
+		<ul class="footer_nav">
+			<li><a href="/">Home</a></li>
+			<li class="help"><a href="/faq">Help</a></li>
+			<li><a href="/jobs">Jobs</a></li>
+		</ul>
+
+		<ul class="share_nav">
+			<li><a href="mailto:hello@emailscrubbed.com" target="_blank">Email</a></li>
+			<li><a href="https://twitter.com/viewfinderco" target="_blank">Twitter</a></li>
+		</ul>
+		<div class="footer_note">
+			<div class="note_partial crafted">Crafted in New York and Seattle.</div>
+			<div class="note_partial copyright"><a href="/copyright">&copy; 2013 Viewfinder. All rights reserved.</a></div>
+			<div class="note_partial terms">View our <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>. </div>
+		</div>
+	</div>
+</div>
+
+<div id="animate_ref"></div>
+
+
+
+<div id="debug"></div>
+<div id="css_vp_wid"></div>
+
+<script src="//vjs.zencdn.net/4.0/video.js"></script>
+<script src="{{ static_url('marketing/js/global.js') }}"></script>
+<script src="{{ static_url('marketing/js/retina.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	g_xVF.init();
+});
+</script>
+
+{% include "../google_analytics.html" %}
+
+</body>
+</html>
+      
+
+
+
+
+
+
+

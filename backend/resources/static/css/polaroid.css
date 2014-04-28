@@ -1,0 +1,63 @@
+.picture {
+    -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.20);
+    -webkit-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.20);
+    box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.20);
+}
+
+.frame {
+    border: 1px solid #dadada;
+    border-radius: 1px;
+}
+
+.blocking {
+    margin: 5px;
+    margin-bottom: 25px;
+}
+
+.detail {
+    height: 15px;
+    margin-top: 10px;
+    padding: 0px 3px 0px 2px;
+}
+
+.picture .detail {
+    position: absolute;
+    bottom: 5px;
+    display: block;
+}
+
+.picture .spacetime {
+    left: 5px;
+}
+
+.picture .day-and-time {
+    left: 5px;
+}
+
+.picture .num-photos {
+    right: 5px;
+}
+
+.popup .spacetime {
+    position: absolute;
+    top: -14px;
+    left: 5px;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    border-radius: 1px;
+    -moz-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+    box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+}
+
+.overlay .spacetime {
+    position: absolute;
+    top: -14px;
+    right: 5px;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    border-radius: 1px;
+    -moz-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+    box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+}

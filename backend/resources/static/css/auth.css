@@ -1,0 +1,249 @@
+body, html {
+    height: 100%;
+}
+
+#header {
+    display: none;
+}
+
+#layout {
+    margin-top: 0;
+    background-color: #2a2a29;
+}
+
+#authentication {
+    padding: 0 9px;
+    border-sizing: border-box;
+    -moz-border-sizing: border-box;
+    text-align: center;
+}
+
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#background .photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    left: -50%;
+}
+
+#background img {
+    display: block;
+    margin: auto;
+    min-width: 50%;
+    min-height: 50%;
+}
+
+.auth-form {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 30px;
+    border-radius: 8px;    
+    border: 1px solid rgba(0,0,0,0.4);
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    text-align: center;
+    font-size: 14px;
+    background-color: #3f3e3e;
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.1);
+}
+
+@media screen and (max-width:400px) {
+    .auth-form {
+        padding: 20px 15px;
+    }
+}
+
+#authentication .spacer {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+}
+
+.auth-form .copy {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.auth-form .title {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.auth-form .fields {
+    background-color:  #FFFFFF;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+
+.form-line + .form-line {
+    border-top : 1px solid #E1E3E3;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.form-line + .form-line {
+    clear: both;
+}
+
+.form-line .form-field {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 8px 10px 8px 0px;
+}
+
+.form-line.double .form-field {
+    width: 50%;
+    float: left;
+}
+
+.form-line.double .form-field + .form-field input {
+    border-left: 1px solid #E1E3E3;
+}
+
+.form-line input {
+    background-color: transparent;
+    font-family: inherit;
+    width: 100%;
+    height: 24px;
+    border: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    font-weight: normal;
+    padding: 0 28px 0 10px;
+}
+
+.form-line input:focus {
+    outline: none;
+}
+
+.form-field.error input  {
+    background: url(images/form_error.png) right center no-repeat;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+    .form-field.error input{
+        background: url(images/form_error@2x.png) right center no-repeat;
+        background-size: 24px 22px;
+    }
+}
+
+.auth-form .errors {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.auth-form .errors span.error {
+    display: block;
+}
+
+.auth-form .errors b {
+    font-weight: 600;
+    color : #c73926;
+}
+
+.auth-form .button {
+    display: block;
+    border-radius: 4px;
+    border-bottom: 2px solid #2c2c2c;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 2.5em;
+    color: rgba(255,255,255, 0.8);
+    background-color: #00804b;
+    background-image: linear-gradient(top, #00804b, #006038);
+    background-image: -webkit-linear-gradient(top, #00804b, #006038);    
+    background-image: -moz-linear-gradient(top, #00804b, #006038);    
+    box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.25);
+}
+
+.auth-form .button.alt {
+    background-color: #9f9c9c;
+    background-image: linear-gradient(top, #9f9c9c, #6c6c6c);
+    background-image: -webkit-linear-gradient(top, #9f9c9c, #6c6c6c);        
+    background-image: -moz-linear-gradient(top, #9f9c9c, #6c6c6c);        
+}
+
+.auth-form .button:hover {
+    background-image : none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.auth-form .button:active {
+    position: relative;
+    border-bottom-color: rgba(0,0,0,0);    
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
+    background-image: none;
+    box-shadow: none;
+}
+
+.buttons.double .cancel {
+    float: left; 
+    width: 30%;
+}
+
+.buttons.double .submit {
+    float: right;
+    width: 68%;
+}
+
+.auth-form .superoption {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+    text-shadow: 0 1px 2px rgba(15, 12, 11, 0.5);
+    cursor: pointer;
+}
+
+.auth-form .suboption {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+    color: #9c9c9c;
+}
+
+.auth-form .suboption a {
+    font-weight: normal;
+    color: #9c9c9c;
+    cursor: pointer;
+}
+
+.auth-form .suboption .left {
+    float: left;
+}
+
+.auth-form .suboption .right {
+    float: right;
+}
+
+.auth-form .copy .identity {
+    font-weight: bold;
+}

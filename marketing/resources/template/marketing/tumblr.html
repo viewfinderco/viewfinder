@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{Title}{block:SearchPage} ({lang:Search results for SearchQuery}){/block:SearchPage}{block:PermalinkPage}{block:PostSummary} — {PostSummary}{/block:PostSummary}{/block:PermalinkPage}</title>
+
+        <meta charset="utf-8">
+        <meta name="description" content="{block:IndexPage}{block:Description}{MetaDescription}{/block:Description}{/block:IndexPage}{block:PermalinkPage}{block:PostSummary}{PostSummary}{/block:PostSummary}{/block:PermalinkPage}" />
+
+        <meta name="color:Accent" content="#4EA3D0"/>
+        <meta name="font:Body" content="'Helvetica Neue', Helvetica, Arial, sans-serif"/>
+
+        <!-- Appearance option -->
+
+        <meta name="if:Use larger font for quotes" content="0"/>
+        <meta name="if:Show tags" content="1"/>
+        <meta name="if:Show post notes" content="1"/>
+        <meta name="if:Show copyright in footer" content="1"/>
+        <meta name="text:Google Analytics ID" content=""/>
+
+        <link rel="shortcut icon" href="https://www.viewfinder.co/favicon.ico" />
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="{RSS}"/>
+
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <!-- HTML5 Shiv -->
+        <!--[if lt IE 9]>
+                <script src="http://static.tumblr.com/hriofhd/Qj0m8pn7q/html5shiv.js"></script>
+        <![endif]-->
+
+        <!-- Reset CSS -->
+        <link rel="stylesheet" href="https://www.viewfinder.co/static/marketing/css/marketing.css" type="text/css">
+
+        <!-- Theme CSS -->
+        <style type="text/css" media="screen">
+            body {
+				background:#000; text-align:center;
+            }
+
+			#top_nav { background:#fff; border-bottom:none; }
+			#posts { float:left; text-align:center; margin:0; padding:0; }
+			#posts .title_holder { border-bottom:1px solid #666; max-width:855px;width:100%; padding-bottom:35px; margin-bottom:35px; margin-top:40px; display:inline-block; }
+			#posts .title_holder h2.post_title { float:left; width:100%; margin:0; }
+			#posts .title_holder .byline { font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif; font-size:18px; font-weight:300; -webkit-font-smoothing:antialiased; text-decoration:none; color:#fff; float:left; width:100%;text-align:left; margin:10px 0 0 0; }
+			#posts .title_holder .byline img { margin-right:10px;float:left; }
+			#posts .title_holder h2.post_title a { width:100%; float:left; font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif; font-size:48px; font-weight:300; -webkit-font-smoothing:antialiased; text-decoration:none; color:#fff; }
+			#posts .title_holder h2.post_title a:hover { color:#ff9625; }
+			#posts .cont { border-left:1px solid #999; max-width:794px; display:inline-block; padding-left:30px; position:relative; }
+			#posts .cont .post_dot { position:absolute;top:0; left:-5px; width:9px; height:25px; background:url(http://static.tumblr.com/lmjnh5x/9Thmrhoiy/vf_tumblr_post_dot.gif) 0 0 no-repeat; }
+			#posts .cont .post_dot_bottom { position:absolute;bottom:0; left:-5px; width:9px; height:25px; background:url(http://static.tumblr.com/lmjnh5x/ZN1mrhps1/vf_tumblr_post_dot_bottom.gif) 0 0 no-repeat; }
+			#posts .cont p { font-size:24px; line-height:32px; color:#fff;font-family: "freight-text-pro", "Times New Roman",Times,serif; font-weight:400; -webkit-font-smoothing:antialiased; margin:0 0 30px; line-height:28px; }
+			#posts .cont p a { color:#ff9625; }
+			#posts .post_meta { display:inline-block; margin:45px 0 0; padding:45px 0 0 0; border-top:1px solid #666; width:100%; max-width:855px; }
+			#posts .post_tags { float:left; width:80%; }
+			#posts .post_tags li { font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; -webkit-font-smoothing:antialiased; color:#fff; text-transform: uppercase; float:left;margin:0 30px 0 0; list-style:none; }
+			#posts .post_tags li a { font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; -webkit-font-smoothing:antialiased; color:#999;text-transform: uppercase; text-decoration:none; }
+			#posts .post_social { width:19%;margin:0; padding:0; float:right; }
+			#posts .post_social li { float:right; margin-left:15px; }
+			#posts li .hires_text_img { display:inline-block; }
+			#tumblr_hero { max-width:1280px; height:582px; background:url(http://static.tumblr.com/lmjnh5x/WtImrfwx2/vf_tumblr_hero.jpg) center top no-repeat; display:inline-block;width:100%; }
+			
+			.photo_hero { max-width:1280px; height:582px; display:inline-block;width:100%; }
+			
+			#container { max-width:1280px; width:100%; display:inline-block; }
+			#pagination { background:#252525; padding:35px 0; width:100%; float:left;text-align:center; }
+			#pagination .content_align { width:100%; max-width:855px; display:inline-block; text-align:left; }
+			#pagination .current { font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; -webkit-font-smoothing:antialiased; color:#fff; text-transform: uppercase; float:left; }
+			#pagination .next_page { float:right; }
+			#pagination .previous_page { float:left; }
+            </style>
+        {/block:IfNotShowRightColumn}
+
+        <!-- Custom CSS -->
+        <style type="text/css" media="screen">
+            {CustomCSS}
+        </style>
+
+    </head>
+    <body class="tumblr" data-current-page="tumblr">
+			
+		<div id="top_nav" class="full_panel">
+			<div class="content_frame">
+				<h1><a href="http://viewfinder.co/" title="{Title}" target="_blank"></a></h1>
+				<a href="#" class="menu">Menu</a>
+				<div class="nav_holder">
+					<ul>
+						<li><a href="http://viewfinder.co/tour" target="_blank">Tour</a></li>
+						<li class="home"><a href="http://viewfinder.co/" target="_blank">Home</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+			
+			
+
+        <section id="container" class="group">            
+
+            
+
+            <ul id="posts">
+                <!-- START POSTS -->
+                {block:Posts}
+
+                        <li class="post group" {block:IfShowPostNotes} {block:PostNotes} style="padding:0"{/block:PostNotes} {/block:IfShowPostNotes}>  
+
+                        {block:Photo}
+                            <div class="photo_hero top media" style="background:url({PhotoURL-HighRes}) center top no-repeat;"></div>
+                        {/block:Photo}
+
+                        {block:Photoset}
+                            <section class="top media photoset">
+                                {Photoset-700}
+                            </section>
+                        {/block:Photoset}
+
+                        {block:Link}
+                            <section class="top link_post">
+                                <a href="{URL}" class="link">{Name}<span class="arrow"></span></a>
+                            </section>
+                        {/block:Link}
+
+                        {block:Audio}
+                            <section class="top audio">
+                            {AudioPlayerBlack}
+                            </section>
+                        {/block:Audio}
+
+                        {block:Video}
+                            <section class="top media">
+                                {Video-700}
+                            </section>
+                        {/block:Video}
+
+                        <section class="group caption_and_post_info
+                            {block:Photo} after_top_part isphoto{/block:Photo}
+                            {block:Photoset} after_top_part isphoto{/block:Photoset}
+                            {block:Link} after_top_part islink{/block:Link}
+                            {block:Audio} after_top_part isaudio{/block:Audio}
+                            {block:Video} after_top_part isvideo{/block:Video}
+                        ">
+                            {block:Text}
+                                <section class="caption group">
+                                    {block:Title}
+									<div class="title_holder">
+										<h2 class="post_title"><a href="{Permalink}">{Title}</a></h2>
+										<div class="byline"><img src="http://static.tumblr.com/lmjnh5x/Bqgmrfyi2/vf_tumblr_byline_icon.png" width="16" height="13" />by {PostAuthorName}, {block:Date}{Month} {DayOfMonth}{DayOfMonthSuffix}, {Year}{/block:Date}</div>
+									</div>
+									{/block:Title}
+                                    <div class="cont group">
+										<div class="post_dot"></div>
+										<div class="post_dot_bottom"></div>
+										{Body}
+									</div>
+									<div class="post_meta">
+										{block:HasTags}
+											<ul class="post_tags">
+												<li>Tagged: </li>
+												{block:Tags}
+													<li><a href="{TagURL}">{Tag}</a></li>
+												{/block:Tags}
+											</ul>
+										{/block:HasTags}
+										<ul class="post_social">
+	                                        <li><a href="#" class="facebook"><img src="http://static.tumblr.com/lmjnh5x/QM5mrhqgl/vf_tumblr_facebook.gif" /></a></li>
+	                                        <li><a href="https://twitter.com/viewfinderco" class="twitter"><img src="http://static.tumblr.com/lmjnh5x/Bvfmrhqg3/vf_tumblr_twitter.gif" /></a></li>
+	                                        <li>{LikeButton size="21"}</li>
+											<li>{ReblogButton size="21"}</li>
+										</ul>
+									</div>
+                                    {block:ContentSource}
+                                        <div class="cont content_source">
+                                            <a href="{SourceURL}">
+                                                {lang:Source}:
+                                                {block:SourceLogo}
+                                                    <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                {/block:SourceLogo}
+                                                {block:NoSourceLogo}
+                                                    {SourceTitle}
+                                                {/block:NoSourceLogo}
+                                            </a>
+                                        </div>
+                                    {/block:ContentSource}
+                                </section>
+                            {/block:Text}
+
+                            {block:Answer}
+                                <section class="caption group">
+                                    <div class="cont group">
+
+                                        <div class="question bubble">
+                                            {Question}
+                                            <span class="arrow border"></span>
+                                            <span class="arrow fill"></span>
+                                        </div>
+                                        <div class="asker group">
+                                            <img src="{AskerPortraitURL-24}" width="24" height="24" /> {Asker}
+                                        </div>
+                                        <div class="answer cont">{Answer}</div>
+                                    </div>
+                                    {block:ContentSource}
+                                        <div class="cont content_source">
+                                            <a href="{SourceURL}">
+                                                {lang:Source}:
+                                                {block:SourceLogo}
+                                                    <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                {/block:SourceLogo}
+                                                {block:NoSourceLogo}
+                                                    {SourceTitle}
+                                                {/block:NoSourceLogo}
+                                            </a>
+                                        </div>
+                                    {/block:ContentSource}
+                                </section>
+                            {/block:Answer}
+														
+                            <!--
+                            {block:Photo}
+                                <section class="caption group">
+                                    {block:Caption}
+                                        <div class="cont">{Caption}</div>
+                                    {/block:Caption}
+                                    {block:ContentSource}
+                                        <div class="cont content_source">
+                                            <a href="{SourceURL}">
+                                                {lang:Source}:
+                                                {block:SourceLogo}
+                                                    <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                {/block:SourceLogo}
+                                                {block:NoSourceLogo}
+                                                    {SourceTitle}
+                                                {/block:NoSourceLogo}
+                                            </a>
+                                        </div>
+                                    {/block:ContentSource}
+                                </section>
+                            {/block:Photo}
+							-->
+							
+                            {block:Photoset}
+                                <section class="caption group">
+                                    {block:Caption}
+                                        <div class="cont">{Caption}</div>
+                                    {/block:Caption}
+                                    {block:ContentSource}
+                                        <div class="cont content_source">
+                                            <a href="{SourceURL}">
+                                                {lang:Source}:
+                                                {block:SourceLogo}
+                                                    <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                {/block:SourceLogo}
+                                                {block:NoSourceLogo}
+                                                    {SourceTitle}
+                                                {/block:NoSourceLogo}
+                                            </a>
+                                        </div>
+                                    {/block:ContentSource}
+                                </section>
+                            {/block:Photoset}
+                            
+                            {block:Quote}
+                                    <section class="caption group">
+                                        <section class="quote {Length}_text {block:IfUseLargerFontForQuotes}larger_text{/block:IfUseLargerFontForQuotes}"><span>“</span>{Quote}”</section>
+                                        {block:Source}
+                                            <div class="cont quote_source">&mdash; {Source}</div>
+                                        {/block:Source}
+                                        {block:ContentSource}
+                                            <div class="cont content_source">
+                                                <a href="{SourceURL}">
+                                                    {lang:Source}:
+                                                    {block:SourceLogo}
+                                                        <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                    {/block:SourceLogo}
+                                                    {block:NoSourceLogo}
+                                                        {SourceTitle}
+                                                    {/block:NoSourceLogo}
+                                                </a>
+                                            </div>
+                                        {/block:ContentSource}
+                                    </section>
+                            {/block:Quote}
+                            
+                            {block:Link}
+                                {block:Description}
+                                    <section class="caption group">
+                                        <div class="cont">{Description}</div>
+                                        {block:ContentSource}
+                                            <div class="cont content_source">
+                                                <a href="{SourceURL}">
+                                                    {lang:Source}:
+                                                    {block:SourceLogo}
+                                                        <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                    {/block:SourceLogo}
+                                                    {block:NoSourceLogo}
+                                                        {SourceTitle}
+                                                    {/block:NoSourceLogo}
+                                                </a>
+                                            </div>
+                                        {/block:ContentSource}
+                                    </section>
+                                {/block:Description}
+                            {/block:Link}
+                            
+                            {block:Chat}
+                                <section class="caption group">
+                                    {block:Title}<h2><a href="{Permalink}">{Title}</a></h2>{/block:Title}
+                                    <ul class="conversation">
+                                        {block:Lines}
+                                            <li class="chat_line user{UserNumber}">
+                                                {block:Label}
+                                                    <strong>{Label}</strong>&nbsp;&nbsp;
+                                                {/block:Label}
+                                                {Line}
+                                            </li>
+                                        {/block:Lines}
+                                    </ul>
+                                    {block:ContentSource}
+                                        <div class="cont content_source">
+                                            <a href="{SourceURL}">
+                                                {lang:Source}:
+                                                {block:SourceLogo}
+                                                    <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                {/block:SourceLogo}
+                                                {block:NoSourceLogo}
+                                                    {SourceTitle}
+                                                {/block:NoSourceLogo}
+                                            </a>
+                                        </div>
+                                    {/block:ContentSource}
+                                </section>
+                            {/block:Chat}
+
+                            {block:Audio}
+                                {block:Caption}
+                                    <section class="caption group">
+                                        <div class="cont">{Caption}</div>
+                                        {block:ContentSource}
+                                            <div class="cont content_source">
+                                                <a href="{SourceURL}">
+                                                    {lang:Source}:
+                                                    {block:SourceLogo}
+                                                        <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                                    {/block:SourceLogo}
+                                                    {block:NoSourceLogo}
+                                                        {SourceTitle}
+                                                    {/block:NoSourceLogo}
+                                                </a>
+                                            </div>
+                                        {/block:ContentSource}
+                                    </section>
+                                {/block:Caption}
+                            {/block:Audio}
+                            
+                            {block:Video}
+                                <section class="caption group">
+                                {block:Caption}
+                                    <div class="cont">{Caption}</div>
+                                {/block:Caption}
+                                {block:ContentSource}
+                                    <div class="cont content_source">
+                                        <a href="{SourceURL}">
+                                            {lang:Source}:
+                                            {block:SourceLogo}
+                                                <img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />
+                                            {/block:SourceLogo}
+                                            {block:NoSourceLogo}
+                                                {SourceTitle}
+                                            {/block:NoSourceLogo}
+                                        </a>
+                                    </div>
+                                {/block:ContentSource}
+                                </section>
+                            {/block:Video}
+
+
+
+                                </section>
+                    </li>
+
+                {/block:Posts}
+                <!-- END POSTS -->
+            </ul>
+            
+
+        </section>
+
+            <div id="pagination">
+				<div class="content_align">
+                {block:Pagination}
+					<!--<div class="current">Page  {CurrentPage}</div>-->
+					{block:NextPage}<a href="{NextPage}" class="next_page download">{lang:Next page}</a>{block:NextPage}
+					{block:PreviousPage}<a href="{PreviousPage}" class="previous_page download">{lang:Previous page}</a>{/block:PreviousPage}
+                {/block:Pagination}
+				</div>
+            </div>
+				
+
+	<div id="footer" class="full_panel">
+		<div class="content_frame">
+			<ul class="footer_nav">
+				<li><a href="/">Home</a></li>
+				<li><a href="/tour">Tour</a></li>
+				<li class="help"><a href="/faq">Help</a></li>
+			</ul>
+
+			<ul class="share_nav">
+				<li><a href="mailto:hello@emailscrubbed.com" target="_blank">Email</a></li>
+				<li><a href="http://twitter.com/viewfinderco" target="_blank">Twitter</a></li>
+			</ul>
+			<div class="footer_note">
+				<div class="note_partial crafted">Crafted in New York and Seattle.</div>
+				<div class="note_partial copyright"><a href="/copyright">&copy; 2013 Viewfinder. All rights reserved.</a></div>
+				<div class="note_partial terms">View our <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>. </div>
+			</div>
+		</div>
+	</div>
+
+ 
+		<script>
+			$(".hires_text_img").load(function(){
+				var hires_wid = $(this).width();
+				var title_wid = $(this).closest("p").width();
+				var hires_left = (title_wid - hires_wid)/2;
+				$(this).css({ "margin-left":hires_left+"px" });
+			});
+		</script>
+			
+       {block:IfGoogleAnalyticsID}
+            <script type="text/javascript">
+                var _gaq=[['_setAccount','{text:Google Analytics ID}'],['_trackPageview']];
+                        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+                        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+                        s.parentNode.insertBefore(g,s)}(document,'script'));
+            </script>
+        {/block:IfGoogleAnalyticsID}
+				
+				
+
+    </body>
+</html>

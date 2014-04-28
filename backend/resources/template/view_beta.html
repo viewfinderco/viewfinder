@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Viewfinder Gallery{% end %}
+
+{% block content %}
+  <script>
+  $(function () {
+    viewfinder.flags.enableInbox = true;
+    viewfinder.flags.enableSignup = true;
+    viewfinder.flags.isRegistered = {% raw json_encode(is_registered) %};
+    viewfinder.own_user_id = {% raw json_encode(user_id) %};
+    viewfinder.viewpoint_id = {% raw json_encode(viewpoint_id) %};
+  });
+  </script>
+  {% module View() %}
+{% end %}

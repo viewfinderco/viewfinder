@@ -1,0 +1,19 @@
+# 
+# Viewfinder UI Automation 
+#
+#  Prerequisite:  Python Image Library (PIL)
+#    1.  Open Xcode and open Xcode Preferences.
+#    2.  Click on the Downloads tab, and you'll see Command Line Tools. 
+#        Click the Install button to install the Command Line Tools. 
+#        (This provides gcc to compile PIL)
+#    3.  Now open the Terminal app, and run the following commands:
+#        sudo easy_install pip
+#        sudo pip install PIL   
+#
+#  1.  pull down the latest code
+#  2.  cd $VF_HOME/clients/ios/testing
+#  3.  ./scripts/run-ui-tests.py --testname=testExportPhotos
+#  4.  view the results at 
+#	
+#	https://www.goviewfinder.com:8443/testing/static/html/summary_results.html
+#

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item type="id" name="row_icon_view" />
+  <item type="id" name="row_date_view" />
+  <item type="id" name="row_label_view" />
+  <item type="id" name="row_entry_value" />
+</resources>

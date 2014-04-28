@@ -1,0 +1,9 @@
+{% extends "admin.html" %}
+{% block title %}User Log Search{% end %}
+
+{% block admin %}
+<form id="user-log-form" action="/admin/user_logs" method="get">
+  <input name="user_id" id="user-id-input" type="text" length="50" placeholder="Enter User Name or Id... "/>
+  <input type="submit" value="go" />
+</form>
+{% end %}

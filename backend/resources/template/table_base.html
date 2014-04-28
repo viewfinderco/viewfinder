@@ -1,0 +1,40 @@
+{% extends "admin.html" %}
+{% block title %}(Set Label in Derived Template){% end %}
+
+{% block admin %}
+{% block datatable_script %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#datatable').dataTable({
+    "bProcessing": true,
+    "bStateSave": true,
+    "bLengthChange": false,
+    "iDisplayLength": 50,
+  });
+});
+</script>
+{% end %}
+
+{% block table_description %}
+{% end %}
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="datatable">
+  <thead>
+    <tr>
+      {% for col in col_names %}
+      <th>{{ col }}</th>
+      {% end %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in col_data %}
+    <tr>
+      {% for datum in row %}
+      <td {{ 'align="left"' if isinstance(datum, (str, unicode)) else 'align="right"'}}>
+        {% raw datum %}
+      </td>
+      {% end %}
+    </tr>
+    {% end %}
+  </tbody>
+</table>
+{% end %}

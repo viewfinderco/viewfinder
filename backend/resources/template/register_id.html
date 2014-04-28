@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Authenticate an Identity{% end %}
+
+{% block content %}
+{% module Css('button.css') %}
+{% module Css('dialog.css') %}
+
+<div id="title" class="h3">Specify an Identity to Authenticate</div>
+<div id="dialog-frame" class="clearfix">
+  <div id="dialog">
+    <div class="center small dark">Be sure to enter the appropriate identity prefix: 'Email:'
+      for an email, 'Phone:' for a 10-digit US phone number, or 'FacebookGraph:'
+      for a Facebook user id.
+    </div>
+    <div class="separator"></div>
+    <div class="dialog-content">
+      <form name="input" action="{{ uri }}" method="post">
+        {% raw xsrf_form_html() %}
+        Identity: <input size="32" maxlength="256" type="text" name="identity" placeholder="Enter identity key"/>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <div class="separator"></div>
+    <div class="center"><a class="button" href="/view">Return to Viewfinder</a></div>
+  </div>
+</div>
+{% end %}

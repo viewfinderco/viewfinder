@@ -1,0 +1,1483 @@
+#!/usr/bin/env python
+# coding: utf-8
+#
+# Copyright 2007 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Tool for uploading diffs from a version control system to the codereview app.
+
+Usage summary: codereview [options] [-- diff_options] [path...]
+
+Diff options are passed to the diff command of the underlying system.
+
+Supported version control systems:
+  Mercurial
+
+It is important for Git/Mercurial users to specify a tree/node/branch to diff
+against by using the '--rev' option.
+"""
+# This code is derived from appcfg.py in the App Engine SDK (open source),
+# and from ASPN recipe #146306.
+
+import ConfigParser
+import cookielib
+import errno
+import fnmatch
+import getpass
+import logging
+import marshal
+import mimetypes
+import optparse
+import os
+import re
+import socket
+import subprocess
+import sys
+import time
+import urllib
+import urllib2
+import urlparse
+
+# The md5 module was deprecated in Python 2.5.
+try:
+  from hashlib import md5
+except ImportError:
+  from md5 import md5
+
+try:
+  import readline
+except ImportError:
+  pass
+
+try:
+  import keyring
+except ImportError:
+  keyring = None
+
+# The logging verbosity:
+#  0: Errors only.
+#  1: Status messages.
+#  2: Info logs.
+#  3: Debug logs.
+verbosity = 0
+
+# The account type used for authentication.
+# This line could be changed by the review server (see handler for
+# upload.py).
+AUTH_ACCOUNT_TYPE = "GOOGLE"
+
+# URL of the default review server. As for AUTH_ACCOUNT_TYPE, this line could be
+# changed by the review server (see handler for upload.py).
+DEFAULT_REVIEW_SERVER = "https://viewfinder-reviews.appspot.com"
+
+# Max size of patch or base file.
+MAX_UPLOAD_SIZE = 900 * 1024
+
+# The result of parsing Subversion's [auto-props] setting.
+svn_auto_props_map = None
+
+def GetEmail(prompt):
+  """Prompts the user for their email address and returns it.
+
+  The last used email address is saved to a file and offered up as a suggestion
+  to the user. If the user presses enter without typing in anything the last
+  used email address is used. If the user enters a new address, it is saved
+  for next time we prompt.
+
+  """
+  last_email_file_name = os.path.expanduser("~/.last_codereview_email_address")
+  last_email = ""
+  if os.path.exists(last_email_file_name):
+    try:
+      last_email_file = open(last_email_file_name, "r")
+      last_email = last_email_file.readline().strip("\n")
+      last_email_file.close()
+      prompt += " [%s]" % last_email
+    except IOError, e:
+      pass
+  email = raw_input(prompt + ": ").strip()
+  if email:
+    try:
+      last_email_file = open(last_email_file_name, "w")
+      last_email_file.write(email)
+      last_email_file.close()
+    except IOError, e:
+      pass
+  else:
+    email = last_email
+  return email
+
+
+def StatusUpdate(msg):
+  """Print a status message to stdout.
+
+  If 'verbosity' is greater than 0, print the message.
+
+  Args:
+    msg: The string to print.
+  """
+  if verbosity > 0:
+    print msg
+
+
+def ErrorExit(msg):
+  """Print an error message to stderr and exit."""
+  print >>sys.stderr, msg
+  sys.exit(1)
+
+
+class ClientLoginError(urllib2.HTTPError):
+  """Raised to indicate there was an error authenticating with ClientLogin."""
+
+  def __init__(self, url, code, msg, headers, args):
+    urllib2.HTTPError.__init__(self, url, code, msg, headers, None)
+    self.args = args
+    self.reason = args["Error"]
+    self.info = args.get("Info", None)
+
+
+class AbstractRpcServer(object):
+  """Provides a common interface for a simple RPC server."""
+
+  def __init__(self, host, auth_function, host_override=None, extra_headers={},
+               save_cookies=False, account_type=AUTH_ACCOUNT_TYPE):
+    """Creates a new HttpRpcServer.
+
+    Args:
+      host: The host to send requests to.
+      auth_function: A function that takes no arguments and returns an
+        (email, password) tuple when called. Will be called if authentication
+        is required.
+      host_override: The host header to send to the server (defaults to host).
+      extra_headers: A dict of extra headers to append to every request.
+      save_cookies: If True, save the authentication cookies to local disk.
+        If False, use an in-memory cookiejar instead.  Subclasses must
+        implement this functionality.  Defaults to False.
+      account_type: Account type used for authentication. Defaults to
+        AUTH_ACCOUNT_TYPE.
+    """
+    self.host = host
+    if (not self.host.startswith("http://") and
+        not self.host.startswith("https://")):
+      self.host = "http://" + self.host
+    self.host_override = host_override
+    self.auth_function = auth_function
+    self.authenticated = False
+    self.extra_headers = extra_headers
+    self.save_cookies = save_cookies
+    self.account_type = account_type
+    self.opener = self._GetOpener()
+    if self.host_override:
+      logging.info("Server: %s; Host: %s", self.host, self.host_override)
+    else:
+      logging.info("Server: %s", self.host)
+
+  def _GetOpener(self):
+    """Returns an OpenerDirector for making HTTP requests.
+
+    Returns:
+      A urllib2.OpenerDirector object.
+    """
+    raise NotImplementedError()
+
+  def _CreateRequest(self, url, data=None):
+    """Creates a new urllib request."""
+    logging.debug("Creating request for: '%s' with payload:\n%s", url, data)
+    req = urllib2.Request(url, data=data, headers={"Accept": "text/plain"})
+    if self.host_override:
+      req.add_header("Host", self.host_override)
+    for key, value in self.extra_headers.iteritems():
+      req.add_header(key, value)
+    return req
+
+  def _GetAuthToken(self, email, password):
+    """Uses ClientLogin to authenticate the user, returning an auth token.
+
+    Args:
+      email:    The user's email address
+      password: The user's password
+
+    Raises:
+      ClientLoginError: If there was an error authenticating with ClientLogin.
+      HTTPError: If there was some other form of HTTP error.
+
+    Returns:
+      The authentication token returned by ClientLogin.
+    """
+    account_type = self.account_type
+    if self.host.endswith(".google.com"):
+      # Needed for use inside Google.
+      account_type = "HOSTED"
+    req = self._CreateRequest(
+        url="https://www.google.com/accounts/ClientLogin",
+        data=urllib.urlencode({
+            "Email": email,
+            "Passwd": password,
+            "service": "ah",
+            "source": "rietveld-codereview-upload",
+            "accountType": account_type,
+        }),
+    )
+    try:
+      response = self.opener.open(req)
+      response_body = response.read()
+      response_dict = dict(x.split("=")
+                           for x in response_body.split("\n") if x)
+      return response_dict["Auth"]
+    except urllib2.HTTPError, e:
+      if e.code == 403:
+        body = e.read()
+        response_dict = dict(x.split("=", 1) for x in body.split("\n") if x)
+        raise ClientLoginError(req.get_full_url(), e.code, e.msg,
+                               e.headers, response_dict)
+      else:
+        raise
+
+  def _GetAuthCookie(self, auth_token):
+    """Fetches authentication cookies for an authentication token.
+
+    Args:
+      auth_token: The authentication token returned by ClientLogin.
+
+    Raises:
+      HTTPError: If there was an error fetching the authentication cookies.
+    """
+    # This is a dummy value to allow us to identify when we're successful.
+    continue_location = "http://localhost/"
+    args = {"continue": continue_location, "auth": auth_token}
+    req = self._CreateRequest("%s/_ah/login?%s" %
+                              (self.host, urllib.urlencode(args)))
+    try:
+      response = self.opener.open(req)
+    except urllib2.HTTPError, e:
+      response = e
+    if (response.code != 302 or
+        response.info()["location"] != continue_location):
+      raise urllib2.HTTPError(req.get_full_url(), response.code, response.msg,
+                              response.headers, response.fp)
+    self.authenticated = True
+
+  def _Authenticate(self):
+    """Authenticates the user.
+
+    The authentication process works as follows:
+     1) We get a username and password from the user
+     2) We use ClientLogin to obtain an AUTH token for the user
+        (see http://code.google.com/apis/accounts/AuthForInstalledApps.html).
+     3) We pass the auth token to /_ah/login on the server to obtain an
+        authentication cookie. If login was successful, it tries to redirect
+        us to the URL we provided.
+
+    If we attempt to access the upload API without first obtaining an
+    authentication cookie, it returns a 401 response (or a 302) and
+    directs us to authenticate ourselves with ClientLogin.
+    """
+    for i in range(3):
+      credentials = self.auth_function()
+      try:
+        auth_token = self._GetAuthToken(credentials[0], credentials[1])
+      except ClientLoginError, e:
+        print >>sys.stderr, ''
+        if e.reason == "BadAuthentication":
+          if e.info == "InvalidSecondFactor":
+            print >>sys.stderr, (
+                "Use an application-specific password instead "
+                "of your regular account password.\n"
+                "See http://www.google.com/"
+                "support/accounts/bin/answer.py?answer=185833")
+          else:
+            print >>sys.stderr, "Invalid username or password."
+        elif e.reason == "CaptchaRequired":
+          print >>sys.stderr, (
+              "Please go to\n"
+              "https://www.google.com/accounts/DisplayUnlockCaptcha\n"
+              "and verify you are a human.  Then try again.\n"
+              "If you are using a Google Apps account the URL is:\n"
+              "https://www.google.com/a/yourdomain.com/UnlockCaptcha")
+        elif e.reason == "NotVerified":
+          print >>sys.stderr, "Account not verified."
+        elif e.reason == "TermsNotAgreed":
+          print >>sys.stderr, "User has not agreed to TOS."
+        elif e.reason == "AccountDeleted":
+          print >>sys.stderr, "The user account has been deleted."
+        elif e.reason == "AccountDisabled":
+          print >>sys.stderr, "The user account has been disabled."
+          break
+        elif e.reason == "ServiceDisabled":
+          print >>sys.stderr, ("The user's access to the service has been "
+                               "disabled.")
+        elif e.reason == "ServiceUnavailable":
+          print >>sys.stderr, "The service is not available; try again later."
+        else:
+          # Unknown error.
+          raise
+        print >>sys.stderr, ''
+        continue
+      self._GetAuthCookie(auth_token)
+      return
+
+  def Send(self, request_path, payload=None,
+           content_type="application/octet-stream",
+           timeout=None,
+           extra_headers=None,
+           **kwargs):
+    """Sends an RPC and returns the response.
+
+    Args:
+      request_path: The path to send the request to, eg /api/appversion/create.
+      payload: The body of the request, or None to send an empty request.
+      content_type: The Content-Type header to use.
+      timeout: timeout in seconds; default None i.e. no timeout.
+        (Note: for large requests on OS X, the timeout doesn't work right.)
+      extra_headers: Dict containing additional HTTP headers that should be
+        included in the request (string header names mapped to their values),
+        or None to not include any additional headers.
+      kwargs: Any keyword arguments are converted into query string parameters.
+
+    Returns:
+      The response body, as a string.
+    """
+    # TODO: Don't require authentication.  Let the server say
+    # whether it is necessary.
+    if not self.authenticated:
+      self._Authenticate()
+
+    old_timeout = socket.getdefaulttimeout()
+    socket.setdefaulttimeout(timeout)
+    try:
+      tries = 0
+      while True:
+        tries += 1
+        args = dict(kwargs)
+        url = "%s%s" % (self.host, request_path)
+        if args:
+          url += "?" + urllib.urlencode(args)
+        req = self._CreateRequest(url=url, data=payload)
+        req.add_header("Content-Type", content_type)
+        if extra_headers:
+          for header, value in extra_headers.items():
+            req.add_header(header, value)
+        try:
+          f = self.opener.open(req)
+          response = f.read()
+          f.close()
+          return response
+        except urllib2.HTTPError, e:
+          if tries > 3:
+            raise
+          elif e.code == 401 or e.code == 302:
+            self._Authenticate()
+          elif e.code == 301:
+            # Handle permanent redirect manually.
+            url = e.info()["location"]
+            url_loc = urlparse.urlparse(url)
+            self.host = '%s://%s' % (url_loc[0], url_loc[1])
+          elif e.code >= 500:
+            ErrorExit(e.read())
+          else:
+            raise
+    finally:
+      socket.setdefaulttimeout(old_timeout)
+
+
+class HttpRpcServer(AbstractRpcServer):
+  """Provides a simplified RPC-style interface for HTTP requests."""
+
+  def _Authenticate(self):
+    """Save the cookie jar after authentication."""
+    super(HttpRpcServer, self)._Authenticate()
+    if self.save_cookies:
+      StatusUpdate("Saving authentication cookies to %s" % self.cookie_file)
+      self.cookie_jar.save()
+
+  def _GetOpener(self):
+    """Returns an OpenerDirector that supports cookies and ignores redirects.
+
+    Returns:
+      A urllib2.OpenerDirector object.
+    """
+    opener = urllib2.OpenerDirector()
+    opener.add_handler(urllib2.ProxyHandler())
+    opener.add_handler(urllib2.UnknownHandler())
+    opener.add_handler(urllib2.HTTPHandler())
+    opener.add_handler(urllib2.HTTPDefaultErrorHandler())
+    opener.add_handler(urllib2.HTTPSHandler())
+    opener.add_handler(urllib2.HTTPErrorProcessor())
+    if self.save_cookies:
+      self.cookie_file = os.path.expanduser("~/.codereview_upload_cookies")
+      self.cookie_jar = cookielib.MozillaCookieJar(self.cookie_file)
+      if os.path.exists(self.cookie_file):
+        try:
+          self.cookie_jar.load()
+          self.authenticated = True
+          StatusUpdate("Loaded authentication cookies from %s" %
+                       self.cookie_file)
+        except (cookielib.LoadError, IOError):
+          # Failed to load cookies - just ignore them.
+          pass
+      else:
+        # Create an empty cookie file with mode 600
+        fd = os.open(self.cookie_file, os.O_CREAT, 0600)
+        os.close(fd)
+      # Always chmod the cookie file
+      os.chmod(self.cookie_file, 0600)
+    else:
+      # Don't save cookies across runs of update.py.
+      self.cookie_jar = cookielib.CookieJar()
+    opener.add_handler(urllib2.HTTPCookieProcessor(self.cookie_jar))
+    return opener
+
+
+class CondensedHelpFormatter(optparse.IndentedHelpFormatter):
+   """Frees more horizontal space by removing indentation from group
+      options and collapsing arguments between short and long, e.g.
+      '-o ARG, --opt=ARG' to -o --opt ARG"""
+
+   def format_heading(self, heading):
+     return "%s:\n" % heading
+
+   def format_option(self, option):
+     self.dedent()
+     res = optparse.HelpFormatter.format_option(self, option)
+     self.indent()
+     return res
+
+   def format_option_strings(self, option):
+     self.set_long_opt_delimiter(" ")
+     optstr = optparse.HelpFormatter.format_option_strings(self, option)
+     optlist = optstr.split(", ")
+     if len(optlist) > 1:
+       if option.takes_value():
+         # strip METAVAR from all but the last option
+         optlist = [x.split()[0] for x in optlist[:-1]] + optlist[-1:]
+       optstr = " ".join(optlist)
+     return optstr
+
+
+parser = optparse.OptionParser(
+    usage="%prog [options] [-- diff_options] [path...]",
+    add_help_option=False,
+    formatter=CondensedHelpFormatter()
+)
+parser.add_option("-h", "--help", action="store_true",
+                  help="Show this help message and exit.")
+parser.add_option("-y", "--assume_yes", action="store_true",
+                  dest="assume_yes", default=False,
+                  help="Assume that the answer to yes/no questions is 'yes'.")
+# Logging
+group = parser.add_option_group("Logging options")
+group.add_option("-q", "--quiet", action="store_const", const=0,
+                 dest="verbose", help="Print errors only.")
+group.add_option("-v", "--verbose", action="store_const", const=2,
+                 dest="verbose", default=1,
+                 help="Print info level logs.")
+group.add_option("--noisy", action="store_const", const=3,
+                 dest="verbose", help="Print all logs.")
+group.add_option("--print_diffs", dest="print_diffs", action="store_true",
+                 help="Print full diffs.")
+# Review server
+group = parser.add_option_group("Review server options")
+group.add_option("-s", "--server", action="store", dest="server",
+                 default=DEFAULT_REVIEW_SERVER,
+                 metavar="SERVER",
+                 help=("The server to upload to. The format is host[:port]. "
+                       "Defaults to '%default'."))
+group.add_option("-e", "--email", action="store", dest="email",
+                 metavar="EMAIL", default=None,
+                 help="The username to use. Will prompt if omitted.")
+group.add_option("-H", "--host", action="store", dest="host",
+                 metavar="HOST", default=None,
+                 help="Overrides the Host header sent with all RPCs.")
+group.add_option("--no_cookies", action="store_false",
+                 dest="save_cookies", default=True,
+                 help="Do not save authentication cookies to local disk.")
+group.add_option("--account_type", action="store", dest="account_type",
+                 metavar="TYPE", default=AUTH_ACCOUNT_TYPE,
+                 choices=["GOOGLE", "HOSTED"],
+                 help=("Override the default account type "
+                       "(defaults to '%default', "
+                       "valid choices are 'GOOGLE' and 'HOSTED')."))
+# Issue
+group = parser.add_option_group("Issue options")
+group.add_option("-t", "--title", action="store", dest="title",
+                 help="New issue subject or new patch set title")
+group.add_option("-m", "--message", action="store", dest="message",
+                 default=None,
+                 help="New issue description or new patch set message")
+group.add_option("-F", "--file", action="store", dest="file",
+                 default=None, help="Read the message above from file.")
+group.add_option("-r", "--reviewers", action="store", dest="reviewers",
+                 metavar="REVIEWERS", default=None,
+                 help="Add reviewers (comma separated email addresses).")
+group.add_option("--cc", action="store", dest="cc",
+                 metavar="CC", default="eng@emailscrubbed.com",
+                 help="Add CC (comma separated email addresses).")
+group.add_option("--private", action="store_true", dest="private",
+                 default=False,
+                 help="Make the issue restricted to reviewers and those CCed")
+group.add_option("-b", "--bug", action="store", dest="bug",
+                 metavar="BUG_ID", default=None,
+                 help="Add Fogbugz ID to change description")
+# Upload options
+group = parser.add_option_group("Patch options")
+group.add_option("--base_url", action="store", dest="base_url", default=None,
+                 help="Base URL path for files (listed as \"Base URL\" when "
+                 "viewing issue).  If omitted, will be guessed automatically "
+                 "for SVN repos and left blank for others.")
+group.add_option("--download_base", action="store_true",
+                 dest="download_base", default=False,
+                 help="Base files will be downloaded by the server "
+                 "(side-by-side diffs may not work on files with CRs).")
+group.add_option("--send_mail", action="store_true",
+                 dest="send_mail", default=True,
+                 help="Send notification email to reviewers.")
+group.add_option("-p", "--send_patch", action="store_true",
+                 dest="send_patch", default=False,
+                 help="Same as --send_mail, but include diff as an "
+                      "attachment, and prepend email subject with 'PATCH:'.")
+# Perforce-specific
+group = parser.add_option_group("Perforce-specific options "
+                                "(overrides P4 environment variables)")
+group.add_option("--p4_port", action="store", dest="p4_port",
+                 metavar="P4_PORT", default=None,
+                 help=("Perforce server and port (optional)"))
+group.add_option("--p4_changelist", action="store", dest="p4_changelist",
+                 metavar="P4_CHANGELIST", default=None,
+                 help=("Perforce changelist id"))
+group.add_option("--p4_client", action="store", dest="p4_client",
+                 metavar="P4_CLIENT", default=None,
+                 help=("Perforce client/workspace"))
+group.add_option("--p4_user", action="store", dest="p4_user",
+                 metavar="P4_USER", default=None,
+                 help=("Perforce user"))
+# Mercurial/mq-specific
+group = parser.add_option_group("Mercurial/mq-specific options")
+group.add_option("--mq_patch", action="store", dest="mq_patch",
+                 metavar="MQ_PATCH", default=None,
+                 help=("First mq patch to review (this patch and all applied "
+                       "patches after it will be included in the review. "
+                       "Default is to review all applied patches."))
+
+def GetRpcServer(server, email=None, host_override=None, save_cookies=True,
+                 account_type=AUTH_ACCOUNT_TYPE):
+  """Returns an instance of an AbstractRpcServer.
+
+  Args:
+    server: String containing the review server URL.
+    email: String containing user's email address.
+    host_override: If not None, string containing an alternate hostname to use
+      in the host header.
+    save_cookies: Whether authentication cookies should be saved to disk.
+    account_type: Account type for authentication, either 'GOOGLE'
+      or 'HOSTED'. Defaults to AUTH_ACCOUNT_TYPE.
+
+  Returns:
+    A new AbstractRpcServer, on which RPC calls can be made.
+  """
+
+  rpc_server_class = HttpRpcServer
+
+  # If this is the dev_appserver, use fake authentication.
+  host = (host_override or server).lower()
+  if re.match(r'(http://)?localhost([:/]|$)', host):
+    if email is None:
+      email = "test@example.com"
+      logging.info("Using debug user %s.  Override with --email" % email)
+    server = rpc_server_class(
+        server,
+        lambda: (email, "password"),
+        host_override=host_override,
+        extra_headers={"Cookie":
+                       'dev_appserver_login="%s:False"' % email},
+        save_cookies=save_cookies,
+        account_type=account_type)
+    # Don't try to talk to ClientLogin.
+    server.authenticated = True
+    return server
+
+  def GetUserCredentials():
+    """Prompts the user for a username and password."""
+    # Create a local alias to the email variable to avoid Python's crazy
+    # scoping rules.
+    global keyring
+    local_email = email
+    if local_email is None:
+      local_email = GetEmail("Email")
+    password = None
+    if keyring:
+      try:
+        password = keyring.get_password(host, local_email)
+      except:
+        # Sadly, we have to trap all errors here as
+        # gnomekeyring.IOError inherits from object. :/
+        print "Failed to get password from keyring"
+        keyring = None
+    if password is not None:
+      print "Using password from system keyring."
+    else:
+      password = getpass.getpass("Password for %s: " % local_email)
+      if keyring:
+        answer = raw_input("Store password in system keyring? [y/N] ").strip()
+        if answer == "y":
+          keyring.set_password(host, local_email, password)
+    return (local_email, password)
+
+  return rpc_server_class(server,
+                          GetUserCredentials,
+                          host_override=host_override,
+                          save_cookies=save_cookies)
+
+
+def EncodeMultipartFormData(fields, files):
+  """Encode form fields for multipart/form-data.
+
+  Args:
+    fields: A sequence of (name, value) elements for regular form fields.
+    files: A sequence of (name, filename, value) elements for data to be
+           uploaded as files.
+  Returns:
+    (content_type, body) ready for httplib.HTTP instance.
+
+  Source:
+    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/146306
+  """
+  BOUNDARY = '-M-A-G-I-C---B-O-U-N-D-A-R-Y-'
+  CRLF = '\r\n'
+  lines = []
+  for (key, value) in fields:
+    lines.append('--' + BOUNDARY)
+    lines.append('Content-Disposition: form-data; name="%s"' % key)
+    lines.append('')
+    if isinstance(value, unicode):
+      value = value.encode('utf-8')
+    lines.append(value)
+  for (key, filename, value) in files:
+    lines.append('--' + BOUNDARY)
+    lines.append('Content-Disposition: form-data; name="%s"; filename="%s"' %
+             (key, filename))
+    lines.append('Content-Type: %s' % GetContentType(filename))
+    lines.append('')
+    if isinstance(value, unicode):
+      value = value.encode('utf-8')
+    lines.append(value)
+  lines.append('--' + BOUNDARY + '--')
+  lines.append('')
+  body = CRLF.join(lines)
+  content_type = 'multipart/form-data; boundary=%s' % BOUNDARY
+  return content_type, body
+
+
+def GetContentType(filename):
+  """Helper to guess the content-type from the filename."""
+  return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+
+
+# Use a shell for subcommands on Windows to get a PATH search.
+use_shell = sys.platform.startswith("win")
+
+def RunShellWithReturnCodeAndStderr(command, print_output=False,
+                           universal_newlines=True,
+                           env=os.environ):
+  """Executes a command and returns the output from stdout, stderr and the return code.
+
+  Args:
+    command: Command to execute.
+    print_output: If True, the output is printed to stdout.
+                  If False, both stdout and stderr are ignored.
+    universal_newlines: Use universal_newlines flag (default: True).
+
+  Returns:
+    Tuple (stdout, stderr, return code)
+  """
+  logging.info("Running %s", command)
+  env = env.copy()
+  env['LC_MESSAGES'] = 'C'
+  p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                       shell=use_shell, universal_newlines=universal_newlines,
+                       env=env)
+  if print_output:
+    output_array = []
+    while True:
+      line = p.stdout.readline()
+      if not line:
+        break
+      print line.strip("\n")
+      output_array.append(line)
+    output = "".join(output_array)
+  else:
+    output = p.stdout.read()
+  p.wait()
+  errout = p.stderr.read()
+  if print_output and errout:
+    print >>sys.stderr, errout
+  p.stdout.close()
+  p.stderr.close()
+  return output, errout, p.returncode
+
+def RunShellWithReturnCode(command, print_output=False,
+                           universal_newlines=True,
+                           env=os.environ):
+  """Executes a command and returns the output from stdout and the return code."""
+  out, err, retcode = RunShellWithReturnCodeAndStderr(command, print_output,
+                           universal_newlines, env)
+  return out, retcode
+
+def RunShell(command, silent_ok=False, universal_newlines=True,
+             print_output=False, env=os.environ):
+  data, retcode = RunShellWithReturnCode(command, print_output,
+                                         universal_newlines, env)
+  if retcode:
+    ErrorExit("Got error status from %s:\n%s" % (command, data))
+  if not silent_ok and not data:
+    ErrorExit("No output from %s" % command)
+  return data
+
+
+class VersionControlSystem(object):
+  """Abstract base class providing an interface to the VCS."""
+
+  def __init__(self, options):
+    """Constructor.
+
+    Args:
+      options: Command line options.
+    """
+    self.options = options
+
+  def GetGUID(self):
+    """Return string to distinguish the repository from others, for example to
+    query all opened review issues for it"""
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+  def PostProcessDiff(self, diff):
+    """Return the diff with any special post processing this VCS needs, e.g.
+    to include an svn-style "Index:"."""
+    return diff
+
+  def ReviewLog(self):
+    """Display the current log messages.
+    """
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+  def GenerateDiff(self, args):
+    """Return the current diff as a string.
+
+    Args:
+      args: Extra arguments to pass to the diff command.
+    """
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+  def GetMessage(self):
+    """Return the message for the files being reviewed."""
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+  def GetIssue(self):
+    """Return the issue for the files being reviewed."""
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+  def StoreIssue(self, issue, bug_id=None):
+    """Store the issue for the files being reviewed."""
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+  def GetUnknownFiles(self):
+    """Return a list of files unknown to the VCS."""
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+  def CheckForUnknownFiles(self):
+    """Show an "are you sure?" prompt if there are unknown files."""
+    unknown_files = self.GetUnknownFiles()
+    if unknown_files:
+      print "The following files have not been added to version control:"
+      for line in unknown_files:
+        print " ", line
+      prompt = "Continue? [y/N] "
+      answer = raw_input(prompt).strip()
+      if answer != "y":
+        ErrorExit("User aborted")
+
+  def GetBaseFile(self, filename):
+    """Get the content of the upstream version of a file.
+
+    Returns:
+      A tuple (base_content, new_content, is_binary, status)
+        base_content: The contents of the base file.
+        new_content: For text files, this is empty.  For binary files, this is
+          the contents of the new file, since the diff output won't contain
+          information to reconstruct the current file.
+        is_binary: True iff the file is binary.
+        status: The status of the file.
+    """
+
+    raise NotImplementedError(
+        "abstract method -- subclass %s must override" % self.__class__)
+
+
+  def GetBaseFiles(self, diff):
+    """Helper that calls GetBase file for each file in the patch.
+
+    Returns:
+      A dictionary that maps from filename to GetBaseFile's tuple.  Filenames
+      are retrieved based on lines that start with "Index:" or
+      "Property changes on:".
+    """
+    files = {}
+    for line in diff.splitlines(True):
+      if line.startswith('Index:') or line.startswith('Property changes on:'):
+        unused, filename = line.split(':', 1)
+        # On Windows if a file has property changes its filename uses '\'
+        # instead of '/'.
+        filename = filename.strip().replace('\\', '/')
+        files[filename] = self.GetBaseFile(filename)
+    return files
+
+
+  def UploadBaseFiles(self, issue, rpc_server, patch_list, patchset, options,
+                      files):
+    """Uploads the base files (and if necessary, the current ones as well)."""
+
+    def UploadFile(filename, file_id, content, is_binary, status, is_base):
+      """Uploads a file to the server."""
+      file_too_large = False
+      if is_base:
+        type = "base"
+      else:
+        type = "current"
+      if len(content) > MAX_UPLOAD_SIZE:
+        print ("Not uploading the %s file for %s because it's too large." %
+               (type, filename))
+        file_too_large = True
+        content = ""
+      checksum = md5(content).hexdigest()
+      if options.verbose > 0 and not file_too_large:
+        print "Uploading %s file for %s" % (type, filename)
+      url = "/%d/upload_content/%d/%d" % (int(issue), int(patchset), file_id)
+      form_fields = [("filename", filename),
+                     ("status", status),
+                     ("checksum", checksum),
+                     ("is_binary", str(is_binary)),
+                     ("is_current", str(not is_base)),
+                    ]
+      if file_too_large:
+        form_fields.append(("file_too_large", "1"))
+      if options.email:
+        form_fields.append(("user", options.email))
+      ctype, body = EncodeMultipartFormData(form_fields,
+                                            [("data", filename, content)])
+      for i in ['1st', '2nd', '3rd', '4th', '5th']:
+        try:
+          response_body = rpc_server.Send(url, body, timeout=5, content_type=ctype)
+          if i != '1st':
+            logging.info('success uploading %s on %s try' % (filename, i))
+          break
+        except:
+          logging.warning('failed to upload %s on %s try' % (filename, i))
+
+      if not response_body.startswith("OK"):
+        StatusUpdate("  --> %s" % response_body)
+        sys.exit(1)
+
+    patches = dict()
+    [patches.setdefault(v, k) for k, v in patch_list]
+    for filename in patches.keys():
+      base_content, new_content, is_binary, status = files[filename]
+      file_id_str = patches.get(filename)
+      if file_id_str.find("nobase") != -1:
+        base_content = None
+        file_id_str = file_id_str[file_id_str.rfind("_") + 1:]
+      file_id = int(file_id_str)
+      if base_content != None:
+        UploadFile(filename, file_id, base_content, is_binary, status, True)
+      if new_content != None:
+        UploadFile(filename, file_id, new_content, is_binary, status, False)
+
+  def IsImage(self, filename):
+    """Returns true if the filename has an image extension."""
+    mimetype =  mimetypes.guess_type(filename)[0]
+    if not mimetype:
+      return False
+    return mimetype.startswith("image/")
+
+  def IsBinaryData(self, data):
+    """Returns true if data contains a null byte."""
+    # Derived from how Mercurial's heuristic, see
+    # http://selenic.com/hg/file/848a6658069e/mercurial/util.py#l229
+    return bool(data and "\0" in data)
+
+
+class MercurialVCS(VersionControlSystem):
+  """Implementation of the VersionControlSystem interface for Mercurial."""
+
+  def __init__(self, options, repo_dir):
+    super(MercurialVCS, self).__init__(options)
+    # Absolute path to repository (we can be in a subdir)
+    self.repo_dir = os.path.normpath(repo_dir)
+    # Compute the subdir
+    cwd = os.path.normpath(os.getcwd())
+    assert cwd.startswith(self.repo_dir)
+    self.subdir = cwd[len(self.repo_dir):].lstrip(r"\/")
+    self.mq_patch = options.mq_patch or "qbase"
+    if self.mq_patch in ('tip', 'qtip'):
+      self.mq_patch = RunShell(["hg", "qtop"]).strip()
+    self.diff_rev = "'%s'~1:qtip" % self.mq_patch
+    data, retcode = RunShellWithReturnCode(
+        ["hg", "log", "-q", "-r", "'%s'~1" % self.mq_patch, "--template", "{node}"])
+    if retcode:
+      ErrorExit("Unable to find patch queue to review")
+
+  def GetGUID(self):
+    # See chapter "Uniquely identifying a repository"
+    # http://hgbook.red-bean.com/read/customizing-the-output-of-mercurial.html
+    info = RunShell("hg log -r0 --template {node}".split())
+    return info.strip()
+
+  def _GetRelPath(self, filename):
+    """Get relative path of a file according to the current directory,
+    given its logical path in the repo."""
+    absname = os.path.join(self.repo_dir, filename)
+    return os.path.relpath(absname)
+
+  def ReviewLog(self):
+    RunShell(["hg", "log", "--color", "always", "--pager", "never", "--rev", "'%s':qtip" % self.mq_patch],
+             print_output=True)
+    prompt = "Continue? [Y/n] "
+    answer = raw_input(prompt).strip()
+    if answer != "y" and answer != "Y" and answer != "":
+      ErrorExit("User aborted")
+
+  def GenerateDiff(self, extra_args):
+    cmd = ["hg", "diff", "--git", "-r", self.diff_rev] + extra_args
+    data = RunShell(cmd, silent_ok=True)
+    svndiff = []
+    filecount = 0
+    for line in data.splitlines():
+      m = re.match("diff --git a/(\S+) b/(\S+)", line)
+      if m:
+        # Modify line to make it look like as it comes from svn diff.
+        # With this modification no changes on the server side are required
+        # to make upload.py work with Mercurial repos.
+        # NOTE: for proper handling of moved/copied files, we have to use
+        # the second filename.
+        filename = m.group(2)
+        svndiff.append("Index: %s" % filename)
+        svndiff.append("=" * 67)
+        filecount += 1
+        logging.info(line)
+      else:
+        svndiff.append(line)
+    if not filecount:
+      ErrorExit("No valid patches found in output from hg diff")
+    return "\n".join(svndiff) + "\n"
+
+  def GetMessage(self):
+    return RunShell(["hg", "log", "--rev", "'%s':qtip" % self.mq_patch, "--template", "{desc|fill68}\n\n"]).strip()
+
+  def GetIssue(self):
+    out = RunShell(["hg", "log", "--rev", "qtip:'%s'" % self.mq_patch, "--template", "{desc}\n"])
+    m = re.search(r'^ISSUE=([0-9]+)$', out, re.MULTILINE)
+    if m:
+      return int(m.group(1))
+    return None
+
+  def StoreIssue(self, issue, bug_id=None):
+    desc = RunShell(["hg", "log", "--rev", self.mq_patch, "--template", "{desc}"],
+                    silent_ok=True)
+    if not desc:
+      return
+
+    # Create a temporary patch containing all the uncommitted changes.
+    RunShell(["hg", "qnew", "codereview-tmp-patch" ], silent_ok=True)
+    # Adjust the patch queue so that only the first patch being reviewed is applied.
+    RunShell(["hg", "qpop", self.mq_patch], silent_ok=True)
+    # Update the change description to include the issue number.
+    desc, subs = re.subn(r'^ISSUE=[0-9]+$', '', desc, flags=re.MULTILINE)
+    desc = "%s\n\nISSUE=%s" % (desc.strip(), issue)
+    if bug_id is not None:
+      desc, subs = re.subn(r'^Fixes #[0-9]+$', '', desc, flags=re.MULTILINE)
+      desc = "%s\nFixes #%d" % (desc.strip(), bug_id)
+    RunShell(["hg", "qrefresh", "-s", "-m", desc], silent_ok=True)
+    # Adjust the patch queue so that we're back where we started.
+    RunShell(["hg", "qgoto", "codereview-tmp-patch"], silent_ok=True)
+    RunShell(["hg", "qrefresh", "-X", "re:.*"], silent_ok=True)
+    RunShell(["hg", "qpop", "-f"], silent_ok=True)
+    RunShell(["hg", "qdelete", "codereview-tmp-patch"], silent_ok=True)
+
+  def GetUnknownFiles(self):
+    """Return a list of files unknown to the VCS."""
+    args = []
+    status = RunShell(["hg", "status", "--rev", "'%s'~1" % self.mq_patch, "-u"],
+        silent_ok=True)
+    unknown_files = []
+    for line in status.splitlines():
+      st, fn = line.split(" ", 1)
+      if st == "?":
+        unknown_files.append(self._GetRelPath(fn))
+    return unknown_files
+
+  def GetBaseFile(self, filename):
+    # "hg status" and "hg cat" both take a path relative to the current subdir,
+    # but "hg diff" has given us the path relative to the repo root.
+    base_content = ""
+    new_content = None
+    is_binary = False
+    oldrelpath = relpath = self._GetRelPath(filename)
+    # "hg status -C" returns two lines for moved/copied files, one otherwise
+    out = RunShell(["hg", "status", "-C", "--rev", self.diff_rev, relpath])
+    out = out.splitlines()
+    # HACK: strip error message about missing file/directory if it isn't in
+    # the working copy
+    if out[0].startswith('%s: ' % relpath):
+      out = out[1:]
+    status, _ = out[0].split(' ', 1)
+    if len(out) > 1 and status == "A":
+      # Moved/copied => considered as modified, use old filename to
+      # retrieve base contents
+      oldrelpath = out[1].strip()
+      status = "M"
+    if ":" in self.diff_rev:
+      diff_rev = self.diff_rev.split(":", 1)[0]
+    else:
+      diff_rev = self.diff_rev
+    if status != "A":
+      base_content = RunShell(["hg", "cat", "-r", diff_rev, oldrelpath],
+        silent_ok=True)
+      is_binary = self.IsBinaryData(base_content)
+    if status != "R":
+      new_content = open(relpath, "rb").read()
+      is_binary = is_binary or self.IsBinaryData(new_content)
+    if is_binary and base_content:
+      # Fetch again without converting newlines
+      base_content = RunShell(["hg", "cat", "-r", diff_rev, oldrelpath],
+        silent_ok=True, universal_newlines=False)
+    if not is_binary:
+      new_content = None
+    return base_content, new_content, is_binary, status
+
+
+# NOTE: The SplitPatch function is duplicated in engine.py, keep them in sync.
+def SplitPatch(data):
+  """Splits a patch into separate pieces for each file.
+
+  Args:
+    data: A string containing the output of svn diff.
+
+  Returns:
+    A list of 2-tuple (filename, text) where text is the svn diff output
+      pertaining to filename.
+  """
+  patches = []
+  filename = None
+  diff = []
+  for line in data.splitlines(True):
+    new_filename = None
+    if line.startswith('Index:'):
+      unused, new_filename = line.split(':', 1)
+      new_filename = new_filename.strip()
+    elif line.startswith('Property changes on:'):
+      unused, temp_filename = line.split(':', 1)
+      # When a file is modified, paths use '/' between directories, however
+      # when a property is modified '\' is used on Windows.  Make them the same
+      # otherwise the file shows up twice.
+      temp_filename = temp_filename.strip().replace('\\', '/')
+      if temp_filename != filename:
+        # File has property changes but no modifications, create a new diff.
+        new_filename = temp_filename
+    if new_filename:
+      if filename and diff:
+        patches.append((filename, ''.join(diff)))
+      filename = new_filename
+      diff = [line]
+      continue
+    if diff is not None:
+      diff.append(line)
+  if filename and diff:
+    patches.append((filename, ''.join(diff)))
+  return patches
+
+
+def UploadSeparatePatches(issue, rpc_server, patchset, data, options):
+  """Uploads a separate patch for each file in the diff output.
+
+  Returns a list of [patch_key, filename] for each file.
+  """
+  patches = SplitPatch(data)
+  rv = []
+  for patch in patches:
+    if len(patch[1]) > MAX_UPLOAD_SIZE:
+      print ("Not uploading the patch for " + patch[0] +
+             " because the file is too large.")
+      continue
+    form_fields = [("filename", patch[0])]
+    if not options.download_base:
+      form_fields.append(("content_upload", "1"))
+    files = [("data", "data.diff", patch[1])]
+    ctype, body = EncodeMultipartFormData(form_fields, files)
+    url = "/%d/upload_patch/%d" % (int(issue), int(patchset))
+    print "Uploading patch for " + patch[0]
+    response_body = rpc_server.Send(url, body, content_type=ctype)
+    lines = response_body.splitlines()
+    if not lines or lines[0] != "OK":
+      StatusUpdate("  --> %s" % response_body)
+      sys.exit(1)
+    rv.append([lines[1], patch[0]])
+  return rv
+
+
+def CheckReviewer(reviewer):
+  """Validate a reviewer -- either a nickname or an email addres.
+
+  Args:
+    reviewer: A nickname or an email address.
+
+  Calls ErrorExit() if it is an invalid email address.
+  """
+  if "@" not in reviewer:
+    return  # Assume nickname
+  parts = reviewer.split("@")
+  if len(parts) > 2:
+    ErrorExit("Invalid email address: %r" % reviewer)
+  assert len(parts) == 2
+  if "." not in parts[1]:
+    ErrorExit("Invalid email address: %r" % reviewer)
+
+
+def LoadSubversionAutoProperties():
+  """Returns the content of [auto-props] section of Subversion's config file as
+  a dictionary.
+
+  Returns:
+    A dictionary whose key-value pair corresponds the [auto-props] section's
+      key-value pair.
+    In following cases, returns empty dictionary:
+      - config file doesn't exist, or
+      - 'enable-auto-props' is not set to 'true-like-value' in [miscellany].
+  """
+  if os.name == 'nt':
+    subversion_config = os.environ.get("APPDATA") + "\\Subversion\\config"
+  else:
+    subversion_config = os.path.expanduser("~/.subversion/config")
+  if not os.path.exists(subversion_config):
+    return {}
+  config = ConfigParser.ConfigParser()
+  config.read(subversion_config)
+  if (config.has_section("miscellany") and
+      config.has_option("miscellany", "enable-auto-props") and
+      config.getboolean("miscellany", "enable-auto-props") and
+      config.has_section("auto-props")):
+    props = {}
+    for file_pattern in config.options("auto-props"):
+      props[file_pattern] = ParseSubversionPropertyValues(
+        config.get("auto-props", file_pattern))
+    return props
+  else:
+    return {}
+
+def ParseSubversionPropertyValues(props):
+  """Parse the given property value which comes from [auto-props] section and
+  returns a list whose element is a (svn_prop_key, svn_prop_value) pair.
+
+  See the following doctest for example.
+
+  >>> ParseSubversionPropertyValues('svn:eol-style=LF')
+  [('svn:eol-style', 'LF')]
+  >>> ParseSubversionPropertyValues('svn:mime-type=image/jpeg')
+  [('svn:mime-type', 'image/jpeg')]
+  >>> ParseSubversionPropertyValues('svn:eol-style=LF;svn:executable')
+  [('svn:eol-style', 'LF'), ('svn:executable', '*')]
+  """
+  key_value_pairs = []
+  for prop in props.split(";"):
+    key_value = prop.split("=")
+    assert len(key_value) <= 2
+    if len(key_value) == 1:
+      # If value is not given, use '*' as a Subversion's convention.
+      key_value_pairs.append((key_value[0], "*"))
+    else:
+      key_value_pairs.append((key_value[0], key_value[1]))
+  return key_value_pairs
+
+
+def GetSubversionPropertyChanges(filename):
+  """Return a Subversion's 'Property changes on ...' string, which is used in
+  the patch file.
+
+  Args:
+    filename: filename whose property might be set by [auto-props] config.
+
+  Returns:
+    A string like 'Property changes on |filename| ...' if given |filename|
+      matches any entries in [auto-props] section. None, otherwise.
+  """
+  global svn_auto_props_map
+  if svn_auto_props_map is None:
+    svn_auto_props_map = LoadSubversionAutoProperties()
+
+  all_props = []
+  for file_pattern, props in svn_auto_props_map.items():
+    if fnmatch.fnmatch(filename, file_pattern):
+      all_props.extend(props)
+  if all_props:
+    return FormatSubversionPropertyChanges(filename, all_props)
+  return None
+
+
+def FormatSubversionPropertyChanges(filename, props):
+  """Returns Subversion's 'Property changes on ...' strings using given filename
+  and properties.
+
+  Args:
+    filename: filename
+    props: A list whose element is a (svn_prop_key, svn_prop_value) pair.
+
+  Returns:
+    A string which can be used in the patch file for Subversion.
+
+  See the following doctest for example.
+
+  >>> print FormatSubversionPropertyChanges('foo.cc', [('svn:eol-style', 'LF')])
+  Property changes on: foo.cc
+  ___________________________________________________________________
+  Added: svn:eol-style
+     + LF
+  <BLANKLINE>
+  """
+  prop_changes_lines = [
+    "Property changes on: %s" % filename,
+    "___________________________________________________________________"]
+  for key, value in props:
+    prop_changes_lines.append("Added: " + key)
+    prop_changes_lines.append("   + " + value)
+  return "\n".join(prop_changes_lines) + "\n"
+
+
+def RealMain(argv, data=None):
+  """The real main function.
+
+  Args:
+    argv: Command line arguments.
+    data: Diff contents. If None (default) the diff is generated by
+      the VersionControlSystem implementation returned by MercurialVCS().
+
+  Returns:
+    A 2-tuple (issue id, patchset id).
+    The patchset id is None if the base files are not uploaded by this
+    script (applies only to SVN checkouts).
+  """
+  options, args = parser.parse_args(argv[1:])
+  if options.help:
+    if options.verbose < 2:
+      # hide Perforce options
+      parser.epilog = "Use '--help -v' to show additional Perforce options."
+      parser.option_groups.remove(parser.get_option_group('--p4_port'))
+    parser.print_help()
+    sys.exit(0)
+
+  global verbosity
+  verbosity = options.verbose
+  if verbosity >= 3:
+    logging.getLogger().setLevel(logging.DEBUG)
+  elif verbosity >= 2:
+    logging.getLogger().setLevel(logging.INFO)
+
+  vcs = MercurialVCS(options, RunShell(["hg", "root"]).strip())
+
+  base = options.base_url
+  if not base and options.download_base:
+    options.download_base = True
+    logging.info("Enabled upload of base file")
+  if not options.assume_yes:
+    vcs.CheckForUnknownFiles()
+  vcs.ReviewLog()
+  if data is None:
+    data = vcs.GenerateDiff(args)
+  data = vcs.PostProcessDiff(data)
+  if options.print_diffs:
+    print "Rietveld diff start:*****"
+    print data
+    print "Rietveld diff end:*****"
+  files = vcs.GetBaseFiles(data)
+  if verbosity >= 1:
+    print "Upload server:", options.server, "(change with -s/--server)"
+  rpc_server = GetRpcServer(options.server,
+                            options.email,
+                            options.host,
+                            options.save_cookies,
+                            options.account_type)
+  form_fields = []
+
+  repo_guid = vcs.GetGUID()
+  if repo_guid:
+    form_fields.append(("repo_guid", repo_guid))
+  if base:
+    b = urlparse.urlparse(base)
+    username, netloc = urllib.splituser(b.netloc)
+    if username:
+      logging.info("Removed username from base URL")
+      base = urlparse.urlunparse((b.scheme, netloc, b.path, b.params,
+                                  b.query, b.fragment))
+    form_fields.append(("base", base))
+  issue = vcs.GetIssue()
+  orig_issue = issue
+  if issue:
+    form_fields.append(("issue", str(issue)))
+  if options.email:
+    form_fields.append(("user", options.email))
+  if not options.reviewers:
+    options.reviewers = raw_input("Reviewers: ").strip()
+    if not options.reviewers:
+      ErrorExit("Need to specify at least one reviewer")
+  if options.reviewers:
+    for reviewer in options.reviewers.split(','):
+      CheckReviewer(reviewer)
+    form_fields.append(("reviewers", options.reviewers))
+  if options.cc:
+    for cc in options.cc.split(','):
+      CheckReviewer(cc)
+    form_fields.append(("cc", options.cc))
+
+  # Process --message, --title and --file.
+  message = options.message or ""
+  title = options.title or ""
+  if options.file:
+    if options.message:
+      ErrorExit("Can't specify both message and message file options")
+    file = open(options.file, 'r')
+    message = file.read()
+    file.close()
+  else:
+    message = vcs.GetMessage()
+  if issue:
+    prompt = "Title describing this patch set: "
+  else:
+    prompt = "New issue subject: "
+  title = (
+      title or message.split('\n', 1)[0].strip() or raw_input(prompt).strip())
+  if not title and not issue:
+    ErrorExit("A non-empty title is required for a new issue")
+  # For existing issues, it's fine to give a patchset an empty name. Rietveld
+  # doesn't accept that so use a whitespace.
+  title = title or " "
+  if len(title) > 100:
+    title = title[:99] + '…'
+  if title and not issue:
+    message = message or title
+
+  form_fields.append(("subject", title))
+  # If it's a new issue send message as description. Otherwise a new
+  # message is created below on upload_complete.
+  if message and not issue:
+    form_fields.append(("description", message))
+
+  # Send a hash of all the base file so the server can determine if a copy
+  # already exists in an earlier patchset.
+  base_hashes = ""
+  for file, info in files.iteritems():
+    if not info[0] is None:
+      checksum = md5(info[0]).hexdigest()
+      if base_hashes:
+        base_hashes += "|"
+      base_hashes += checksum + ":" + file
+  form_fields.append(("base_hashes", base_hashes))
+  if options.private:
+    if issue:
+      print "Warning: Private flag ignored when updating an existing issue."
+    else:
+      form_fields.append(("private", "1"))
+  if options.send_patch:
+    options.send_mail = True
+  if not options.download_base:
+    form_fields.append(("content_upload", "1"))
+  if len(data) > MAX_UPLOAD_SIZE:
+    print "Patch is large, so uploading file patches separately."
+    uploaded_diff_file = []
+    form_fields.append(("separate_patches", "1"))
+  else:
+    uploaded_diff_file = [("data", "data.diff", data)]
+  ctype, body = EncodeMultipartFormData(form_fields, uploaded_diff_file)
+  response_body = rpc_server.Send("/upload", body, content_type=ctype)
+  patchset = None
+  if not options.download_base or not uploaded_diff_file:
+    lines = response_body.splitlines()
+    if len(lines) >= 2:
+      msg = lines[0]
+      patchset = lines[1].strip()
+      patches = [x.split(" ", 1) for x in lines[2:]]
+    else:
+      msg = response_body
+  else:
+    msg = response_body
+  StatusUpdate(msg)
+  if not response_body.startswith("Issue created.") and \
+  not response_body.startswith("Issue updated."):
+    sys.exit(0)
+  issue = msg[msg.rfind("/")+1:]
+
+  if not uploaded_diff_file:
+    result = UploadSeparatePatches(issue, rpc_server, patchset, data, options)
+    if not options.download_base:
+      patches = result
+
+  if not options.download_base:
+    vcs.UploadBaseFiles(issue, rpc_server, patches, patchset, options, files)
+    # Attempt to work around a race condition.
+    time.sleep(2)
+
+  payload = {}  # payload for final request
+  if options.send_mail:
+    payload["send_mail"] = "yes"
+    if options.send_patch:
+      payload["attach_patch"] = "yes"
+  if orig_issue and message:
+    payload["message"] = message
+  payload = urllib.urlencode(payload)
+  rpc_server.Send("/" + issue + "/upload_complete/" + (patchset or ""),
+                  payload=payload)
+
+  if options.bug is None:
+    bug_id = None
+  else:
+    bug_id = int(options.bug)
+  vcs.StoreIssue(issue, bug_id=bug_id)
+  return issue, patchset
+
+def MonkeyPatchSocket():
+  real_getaddrinfo = socket.getaddrinfo
+  def getaddrinfo(host, port, family, *args, **kwargs):
+    if family == socket.AF_UNSPEC:
+      # Force ipv4
+      family = socket.AF_INET
+    return real_getaddrinfo(host, port, family, *args, **kwargs)
+  socket.getaddrinfo = getaddrinfo
+
+def main():
+  try:
+    logging.basicConfig(format=("%(asctime).19s %(levelname)s %(filename)s:"
+                                "%(lineno)s %(message)s "))
+    os.environ['LC_ALL'] = 'C'
+    MonkeyPatchSocket()
+    RealMain(sys.argv)
+  except KeyboardInterrupt:
+    print
+    StatusUpdate("Interrupted.")
+    sys.exit(1)
+
+
+if __name__ == "__main__":
+  main()

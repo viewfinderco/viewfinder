@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/auth_resetFragment">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/include_statusBar"
+      android:background="@drawable/square_modal"
+      android:paddingTop="24dp"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      android:paddingBottom="30dp"
+      android:layout_marginTop="50dp">
+
+    <view
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:id="@+id/auth_resetPassword"
+        android:text="@string/auth_resetPassword"
+        style="@style/auth_title"
+        android:layout_centerHorizontal="true"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/auth_resetEmailOrMobile"
+        android:background="@drawable/signup_text_inputs_single"
+        android:padding="0dp"
+        android:layout_below="@+id/auth_resetPassword"
+        android:layout_marginTop="8dp">
+
+      <include
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          layout="@layout/email_or_text_edit"
+          android:id="@+id/include"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/auth_resetEmailOrMobile"
+        android:layout_marginTop="8dp"
+        android:id="@+id/auth_resetButtons">
+
+      <view
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_back"
+          android:background="@drawable/big_button_grey_selector"
+          android:text="@string/auth_back"
+          style="@style/big_button"
+          android:clickable="true"
+          android:layout_weight="1"/>
+
+      <view
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_submit"
+          android:background="@drawable/big_button_green_selector"
+          style="@style/big_button"
+          android:text="@string/auth_submit"
+          android:layout_weight="2"
+          android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
+  </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,52 @@
+// To determine whether dragging is changing curvature of the arc
+// or spinning the arc.
+const float kDragVelocityThreshold = 50.0;   // In pixels / second
+const float kDragXYRatioThreshold = 0.99;    // Ratio of X vs Y
+const float kDragVerticalBand = 0.30;        // Percentage of vertical space
+
+// The current location (as indicated by the red line in the
+// arc) can be modified as the arc is spun. However, it's
+// disconcerting when it's displaced excessively. This dampening
+// factor helps considerably.
+const float kDraggingDampeningFactor = 0.15; // Percentage
+
+- (BOOL)continueTrackingWithTouch:(UITouch*)touch
+                        withEvent:(UIEvent*)event {
+  if (mode_ != VF_INACTIVE) {
+    const CGPoint p = [touch locationInView:self];
+    CGPoint delta_loc = CGPointMake(p.x - touch_loc_.x, p.y - touch_loc_.y);
+    [self setViewfinderState:GESTURE_TRACK touch_loc:p last_touch_loc:touch_loc_];
+    touch_loc_ = p;
+
+    // Compute the delta in current scroll position based on movement.
+    if ([self isModeTracking]) {
+      bool update_loc = true;
+      if (mode_ == VF_DRAGGING) {
+        if (velocity_.length() > kDragVelocityThreshold &&
+            (velocity_(1) == 0 ||
+             fabs(velocity_(0) / velocity_(1)) > kDragXYRatioThreshold) &&
+            fabs(p.y / self.bounds.size.height - 0.5) < kDragVerticalBand / 2) {
+          delta_loc.y *= 0;
+        } else {
+          delta_loc.x *= 0;
+          delta_loc.y *= -1;
+          update_loc = false;
+        }
+      }
+      const CGPoint new_loc = CGPointMake(cur_loc_.x + delta_loc.x, cur_loc_.y + delta_loc.y);
+      const double delta = [self deltaForTracking:new_loc last_loc:cur_loc_];
+      if (update_loc) {
+        [self setCurrentLocation:new_loc];
+      }
+      if (delta != 0.0) {
+        [self setPosition:(cur_pos_ + delta)];
+        [env_ viewfinderUpdate:self];
+      }
+    }
+  }
+
+  return YES;
+}
+
+
+

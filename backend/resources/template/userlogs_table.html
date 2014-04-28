@@ -1,0 +1,15 @@
+{% extends "user_table_base.html" %}
+{% block title %}User Log Search{% end %}
+
+{% block admin-title %}
+	{% if user_email %}
+		User Logs for {{ user_email }} (ID: {{ user_id }})
+	{% else %}
+		User Logs for ID {{user_id}}
+	{% end %}
+{% end %}
+
+{% block admin-footer %}
+<div class="separator"></div>
+<div class="center"><a class="button" href="/admin/user_logs?">Search for another User</a></div>
+{% end %}

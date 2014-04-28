@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+Register for Viewfinder
+{% end %}
+
+{% block content %}
+  <script type="text/javascript">
+    $(function () {
+        var mode = 'register_begin';
+        if (window.location.hash === '#merge') {
+          mode = 'merge_begin';
+        }
+
+        var am = viewfinder.authModel = new viewfinder.models.AuthorizationModel({
+          mode : mode,
+          identity : {% raw json_encode(signup_ident) %},
+          souce_identity : {% raw json_encode(signup_ident) %},
+          merge_cookie : {% raw json_encode(merge_cookie) %}
+        });
+      });
+  </script>
+  {% module Auth() %}
+{% end %}

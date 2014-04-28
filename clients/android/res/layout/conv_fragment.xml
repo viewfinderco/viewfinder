@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/convFragment_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <RelativeLayout
+      android:id="@+id/convFragment_titleBar"
+      android:layout_below="@+id/include_statusBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/title_bar_top"
+      >
+
+    <ImageButton
+        android:id="@+id/convFragment_titleBarBackButton"
+        android:layout_width="@dimen/conv_titleBarButtonWidth"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/title_bar_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:src="@drawable/title_bar_icon_backarrow"
+        />
+
+    <co.viewfinder.widgets.ViewfinderTextView
+        android:id="@+id/convFragment_titleBarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/convFragment_titleBarBackButton"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/convFragment_titleBarSelectButton"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:singleLine="true"
+        android:text="Conversation Title"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+    <co.viewfinder.widgets.ViewfinderButton
+        android:id="@+id/convFragment_titleBarSelectButton"
+        android:layout_width="@dimen/conv_titleBarButtonWidth"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/title_bar_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/textView_select"
+        android:textColor="@android:color/white"
+        />
+
+  </RelativeLayout>
+
+  <android.support.v4.view.ViewPager
+      android:id="@+id/convFragment_viewpager"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_alignParentTop="false"
+      android:layout_below="@+id/convFragment_titleBar"
+      android:layout_above="@+id/convFragment_footer"
+      />
+
+  <LinearLayout
+      android:id="@+id/convFragment_footer"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/convo_bar_bottom"
+      android:orientation="horizontal"
+      android:padding="0dp"
+      >
+
+    <ImageButton
+        android:id="@+id/convFragment_footerAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="5"
+        android:layout_margin="5dp"
+        android:background="@drawable/conv_footer_button_grey"
+        android:src="@drawable/convo_bar_icon_add"
+        />
+
+    <co.viewfinder.widgets.ViewfinderEditText
+        android:id="@+id/convFragment_footerEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="85"
+        android:background="@drawable/convo_bar_text_field"
+        android:clickable="true"
+        android:hint="@string/convPage_addMessageEditView"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        android:textSize="16dp"
+        />
+
+    <co.viewfinder.widgets.ViewfinderButton
+        android:id="@+id/convFragment_footerSendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="10"
+        android:layout_margin="5dp"
+        android:background="@drawable/conv_footer_button_send"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/convPage_footerSendButton"
+        android:textColor="@color/convPage_sendButtonText"
+        />
+
+  </LinearLayout>
+
+</RelativeLayout>

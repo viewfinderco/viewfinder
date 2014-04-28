@@ -1,0 +1,12 @@
+# Crontab for STAGING AWS instances.
+#
+# Times are in UTC.
+#
+# Mails are send to prod-cron@emailscrubbed.com with nodetype for easier filtering.
+MAILTO=prod-cron+STAGING@emailscrubbed.com
+
+# Run batch of nightly jobs at 12pm UTC.
+0 12 * * * ${HOME}/viewfinder/scripts/cron.staging.nightly 12
+
+# Separate batch at 2pm UTC. This is only for itunes trends.
+0 14 * * * ${HOME}/viewfinder/scripts/cron.staging.nightly 14

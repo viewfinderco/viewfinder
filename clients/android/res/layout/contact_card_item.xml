@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_cell_background_single"
+                android:clickable="true">
+
+  <ImageView
+      android:layout_width="30dp"
+      android:layout_height="wrap_content"
+      android:id="@+id/contact_icon"
+      android:src="@drawable/contact_info_name_vf_user"
+      android:layout_centerVertical="true"
+      android:scaleType="fitCenter"
+      android:layout_marginLeft="8dp"/>
+
+  <view
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      class="co.viewfinder.widgets.ViewfinderTextView"
+      android:id="@+id/contact_id"
+      android:layout_toRightOf="@+id/contact_icon"
+      android:layout_centerVertical="true"
+      android:textSize="17dp"
+      android:text="@android:string/untitled"
+      android:paddingLeft="8dp"
+      android:textColor="@color/contact_text"
+      android:layout_toLeftOf="@+id/contact_edit"/>
+
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/contact_edit"
+      android:src="@drawable/edit_icon"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_marginRight="8dp"/>
+</RelativeLayout>

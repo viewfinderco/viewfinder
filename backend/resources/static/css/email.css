@@ -1,0 +1,44 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #555;
+    background: #fff;
+}
+
+a, a:visited {
+    text-decoration: none;
+    font-weight: bold;
+    color: #e2001e;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#content {
+    clear: both;
+}
+
+.about-us {
+    color: #777;
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 12pt;
+}
+
+.signup {
+    margin-top: 10px;
+    font-size: 12pt;
+}
+
+.disclaimer {
+    margin-top: 20px;
+    color: #333;
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+

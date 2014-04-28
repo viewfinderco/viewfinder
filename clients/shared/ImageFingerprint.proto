@@ -1,0 +1,13 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "ImageFingerprintPB";
+
+message ImageFingerprint {
+  // An image fingerprint is composed of a number of terms: 160-bit binary
+  // strings. Each term is indexed so that a match on any term is considered a
+  // match of the images. There might be multiple terms for an image if we were
+  // unable to robustly normalize the image orientation.
+  repeated bytes terms = 1;
+}

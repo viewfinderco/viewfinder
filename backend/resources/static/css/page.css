@@ -1,0 +1,58 @@
+#title {
+    font-weight: 400;
+    color: #222;
+    margin-top: 2%;
+}
+
+/* Styles for devices with > 480px horizontal resolution */
+@media screen and (min-width: 480px) {
+    #page-content {
+        position: relative;
+        width: 80%;
+        height: 100%;
+        margin: 0 auto;
+        overflow-x: scroll;
+        padding-right: 16pt;
+    } 
+}
+
+/* Styles for devices with < 480px horizontal resolution */
+@media only screen and (max-width: 480px) {
+    #layout {
+        position: static;
+    }
+    
+    #page-content {
+        padding: 10pt;
+    }
+    
+    #header { 
+        display: none;
+    }
+    
+    ul {
+        margin-left: 0;
+        padding-left: 0;
+        list-style-type: square;
+        list-style-position: inside;
+    }
+    
+    li ul {
+        margin-left: 5pt;
+        padding-left: 5pt;
+    }
+    
+    .h3 {
+        border-bottom: 2pt solid;
+    }
+}
+
+#page-content .left {
+    float: left;
+    left: 30%;
+}
+
+#page-content .right {
+    float: right;
+    right: 40%;
+}

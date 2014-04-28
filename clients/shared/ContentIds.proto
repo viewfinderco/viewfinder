@@ -1,0 +1,31 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "ContentIdsPB";
+
+message ActivityId {
+  optional int64 local_id = 1;
+  optional string server_id = 2;
+}
+
+message CommentId {
+  optional int64 local_id = 1;
+  optional string server_id = 2;
+}
+
+message EpisodeId {
+  optional int64 local_id = 1;
+  optional string server_id = 2;
+}
+
+message PhotoId {
+  optional int64 local_id = 1;
+  optional string server_id = 2;
+  optional string DEPRECATED_asset_key = 3;
+}
+
+message ViewpointId {
+  optional int64 local_id = 1;
+  optional string server_id = 2;
+}

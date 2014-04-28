@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/auth_verifyFragment"
+    >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/include_statusBar"
+      android:background="@drawable/square_modal"
+      android:paddingTop="24dp"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      android:paddingBottom="24dp">
+
+    <view
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:id="@+id/auth_confirmAccount"
+        android:text="@string/auth_confirmAccount"
+        style="@style/auth_title"
+        android:layout_centerHorizontal="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/auth_sentCode"
+        android:layout_below="@+id/auth_confirmAccount">
+
+      <view
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderTextView"
+          android:text="@string/auth_sentCodeTo"
+          android:layout_centerHorizontal="true"
+          android:id="@+id/auth_sentTo"/>
+
+      <view
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderTextView"
+          android:id="@+id/auth_verifyEmailOrMobile"
+          android:layout_below="@+id/auth_sentTo"
+          android:text="me@emailscrubbed.com"
+          android:layout_centerHorizontal="true"
+          android:textStyle="bold"
+          style="@style/auth_message"
+          android:textColor="@color/auth_sentTo"/>
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="co.viewfinder.widgets.ViewfinderEditText"
+        android:id="@+id/auth_verifyCode"
+        android:hint="@string/auth_verifyCode"
+        android:layout_below="@+id/auth_sentCode"
+        android:background="@drawable/signup_text_inputs_single"
+        style="@style/input"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:inputType="number"
+        android:imeOptions="actionDone"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/auth_verifyCode"
+        android:layout_marginTop="8dp"
+        android:id="@+id/auth_verifyButtons">
+
+      <view
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_exit"
+          android:background="@drawable/big_button_grey_selector"
+          android:text="@string/auth_exit"
+          style="@style/big_button"
+          android:clickable="true"
+          android:layout_weight="1"/>
+
+      <view
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_continue"
+          android:background="@drawable/big_button_green_selector"
+          style="@style/big_button"
+          android:text="@string/auth_continue"
+          android:layout_weight="2"
+          android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
+    <view
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="co.viewfinder.widgets.ViewfinderButton"
+        android:id="@+id/auth_sendAgain"
+        android:layout_below="@+id/auth_verifyButtons"
+        android:background="@android:color/transparent"
+        android:text="@string/auth_sendAgain"
+        style="@style/auth_message"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"/>
+
+  </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Viewfinder</title>
+<meta name = "viewport" content = "width=device-width, initial-scale=1, maximum-scale=1" />
+<link rel="stylesheet" type="text/css" href="{{ static_url('css/prelaunch.css') }}" />
+<script type="text/javascript" src="{{ static_url('js/third_party/jquery.js') }}"></script>
+<script type="text/javascript" src="//use.typekit.net/dup1ddu.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<script type="text/javascript">
+var dur = 600;
+var retina = window.devicePixelRatio > 1;
+var isMobile = /mobi/i.test(navigator.userAgent) && !(/iPad/i.test(navigator.userAgent));
+var styleSheet = isMobile ? "{{ static_url('css/prelaunch_mobile.css')}}" : "{{ static_url('css/prelaunch_full.css')}}";
+var imgurl = isMobile ? "{{ static_url('css/images/vf_prelaunchmobile_bkgd.jpg')}}" : "{{ static_url('css/images/vf_prelaunch_bkgd1.jpg')}}";
+if(retina) {
+    if(isMobile) imgurl = "{{ static_url('css/images/retina/vf_prelaunchmobile_2x_bkgd.jpg')}}";
+}
+var photo_ratio = isMobile ? (2/3) : (3/2);
+$('head').append('<link rel="stylesheet" type="text/css" href="' + styleSheet + '"/>');
+
+
+
+function init(){
+    if(retina) $("#layout").addClass("retina");
+    // inject photo and bind listener
+    $('#photo').append('<img src="'+imgurl+'" width="100%" class="layout_photo" />');
+    $('#photo img.layout_photo').load(function(){
+        //$("#main-inner").show();
+        $('#photo img.layout_photo').fadeIn(400, function(){
+            $("#logo").animate({ opacity:1 }, 600, function(){
+                $('#welcome-text').animate({ opacity:1 }, 600);
+                if(isMobile) {
+					$("#footer .mailto").html("CONTACT");
+					$("#footer").fadeIn(600);
+				}
+				else {
+					$("#footer").delay(400).fadeIn(600);
+				}
+            });
+        });
+        onResize();
+    });
+
+    // bind welcome text click
+	/*
+    $('#welcome-text').bind("click.show_field", function(e){
+        e.preventDefault();
+        if (!isMobile) {
+            $('#email-form').show().css({ opacity:0 }).animate({
+                opacity: 1,
+                left: 240
+            }, dur, showField);
+        }
+        $(this).animate({
+            opacity: 0,
+            left: isMobile ? 25 : 260
+        }, dur, function(){
+            $(this).remove();
+            if(isMobile) showField();
+        });
+        $('#logo-hilight').animate({ opacity:1 }, dur);
+    });
+    // bind form input
+    $('#form-input').keypress(function(e) {
+        if (e.which == 13) {
+            submitEmail();
+            return false;
+        }
+    });
+    $('#form-input').keyup(function (e) {
+        var form_input = $.trim($('#form-input').val());
+        if (form_input !== '') {
+            $('#form-arrow').addClass('orange');
+        } else {
+            $('#form-arrow').removeClass('orange');
+        }
+    });
+    $('#form-arrow').click(function(e){
+        e.preventDefault();
+        if(!$(this).hasClass("orange")) return;
+        submitEmail();
+    });
+	*/
+    if (isMobile) {
+        window.scrollTo(0, 1);
+    }
+}
+
+
+function onResize(){
+    var viewport_wid = $(window).width();
+    var viewport_hei = $(window).height();
+    // landscape
+    var photo_wid = viewport_wid;
+    var photo_hei = viewport_wid / photo_ratio;
+    var photo_left = 0;
+    var photo_top = -Math.abs(photo_hei-viewport_hei)/2;
+    // portrait
+    if ((viewport_wid/viewport_hei) < photo_ratio){
+        photo_hei = viewport_hei;
+        photo_wid = viewport_hei * photo_ratio;
+        photo_left = -Math.abs(photo_wid-viewport_wid)/2;
+        photo_top = 0;
+    }
+    $('#photo').css({ width:photo_wid+'px', height:photo_hei+'px', left:photo_left+'px', top:photo_top+'px' });
+    $("#footer").removeClass("narrow");
+    if(($("#footer-right").outerWidth(true) + $("#footer-left").outerWidth(true)) > $("#footer").outerWidth(true)){
+        $("#footer").addClass("narrow");
+    }
+
+}
+
+
+function showField() {
+    $('#form-field').animate({opacity: 1}, dur, function() {
+        if (isMobile) {
+            $('#form-input').focus(function () {
+                $("photo").animate({opacity: 0.5}, dur);
+            });
+            $('#form-input').blur(function () {
+                $("photo").animate({opacity : 1}, dur);
+            });
+        } else {
+            $('#form-input').focus();
+        }
+    });
+}
+
+
+function submitEmail(){
+    var form_input = $.trim($('#form-input').val());
+    if (form_input === '') {
+        showMessage('Please enter an email address.');
+        return false;
+    }
+    var success = function () {
+    showMessage('Thank you for your interest!');
+    }
+    var failure = function () {
+    $('#form-message').addClass('error');
+    showMessage('Our apologies, but an error occurred.');
+    }
+    $.ajax({
+    headers : {"X-Xsrftoken": getCookie('_xsrf')},
+    url: '/register_beta',
+    type: 'POST',
+    processData: false,
+    data: JSON.stringify({'email': form_input}),
+    contentType: 'application/json; charset=UTF-8',
+    dataType: 'json',
+    }).done(function(data) {
+    if (data.error) {
+    failure();
+    } else {
+    success();
+    }
+    }).fail(function(jqXHR, textStatus) {
+    failure();
+    });
+}
+
+
+function showMessage (message) {
+    $('#form-field').animate({opacity: 0}, dur, function () {
+        $('#form-message').html(message);
+        $('#form-message').animate({opacity: 1}, dur);
+    });
+}
+function getCookie(name) {
+    var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+    return r ? r[1] : undefined;
+}
+$(window).resize(onResize);
+
+</script>
+</head>
+<body>
+<div id="layout">
+    <div id="photo" class="noselect"></div>
+
+    <div id="main">
+        <div id="logo">
+            <div id="logo-hilight"></div>
+            <div id="logo-top"></div>
+            <div id="logo-bottom"></div>
+        </div>
+
+        <div id="welcome-text" class="noselect">
+            <div id="welcome-tagline">Start a Conversation</div><a href="https://www.viewfinder.co/app" target="_blank" id="welcome-button"></a>
+        </div>
+
+        <div id="email-form">
+            <div id="letterhead"></div>
+            <div id="form-message"></div>
+            <div id="form-field">
+                <div class="field-bkgd"></div>
+                <input id='form-input' autocorrect="off" autocapitalize="off" name="email" size="32" maxlength="256" type="text" placeholder="Enter your email address"/><div id="form-arrow"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="footer" style="display:none;">
+        <div id="footer-left">
+        <a href="/faq" class="faq first">FAQ</a>
+        <a href="/jobs" class="jobs">JOBS</a>
+        <a href="/privacy" class="privacy">PRIVACY</a>
+        <a href="/terms" class="terms">TERMS</a>
+        <a href="mailto:hello@emailscrubbed.com" class="mailto"><b>HELLO</b>@VIEWFINDER.<span class="orange">CO</span></a>
+        </div>
+        <div id="footer-right">
+        &copy; 2013 VIEWFINDER. ALL RIGHTS RESERVED.
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    init();
+</script>
+{% include "google_analytics.html" %}
+</body>
+</html>

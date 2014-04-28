@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# Author: Peter Mattis.
+#
+# A better "hg qqueue" command that provides easier switching between queues
+# and better listing of queues including the number of patches in each queue,
+# any associated code review issue and the first line of the first patch.
+
+if test "$#" -gt 0; then
+  if test "$*" = "--active" -o "$*" = "--delete" -o "$*" = "--purge"; then
+    hg qqueue "$@"
+    exit
+  fi
+  if test "$*" != "-l" -a "$*" != "--list"; then
+    hg qpop -a
+    hg qqueue "$@"
+    hg qpush -a
+    exit
+  fi
+fi
+
+# List the queues. Highlight the active queue and show a count of the
+# number of patches in each queue.
+hg_root=$(hg root)
+active=$(hg qqueue --active)
+for q in $(hg qqueue | cut -d' ' -f1); do
+  # Special handling to determine the "patches" queue directory.
+  test "$q" = "patches" && suffix="" || suffix="-$q"
+  patch_dir="${hg_root}/.hg/patches${suffix}"
+  first_patch=$(head -1 "${patch_dir}/series" 2>/dev/null)
+  first_line=$(awk '/^[^#]/ {print; exit}' "${patch_dir}/${first_patch}" 2>/dev/null)
+  if test "${#first_line}" -gt 60; then
+    first_line="${first_line:0:60}..."
+  fi
+  issue=$(awk -F= '/^ISSUE=/ {print $2; exit}' "${patch_dir}/${first_patch}" 2>/dev/null)
+  # Count the number of patches in the queue.
+  count=$(wc -l "${patch_dir}/series" 2>/dev/null)
+  count=$(echo ${count} | cut -d' ' -f1)
+  # Display an empty string for the patch count of empty queues.
+  test "${count}" = "0" && count=""
+  # Color the active queue in green and underline.
+  test "$q" = "${active}" && q="\x1B[4;32m${q}\x1B[0m"
+  printf "%3s  %b  %-6s  %s\n" "${count}" "$q" "${issue}" "${first_line}"
+done

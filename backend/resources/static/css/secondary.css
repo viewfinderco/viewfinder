@@ -1,0 +1,132 @@
+body.secondary { 
+    background:#f5f2ef; 
+}
+
+#page-content { 
+    width:100%;
+    padding:0;
+    overflow-y:scroll;
+    overflow-x:auto;
+}
+
+#page-content .last-modified {
+    font-size:14px;
+    width:100%;
+    clear:both;
+    margin:10px 0 0 0;
+}
+
+.secondary h1#title { 
+    color:#2b2320;
+    font-size:35px;
+    font-weight:normal;
+    margin:0; 
+    padding:0;
+}
+
+.secondary h3 {
+    font-size:22px;
+    font-weight:500;
+    margin-top:40px;
+	line-height:26px;
+}
+.secondary h4 {
+    font-size:15px;
+    font-weight:bold;
+    margin:0 0 3px 0;
+}
+
+.secondary p {
+    color:#786c6a;
+    font-size:15px;
+    margin:0 0 20px 0;
+    line-height:20px;
+}
+.secondary p.double {
+    font-size:30px;
+	line-height:34px;
+}
+.secondary p a {
+    color:#fa9214;
+    font-weight:bold;
+}
+.secondary .semidark {     
+    color:#2b2320;
+}
+
+
+.secondary-container { 
+    width:80%; 
+    position:relative;
+    margin:70px auto 50px; 
+}
+
+.secondary-container ul li { 
+    color:#786c6a;
+    line-height:20px;
+}
+
+.secondary p.faq-intro { margin-bottom:0; }
+
+ul.faq-toc { 
+	
+}
+
+ul.faq-toc a { 
+	color:#2b2320;
+	text-decoration:none;
+}
+
+ul.faq-toc a:hover { 
+	color:#fa9214;
+}
+
+ul.faq-list { 
+    list-style:none;
+    margin:0 0 50px 0; 
+    padding:0;
+    width:100%; 
+    float:left;
+}
+ul.faq-list ul li { 
+    list-style-type:disc;
+}
+ul.faq-list ul li ul li { 
+    list-style-type:circle;
+}
+ul.faq-list li.faq-item h3.question {
+    margin-top:40px;
+}
+
+.jobs h3 { color:#2b2320; }
+.jobs h3 a { color:#2b2320; text-decoration:none; }
+.jobs h3 a:hover { 	color:#fa9214; }
+.jobs-body { display:none; }
+
+/* Styles for devices with < 480px horizontal resolution */
+@media only screen and (max-width: 480px) {
+    #header { 
+        display:none; 
+        position:fixed;
+        z-index:1000;
+    }
+    #layout { overflow:auto; }
+    #page-content { overflow:auto; }
+    .h3 { border:none; }
+	.secondary-container { 
+		width:90%; margin-top:20px; 
+	}
+	.secondary h1#title { 
+		font-size:30px;
+	}
+
+	.secondary h3 {
+		font-size:20px;
+		line-height:24px;
+	}
+	.secondary h4 {
+		font-size:15px;
+	}
+}
+
+

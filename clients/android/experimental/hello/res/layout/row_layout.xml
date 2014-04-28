@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="100dp" >
+  <!-- Margin for this layout corresponds to the non-transparent parts of the event border -->
+  <ImageView
+    android:id="@+id/row_icon"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:layout_marginLeft="7dp"
+    android:layout_marginRight="7dp"
+    android:layout_marginTop="9dp"
+    android:layout_marginBottom="8dp"
+    android:background="#FFFFFF"
+    android:scaleType="centerCrop" />
+  <!-- Extra margins for the text view, we want space between the border and the text -->
+  <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="14dp"
+    android:layout_marginBottom="13dp">
+    <TextView
+      android:id="@+id/row_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@+id/row_label"
+      android:textColor="#FFFFFF"
+      android:layout_alignParentBottom="true"
+      />
+    <TextView
+      android:id="@+id/row_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/app_name"
+      android:textColor="#FFFFFF"
+      android:layout_above="@id/row_label"
+      />
+  </RelativeLayout>
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/event_border" >
+  </LinearLayout>
+</FrameLayout>

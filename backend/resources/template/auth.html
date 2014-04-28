@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Log in to Viewfinder{% end %}
+
+{% block content %}
+{% module Css('dialog.css') %}
+<div id="title" class="h3">Log in to your Viewfinder account</div>
+<div id="dialog-frame" class="clearfix">
+  <div id="dialog">
+    <div class="center">
+      Log on or sign up. 
+    </div>
+    <div class="separator"></div>
+    <div id="dialog-content" class="clearfix">
+      <div id="google-login">
+        <a href="/auth/google"><div class="badge"></div></a>
+      </div>
+      <div id="facebook-login">
+        <a href="/auth/facebook"><div class="badge"></div></a>
+      </div>
+    </div>
+    <div class="center dark">Use Google or Facebook to authenticate.</div>
+    <div class="separator"></div>
+    <div class="center small dark">Seriously, do you need another password?<br>Google and Facebook are useful for that stuff.</div>
+  </div>
+</div>
+{% end %}

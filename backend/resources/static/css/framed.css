@@ -1,0 +1,73 @@
+.picture {
+    -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.40);
+    -webkit-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.40);
+    box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.40);
+}
+
+.frame {
+    border-color: #222;
+    border-style: solid;
+    border-width: 6px;
+}
+
+.med-wide .frame {
+    border-width: 7px;
+}
+
+.wide .frame {
+    border-width: 8px;
+}
+
+.blocking {
+    margin: 8px;
+    background: #f0f0f0;
+}
+
+.med-wide .blocking {
+    margin: 10px;
+}
+
+.wide .blocking {
+    margin: 12px;
+}
+
+.glass {
+    border: 0px solid rgba(0,0,0,0.0);
+    border-radius: 5px 5px 2px 2px;
+    -webkit-box-shadow: 0px 2px 6px rgba(0,0,0,0.20), inset 0px 1px rgba(255,255,255,0.50), inset 0px 10px rgba(255,255,255,0.50), inset 0 10px 20px rgba(255,255,255,0.50), inset 0 -15px 30px rgba(0,0,0,0.20);
+    -moz-box-shadow: 0px 2px 6px rgba(0,0,0,0.20), inset 0px 1px rgba(255,255,255,0.50), inset 0px 10px rgba(255,255,255,0.50), inset 0 10px 20px rgba(255,255,255,0.50), inset 0 -15px 30px rgba(0,0,0,0.20);
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.20), inset 0px 1px rgba(255,255,255,0.50), inset 0px 10px rgba(255,255,255,0.50), inset 0 10px 20px rgba(255,255,255,0.50), inset 0 -15px 30px rgba(0,0,0,0.20);
+}
+
+.picture .detail {
+    position: absolute;
+    bottom: -22px;
+    display: block;
+}
+
+.picture .spacetime {
+    border: 1px solid #999;
+    left: 5px;
+}
+
+.picture .day-and-time {
+    border: 1px solid #999;
+    left: 5px;
+}
+
+.picture .num-photos {
+    border: 1px solid #999;
+    right: 5px;
+}
+
+.popup .spacetime {
+    position: absolute;
+    top: -14px;
+    left: 5px;
+    background: #f4f4f4;
+    border: 1px solid #999;
+    border-radius: 1px;
+    -moz-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+    box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.25);
+}

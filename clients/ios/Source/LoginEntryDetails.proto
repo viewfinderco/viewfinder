@@ -1,0 +1,36 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+message LoginEntryDetails {
+  enum LoginType {
+    SIGN_UP = 0;
+    LOG_IN = 1;
+    RESET = 2;
+    LINK = 3;
+    MERGE = 5;
+    CHANGE_PASSWORD = 4;
+    RESET_DEVICE_ID = 6;
+  }
+
+  enum IdentityType {
+    EMAIL = 0;
+    PHONE = 1;
+    PHONE_ONLY = 2;
+  }
+
+  optional string first = 1;
+  optional string last = 2;
+  optional string password = 7;
+  optional LoginType type = 4;
+  optional IdentityType identity_type = 5;
+  // The identity as entered by the user (for display purposes).
+  optional string identity_text = 3;
+  // The normalized identity key with Email: or Phone: prefix.
+  optional string identity_key = 6;
+  // The number of digits to expect in the access token.
+  optional int32 token_digits = 9;
+  // Set to true iff the account associated with the identity is being merged.
+  optional bool merging = 8;
+  // True iff confirmation code has been sent.
+  optional bool confirm_mode = 10;
+}

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="custom_rules">
+
+  <!-- ANT doesn't like absolute paths, so we can't just give it ~/ -->
+  <!-- Import the per-user settings first as duplicate variables don't get overwritten -->
+  <import file="../../../.viewfinder.AndroidSettings.xml" optional="true"/>
+  <import file="app_settings.xml" optional="false"/>
+
+  <!-- NDK extra args. for verbose logging, invoke ant with -Dndk.args=V=1 -->
+  <property name="ndk.args" value="" />
+
+  <!-- These are the only ones we support for now -->
+  <condition property="os.family" value="Darwin">
+    <os family="mac" />
+  </condition>
+
+  <condition property="os.family" value="Linux">
+    <os family="unix" />
+  </condition>
+
+  <target name="-pre-build">
+    <echo message="Running on ${os.family}"/>
+    <!-- Contruct the properties.xml file -->
+    <property name="resourcexml.absolute.dir" value="${resource.absolute.dir}/xml"/>
+    <property name="app.properties.filepath" value="${resourcexml.absolute.dir}/properties.xml"/>
+    <mkdir dir="${resourcexml.absolute.dir}"/>
+
+    <echo message="generating ${app.properties.filepath}"/>
+
+    <condition property="test_host" value="${local.test_host}" else="">
+      <isset property="local.test_host"/>
+    </condition>
+
+    <echoxml file="${app.properties.filepath}">
+      <app_settings>
+        <app_version value="${app.version}"/>
+        <build_target value="${build.target}"/>
+        <backend_production value="${backend.production}"/>
+        <unlink_at_startup value="${unlink_at_startup}"/>
+        <test_host value="${test_host}"/>
+      </app_settings>
+    </echoxml>
+  </target>
+
+  <!-- Proto generation happens every time for now. To skip, specify -Dproto.skip -->
+  <target name="genprotos" unless="proto.skip">
+    <!-- java_out is src/ since protoc outputs based on the package name (src/co/viewfinder/proto/) -->
+    <property name="protoc.executable" value="third_party_shared/bin/protoc.${os.family}"/>
+    <property name="proto.src.dir" value="${source.dir}/co/viewfinder/proto/"/>
+    <property name="proto.shared.dir" value="../shared/"/>
+    <property name="proto.shared.dir.absolute" location="${proto.shared.dir}"/>
+
+    <!-- Find all .proto files and build up paths. -->
+    <fileset dir="${proto.src.dir}" id="proto.src_files">
+       <include name="**/*.proto"/>
+    </fileset>
+    <fileset dir="${proto.shared.dir}" id="proto.shared_files">
+       <include name="**/*.proto"/>
+    </fileset>
+    <union id="proto.all_files">
+      <resources refid="proto.src_files"/>
+      <resources refid="proto.shared_files"/>
+    </union>
+
+    <!-- convert to relative paths -->
+    <pathconvert property="protosharedfiles" pathsep=" " refid="proto.shared_files">
+      <map from="${proto.shared.dir.absolute}" to="../shared"/>
+    </pathconvert>
+    <pathconvert property="protolocalfiles" pathsep=" " refid="proto.src_files">
+      <map from="${basedir}/" to=""/>
+    </pathconvert>
+
+    <!-- JAVA protobuf -->
+    <!-- Add ${protolocalfiles} as argument if we have protofiles in src/co/viewfinder/proto/ -->
+    <echo message="${protoc.executable} -I=${proto.src.dir} -I=${proto.shared.dir} --java_out=${gen.absolute.dir} ${protosharedfiles} ${protolocalfiles}"/>
+    <exec executable="${protoc.executable}" searchpath="true" failonerror="true">
+      <arg line="-I=${proto.src.dir}"/>
+      <arg line="-I=${proto.shared.dir}"/>
+      <arg line="--java_out=${gen.absolute.dir}"/>
+      <arg line="${protosharedfiles} ${protolocalfiles}"/>
+    </exec>
+
+  </target>
+
+  <target name="-pre-compile" depends="genprotos">
+    <mkdir dir="gen"/>
+    <!-- TODO: make NDK_DEBUG conditional on build type (extra arg: NDK_DEBUG=1)-->
+    <exec executable="ndk-build" failonerror="true">
+      <arg line="-j8 ${ndk.args} NDK_DEBUG=1 sharedprotos third_party_shared_phonenumbersprotos_gyp"/>
+    </exec>
+    <exec executable="ndk-build" failonerror="true">
+      <arg line="-j8 ${ndk.args} NDK_DEBUG=1"/>
+    </exec>
+  </target>
+
+  <target name="clean" depends="android_rules.clean">
+    <exec executable="ndk-build" failonerror="true">
+      <arg value="clean"/>
+    </exec>
+  </target>
+
+  <!-- Deploys a release build .apk to a locally attached device. -->
+  <target name="install-release-to-device">
+    <property name="apk-to-install" value="${out.absolute.dir}/${ant.project.name}-release.apk"/>
+    <antcall target="usb-install"/>
+  </target>
+
+  <!-- Deploys a debug build .apk to a locally attached device. -->
+  <target name="install-debug-to-device">
+    <property name="apk-to-install" value="${out.absolute.dir}/${ant.project.name}-debug.apk"/>
+    <antcall target="usb-install"/>
+  </target>
+
+  <!-- Copies the .apk to an ACTUAL device that is plugged into the USB.  -->
+  <target name="usb-install">
+    <echo>Installing ${apk-to-install}...</echo>
+    <exec executable="${adb}" failonerror="true">
+      <arg value="-d"/>
+      <arg value="install"/>
+      <arg value="-r"/>
+      <arg path="${apk-to-install}"/>
+    </exec>
+  </target>
+</project>

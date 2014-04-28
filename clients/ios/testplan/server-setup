@@ -1,0 +1,8 @@
+Start local viewfinder server:
+
+scripts/local-viewfinder-prep <user> --localdb_reset
+scripts/local-viewfinder
+
+You can access the administrative pages at:
+
+https://www.goviewfinder.com:8443/admin

@@ -1,0 +1,211 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+import "ActivityMetadata.proto";
+import "CommentMetadata.proto";
+import "ContactMetadata.proto";
+import "EpisodeMetadata.proto";
+import "InvalidateMetadata.proto";
+import "PhotoMetadata.proto";
+import "SubscriptionMetadata.proto";
+import "SystemMessage.proto";
+import "UserMetadata.proto";
+import "ViewpointMetadata.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "ServerPB";
+
+message Headers {
+  optional int32 version = 1;
+  optional int32 min_required_version = 2;
+  optional string op_id = 3;
+}
+
+message PhotoUpdate {
+  optional PhotoMetadata metadata = 1;
+  optional string tn_get_url = 2;
+  optional string tn_put_url = 3;
+  optional string med_get_url = 4;
+  optional string med_put_url = 5;
+  optional string full_get_url = 6;
+  optional string full_put_url = 7;
+  optional string orig_get_url = 8;
+  optional string orig_put_url = 9;
+}
+
+message AccountSettingsMetadata {
+  optional string email_alerts = 1;
+  repeated string storage_options = 2;
+}
+
+message AuthResponse {
+  optional Headers headers = 1;
+  optional int64 user_id = 2;
+  optional int64 device_id = 3;
+  optional int32 token_digits = 4;
+  optional string cookie = 5;
+}
+
+message ErrorResponse {
+  enum ErrorId {
+    OK = 0;
+    UNKNOWN = 1;
+    INVALID_JSON_REQUEST = 2;
+    NO_USER_ACCOUNT = 3;
+    UPDATE_PWD_NOT_CONFIRMED = 4;
+    ALREADY_REGISTERED = 5;
+    NETWORK_UNAVAILABLE = 6;
+  }
+  message Error {
+    optional string method = 1;
+    optional string text = 2;
+    optional ErrorId error_id = 3 [default=UNKNOWN];
+  }
+  optional Error error = 1;
+}
+
+message PingResponse {
+  optional SystemMessage message = 1;
+}
+
+message QueryContactsResponse {
+  optional Headers headers = 1;
+  optional string last_key = 2;
+  repeated ContactMetadata contacts = 3;
+}
+
+message QueryEpisodesResponse {
+  message Episode {
+    optional string last_key = 1;
+    optional EpisodeMetadata metadata = 2;
+    repeated PhotoUpdate photos = 3;
+  }
+
+  optional Headers headers = 1;
+  repeated Episode episodes = 2;
+}
+
+message QueryFollowedResponse {
+  optional Headers headers = 1;
+  optional string last_key = 2;
+  repeated ViewpointMetadata viewpoints = 3;
+}
+
+message QueryNotificationsResponse {
+  message InlineViewpoint {
+    optional string viewpoint_id = 1;
+    optional int64 update_seq = 2;
+    optional int64 viewed_seq = 3;
+  }
+
+  message InlineInvalidation {
+    optional ActivityMetadata activity = 1;
+    optional InlineViewpoint viewpoint = 2;
+    optional CommentMetadata comment = 3;
+    optional UsageMetadata usage = 4;
+  }
+
+  message Notification {
+    optional int64 notification_id = 1;
+    optional string name = 2;
+    optional int64 sender_id = 3;
+    optional string op_id = 7;
+    optional double timestamp = 4;
+    optional InvalidateMetadata invalidate = 5;
+    optional InlineInvalidation inline_invalidate = 6;
+  }
+
+  optional Headers headers = 1;
+  optional string last_key = 2;
+  repeated Notification notifications = 3;
+  optional double retry_after = 4;
+}
+
+message QueryUsersResponse {
+  optional Headers headers = 1;
+  repeated group User = 2 {
+    optional ContactMetadata contact = 3;
+    repeated ServerSubscriptionMetadata subscriptions = 4;
+    optional AccountSettingsMetadata account_settings = 5;
+    optional bool no_password = 7;
+  }
+}
+
+message QueryViewpointsResponse {
+  message FollowerMetadata {
+    optional int64 follower_id = 1;
+
+    optional bool label_removed = 2;
+    optional bool label_unrevivable = 3;
+  }
+
+  message Viewpoint {
+    optional string follower_last_key = 1;
+    optional string activity_last_key = 2;
+    optional string episode_last_key = 3;
+    optional string comment_last_key = 4;
+    optional ViewpointMetadata metadata = 5;
+    repeated FollowerMetadata followers = 6;
+    repeated ActivityMetadata activities = 7;
+    repeated EpisodeMetadata episodes = 8;
+    repeated CommentMetadata comments = 9;
+  }
+
+  optional Headers headers = 1;
+  repeated Viewpoint viewpoints = 2;
+}
+
+message ResolveContactsResponse {
+  optional Headers headers = 1;
+  repeated ContactMetadata contacts = 2;
+}
+
+message RsvpResponse {
+  message Rsvp {
+    optional string episode_id = 1;
+    repeated string labels = 2;
+  }
+
+  optional Headers headers = 1;
+  repeated Rsvp rsvps = 2;
+}
+
+message UploadContactsResponse {
+  optional Headers headers = 1;
+  repeated string contact_ids = 2;
+}
+
+message UploadEpisodeResponse {
+  optional Headers headers = 1;
+  repeated PhotoUpdate photos = 2;
+}
+
+// Operation id & timestamp.
+message OpHeaders {
+  optional int64 op_id = 1;
+  optional double op_timestamp = 2;
+}
+
+message ServerOperation {
+  optional OpHeaders headers = 1;
+
+  message RemovePhotos {
+    repeated ActivityMetadata.Episode episodes = 1;
+  }
+
+  // The upload_activity operation encapsulates the client-server communication
+  // to upload a locally generated activity (e.g. share_new, share_existing,
+  // add_followers, post_comment, etc).
+  optional int64 upload_activity = 2;
+  // The update_photo operation encapsulates the somewhat complex client-server
+  // communication necessary to fully upload a photo's metadata and assets. The
+  // state for the update_photo operation is kept track of in the PhotoMetadata
+  // proto.
+  optional int64 update_photo = 3;
+  optional RemovePhotos remove_photos = 4;
+  optional int64 update_viewpoint = 5;
+  // An array of priorities for future server operations that will be queued
+  // after this one finishes. For use in accurately tracking how many
+  // individual pieces of work are contained on the network queue.
+  repeated int32 stats = 6;
+}

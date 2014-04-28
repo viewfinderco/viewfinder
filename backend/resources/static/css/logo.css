@@ -1,0 +1,89 @@
+#logo {
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Helvetica Neue",Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 40pt;
+    font-weight: medium;
+}
+
+#logo .text {
+    color: #555;
+    float: left;
+}
+
+#logo .red {
+    color: #e2001e;
+}
+
+#logo .orange {
+    color: #f57527;
+}
+
+#logo .yellow {
+    color: #efd90f;
+}
+
+#logo .green {
+    color: #63cd23;
+}
+
+#logo .lavender {
+    color: #b3c2ff;
+}
+
+#logo .blue {
+    color: #3b88d4;
+}
+
+#logo .grape {
+    color: #8f4479;
+}
+
+#logo .circle {
+    position: relative;
+    font-size: 22pt;
+    float: left;
+}
+
+.circle .red {
+    position: absolute;
+    left: 4px;
+    top: 18px;
+}
+
+.circle .orange {
+    position: absolute;
+    left: 17px;
+    top: 35px;
+}
+
+.circle .yellow {
+    position: absolute;
+    left: 38px;
+    top: 35px;
+}
+
+.circle .green {
+    position: absolute;
+    left: 50px;
+    top: 18px;
+}
+
+.circle .lavender {
+    position: absolute;
+    left: 46px;
+    top: 1px;
+}
+
+.circle .blue {
+    position: absolute;
+    left: 28px;
+    top: -10px;
+}
+
+.circle .grape {
+    position: absolute;
+    left: 8px;
+    top: 1px;
+}
+

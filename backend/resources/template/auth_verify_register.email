@@ -1,0 +1,14 @@
+{% extends auth_verify_base.email %}
+
+{% block greeting %}Hello {{ user_name or '' }}{% end %}
+
+{% comment This intro is used with short tokens %}
+{% block intro %}Welcome to Viewfinder. Use this code to activate your account:{% end %}
+
+{% comment These intros are used for the old buttons %}
+{% block html_intro %}Welcome to Viewfinder. You are moments away from connecting with friends and family.{% end %}
+{% block text_intro %}Welcome to Viewfinder. You are moments away from connecting with friends and family. Follow this link to activate your account:{% end %}
+
+{% block button %}Activate&nbsp;Account{% end %}
+{% block legal %}By creating an account{% end %}
+{% block closing %}Disregard this email if you did not request a Viewfinder account.{% end %}

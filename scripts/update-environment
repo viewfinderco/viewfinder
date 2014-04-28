@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+ROOT=$(dirname $(dirname $0))
+# absolutize the path
+[[ $ROOT =~ ^/ ]] || ROOT=$PWD/$ROOT
+
+ENV_BASE=~/envs
+ENV=$ENV_BASE/vf-dev
+
+if [[ ! -d $ENV ]]; then
+    # Use the OS-provided version of python and not e.g. a macports
+    # or homebrew version.  On a mac, only the /usr/bin version has
+    # the magic CA certificate integration that we use in .hgrc
+    /usr/bin/python2.7 $ROOT/third_party/python-package/virtualenv.py --never-download $ENV
+fi
+
+export PIP_FIND_LINKS=file://$ROOT/third_party/python-package
+export PIP_NO_INDEX=true
+
+$ENV/bin/pip install -r $ROOT/scripts/prod-requirements.txt
+$ENV/bin/pip install -r $ROOT/scripts/dev-requirements.txt
+
+# Some packages we really want to uninstall. If the package has already been removed, pip fails, so switch mode.
+set +e
+$ENV/bin/pip uninstall -q -y gyp
+set -e
+
+# Create sitecustomize.py file, which sets default str encoding as UTF-8.
+# See http://blog.ianbicking.org/illusive-setdefaultencoding.html.
+echo "import sys; sys.setdefaultencoding('utf-8')" > $ENV/lib/python2.7/sitecustomize.py

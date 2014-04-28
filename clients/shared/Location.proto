@@ -1,0 +1,14 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "LocationPB";
+
+message Location {
+  // The latitude/longitude of the breadcrumb.
+  optional double latitude = 1;
+  optional double longitude = 2;
+  // The accuracy of the location measurement in meters.
+  optional double accuracy = 3;
+  optional double altitude = 4;
+}

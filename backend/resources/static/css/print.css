@@ -1,0 +1,29 @@
+.blocking {
+    margin: 5px;
+}
+
+.picture .detail {
+    position: absolute;
+    bottom: -22px;
+    display: block;
+}
+
+.picture .spacetime {
+    border: 1px solid #ddd;
+    left: 0px;
+}
+
+.picture .day-and-time {
+    border: 1px solid #ddd;
+    left: 0px;
+}
+
+.picture .num-photos {
+    border: 1px solid #ddd;
+    right: 0px;
+}
+
+.popup .spacetime {
+    position: absolute;
+    left: 5px;
+}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Viewfinder FAQs{% end %}
+{% block page_class %}secondary faq{% end %}
+
+{% block content %}
+{% module Css('button.css') %}
+{% module Css('page.css') %}
+{% module Css('secondary.css') %}
+
+<div id="page-content">
+    
+    <div class="secondary-container">
+        <h1 id="title">Frequently Asked Questions</h1>
+        <div class="separator"></div>
+
+		<h3>Welcome to Viewfinder. Below you will find answers to our most frequently asked questions.</h3>
+		
+		<ul class="faq-toc">
+			<li><a href="#">How do I sign up or create an account? </a></li>
+			<li><a href="#">How do I find my Library and Inbox?</a></li>
+			<li><a href="#">Why is Viewfinder asking to access my photos?</a></li>
+			<li><a href="#">How do I share photos/start a conversation?</a></li>
+			<li><a href="#">How do I add photos/people to a conversation?</a></li>
+			<li><a href="#">How do I add contacts?</a></li>
+			<li><a href="#">Can I share with a friend, even if I don't know if they're on Viewfinder yet?</a></li>
+			<li><a href="#">Can I unshare photos I posted in a Conversation?</a></li>
+			<li><a href="#">Can I export what's shared with me to iPhoto?</a></li>
+			<li><a href="#">Can I terminate my account?</a></li>
+			<li><a href="#">Hidden gems...</a></li>
+		</ul>
+		
+
+		
+		
+		
+		
+				
+				
+        <ul class="faq-list">
+            
+            <li class="faq-item">
+                <h3 class="question h3 semidark">How do I sign up or create an account?</h3>
+                <p>Signing up with Viewfinder through the iTunes App Store requires either your email address or mobile number and a password. After you've entered your information, we'll follow up with an email confirmation for security purposes. Now you're just moments away from enjoying Viewfinder&mdash;<a href="https://www.viewfinder.co/app" target="_blank">get started here</a>. <!--Need more convincing?  Take the tour here. -->
+				</p>
+            </li>
+
+            <li class="faq-item">
+                <h3 class="question h3 semidark">How do I find my Library and Inbox?</h3>
+                <p>From the Dashboard, swipe right-to-left to access your Library.  Swipe again and you’ll reach your Inbox.  The navigation bars at the top of the screen will guide you along.</p>
+            </li>
+            
+						
+            <li class="faq-item">
+                <h3 class="question h3 semidark">Why is Viewfinder asking to access my photos?</h3>
+                <p>Once you've signed into Viewfinder, we will ask to access your photo library in order to organize and manage your content. Your photos aren't going anywhere until you want to share them with friends, family, acquaintances, colleagues, classmates, or any other contacts.</p>
+			</li>
+
+
+            <li class="faq-item">
+                <h3 class="question h3 semidark">How do I start a Conversation or share a photo?</h3>
+                <p>To start a Conversation, tap the "compose" button in your menu bar. From there, you're able to add a title, add your friends, and add your photos.</p>
+            </li>
+			
+			
+            <li class="faq-item">
+                <h3 class="question h3 semidark">How do I add photos/people to a conversation?</h3>
+                <p>At the bottom of every Conversation you can add photos, comments, and people.</p>		
+            </li>
+
+
+            <li class="faq-item">
+                <h3 class="question h3 semidark">How do I add contacts?</h3>
+                <p>Click "contacts" from your Dashboard, and simply type in your friend's email or phone number to add them to your list of contacts. You can also import your Facebook, Gmail or iPhone's contacts. To make it easier for others to find you, add multiple emails and your mobile number in ‘My Info'.</p>
+            </li>
+
+						
+            <li class="faq-item">
+                <h3 class="question h3 semidark">Can I share with a friend, even if I don't know if they're on Viewfinder yet?</h3>
+                <p>You can share with friends who aren't on Viewfinder yet by adding their email to a Conversation. The friend will get an email with a browser link where he or she can comment, but not share photos yet. To share photos they'll have to <a href="https://www.viewfinder.co/app" target="_blank">get the app</a>.</p>
+            </li>
+
+						
+            <li class="faq-item">
+                <h3 class="question h3 semidark">Can I unshare photos I posted in a Conversation?</h3>
+                <p>You can unshare photos in a Conversation within 7 days of adding them. Simply select your photo, choose 'unshare,' and watch it disappear. Oversharers beware: on the 8th day it's forever.</p>
+            </li>
+						
+						
+
+            <li class="faq-item">
+                <h3 class="question h3 semidark">Can I export what's shared with me to my camera roll?</h3>
+                <p>If you want to save any photos from Viewfinder to your camera roll, simply select the photo and click "export" at the bottom of the screen.</p>
+            </li>
+						
+            <li class="faq-item">
+                <h3 class="question h3 semidark">Can I terminate my account?</h3>
+                <p>If you'd like to terminate your account, send an email to support@emailscrubbed.com and we'll delete your information from our database. We'd be sad to see you go, so please let us know if there's anything we can do to alleviate your current frustration.</p>
+            </li>
+
+            <li class="faq-item">
+                <h3 class="question h3 semidark">Hidden gems...</h3>
+                <p>From your Dashboard, press and hold your photo background to choose a new picture.</p> 
+                <p>From your Library or Inbox, press and hold the left side of the interface to activate the Dial.</p>
+                <p>From your Library or Inbox, press and hold the right side of the interface to engage the jump-scroll -- hold down and use your thumb to move quickly by date or time.</p>
+                <p>From your Library or Inbox, tap the three bars at the top of the screen to pop back to the top of your Library or Inbox.</p>
+                <p>Swipe two fingers up or down simultaneously to pop to the bottom or top of your Library or Inbox.</p>
+            </li>
+
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+
+<script type="text/javascript">
+$(".faq-toc li a").click(function(e){
+	e.preventDefault();
+	var toc_num = $(this).parent().index();
+	var faq_pos = $(".faq-list li.faq-item").eq(toc_num).position().top;
+	location.href = '#'+(toc_num+1);
+	if(/mobi/i.test(navigator.userAgent)){
+		window.scrollTo(0, faq_pos);
+	}
+	else {
+		$("body").animate({"scrollTop" : faq_pos+$("#header").height() });
+	}
+});
+if(window.location.hash){
+	var hash = parseInt(location.hash.substr(1));
+	if(!isNaN(hash)) {
+		var toc_num = Math.max(0, hash-1);
+		$(".faq-toc li").eq(toc_num).find("a").trigger("click");
+	}
+}	
+</script>
+{% include "google_analytics.html" %}
+
+{% end %}

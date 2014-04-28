@@ -1,0 +1,307 @@
+#layout {
+    min-height: 200px;
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+    min-width: 320px;
+}
+
+#main-inner {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+}
+
+#logo {
+    display: inline-block;
+    vertical-align: bottom;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 44px;
+    height: 44px;
+    background: url(images/vf_prelaunchmobile_mark.png) center center no-repeat;
+    opacity:0; 
+}
+
+.retina #logo {
+    background: url(images/retina/vf_prelaunchmobile_2x_mark.png) center center no-repeat;
+    background-size:42px 42px;
+}
+
+#logo-bottom {
+    display: none;
+}
+
+#logo-top {
+    display: none;
+}
+
+#logo-hilight {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 9px;
+    width: 26px;
+    height: 19px;
+    opacity: 0;
+    background: url(images/vf_prelaunchmobile_mark_orangearrow.png) top center no-repeat;
+}
+
+.retina #logo-hilight {
+    background: url(images/retina/vf_prelaunchmobile_2x_mark_orangearrow.png) center center no-repeat;
+    background-size:23.5px 18px;
+}
+
+
+#welcome-text {
+    position: absolute;
+    bottom: 105px;
+    left:25px;
+    line-height: 30px;
+    vertical-align: bottom;
+    text-shadow: 0 1px 1px rgba(15,15,15,0.5);
+    opacity:0;
+}
+
+#welcome-tagline {
+    vertical-align: bottom;
+    display: inline;
+    font-size: 30px;
+    float:left;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.75);
+    filter: dropshadow(color=#000000, offx=1, offy=1);
+}
+
+#welcome-button {
+    cursor: pointer;
+    position: relative;
+    height: 40px;
+    width: 135px;
+    /*background: url(images/vf_prelaunchmobile_button_off.png) center center no-repeat; */
+	background: url(images/Available_on_the_App_Store_Badge_US-UK_135x40_0824.png) center center no-repeat;
+    clear:both;
+    float:left;
+    margin:10px 0 0 0;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.retina #welcome-button {
+    background: url(images/retina/Available_on_the_App_Store_Badge_US-UK_135x40_0801.svg) center center no-repeat;
+    background-size:107px 44px;
+		margin-left:-15px;
+}
+
+
+#welcome-button span {
+    display: none;
+}
+
+#email-form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#letterhead {
+    position:absolute; left:80px; top:34px;
+    width: 120px;
+    height: 21px;
+    background: url(images/vf_prelaunchmobile_wordmark.png) center center no-repeat;
+}
+
+.retina #letterhead {
+    background: url(images/retina/vf_prelaunchmobile_2x_wordmark.png) center center no-repeat;
+    background-size:118px 20px;
+}
+
+
+#form-field {
+    position: absolute;
+    top: 85px;
+    left:25px;
+    opacity: 0;
+    width: 272px;
+    height: 41px;
+    /*
+    background: url(images/vf_prelaunchmobile_emailform.png) center center no-repeat;
+    */
+    line-height: 41px;
+		display:none;
+}
+
+/*
+.retina #form-field {
+    background: url(images/retina/vf_prelaunchmobile_2x_emailform.png) center center no-repeat;
+    background-size:270px 39px;
+}
+*/
+
+#form-field .field-bkgd {
+    position:absolute; top:0; left:0;
+    width: 100%;
+    height: 100%;
+    background:#000;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 5px;
+    border-top: 1px solid #333;
+    opacity:0.2;
+}
+
+#form-input {
+    font-family: 'proxima-nova-alt',Helvetica,Arial,sans-serif;
+    vertical-align: middle;
+    background: none;
+    border: none;
+    outline: none;
+    color: rgb(255,255,255);
+    font-size: 14px;
+    font-weight: normal;
+    width: 205px;
+    position:absolute; top:10px; left:20px;
+}
+
+#form-arrow {
+    position:absolute; right:10px; top:0;
+    cursor: pointer;
+    display:block;
+    height: 41px;
+    width: 17px;
+    background: url(images/vf_prelaunch_emailarrow_grey.png) center center no-repeat;
+}
+.retina #form-arrow {
+    background: url(images/retina/vf_prelaunchmobile_2x_emailarrow_white.png) center center no-repeat;
+    background-size:12px 16px;
+}
+
+#form-input::-webkit-input-placeholder {
+	color: rgb(15,15,15);
+}
+
+#form-arrow.orange {
+    background-image: url(images/vf_prelaunch_emailarrow_orange.png);
+}
+
+.retina #form-arrow.orange {
+    background: url(images/retina/vf_prelaunchmobile_2x_emailarrow_orange.png) center center no-repeat;
+    background-size:14px 18px;
+}
+
+#form-message {
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    top: 55px;
+    opacity: 0;
+    width: 272px;
+    height: 41px;
+    background: url(images/retina/vf_prelaunchmobile_2x_emailform_thankyou.png) center center no-repeat;
+    line-height: 41px;
+		display:none;
+}
+
+.retina #form-message {
+    background: url(images/retina/vf_prelaunchmobile_2x_emailform_thankyou.png) center center no-repeat;
+    background-size:268px 37px;
+}
+
+
+#form-message.error {
+    color: rgb(255, 146, 19);
+}
+
+
+#footer {
+    position: absolute;
+    bottom: 55px;
+    left: 0;
+    right: 0;
+    height:13px;
+    text-shadow: 0 1px 1px rgba(15,15,15,0.5);
+	width:100%;
+    display:none;
+}
+
+#footer-left {
+    float: left;
+    font-size: 13px;
+}
+
+#footer-left a, #footer-left a:visited, #footer-left a:active {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+		float:left;
+}
+#footer-left a.first {
+    margin-left: 25px;
+	
+}
+#footer-left a.privacy { 
+	margin-left:25px; 
+	clear:both; 
+}
+	
+#footer-right {
+	clear:both;
+    float: left;
+    font-size: 11px;
+    text-align: right;
+		margin-top:5px;
+		margin-left:25px;
+}
+#footer.narrow {
+    bottom:40px; height:30px;
+}
+#footer.narrow #footer-right {
+    clear:both;
+    float:left;
+    margin:10px 0 0 0;
+}
+
+
+
+@media (max-device-width: 768px) and (orientation: portrait) { }
+@media (max-device-width: 1024px) and (orientation: landscape) {
+
+	#logo {
+		top: 15px;
+	}
+
+	#letterhead {
+		top:24px;
+	}	
+	#welcome-text {
+		width:93%;
+		left:4%;
+		bottom: 70px;
+	}
+	#welcome-tagline {
+	}
+
+	#welcome-button {
+		clear:none;
+		float:right;
+		margin:-2px 0 0px 10px;
+	}
+	
+	
+	
+	#footer {
+		bottom: 35px;
+	}
+	
+	#footer-left a.privacy { 
+		margin-left:0; 
+		clear:none; 
+	}
+	
+	
+	
+}

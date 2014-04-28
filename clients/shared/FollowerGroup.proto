@@ -1,0 +1,25 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Spencer Kimball
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "FollowerGroupPB";
+
+message FollowerGroup {
+  // List of user ids in the follower group. Sorted in ascending order.
+  repeated int64 user_ids = 1;
+
+  // Information about each viewpoint followed by this group.
+  message ViewpointInfo {
+    optional int64 viewpoint_id = 1;
+    optional double earliest_timestamp = 2;
+    optional double latest_timestamp = 3;
+    optional double weight = 4;
+  }
+
+  // List of viewpoints, sorted by viewpoint id.
+  repeated ViewpointInfo viewpoints = 2;
+
+  // Group weight. Computed in-process and not persisted.
+  optional double weight = 3;
+}
+

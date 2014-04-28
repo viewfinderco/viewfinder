@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <RelativeLayout
+      android:id="@+id/convItem_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+  <co.viewfinder.widgets.ViewfinderTextView
+      android:id="@+id/convItem_formattedText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="@dimen/convItem_updateLeftMargin"
+      android:layout_marginRight="@dimen/convItem_conversationMargin"
+      android:layout_marginTop="@dimen/convItem_conversationSpacing"
+      android:paddingBottom="@dimen/convItem_conversationSpacing"
+      android:text="@android:string/untitled"
+      android:textColor="@color/conv_text"
+      />
+
+  </RelativeLayout>
+
+</FrameLayout>

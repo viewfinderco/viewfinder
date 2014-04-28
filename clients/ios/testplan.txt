@@ -1,0 +1,142 @@
+Basic Walk Through
+- iOS 5.0 Simulator
+- iOS 5.1 Simulator
+- iOS 6.0 Simulator
+- iOS 6.1 Simulator
+
+Camera
+- Flash on
+- Flash off
+- Flash auto
+- Back camera, portrait
+- Back camera, portrait upside-down
+- Back camera, landscape left
+- Back camera, landscape right
+- Front camera, portrait
+- Front camera, portrait upside-down
+- Front camera, landscape left
+- Front camera, landscape right
+ 
+Contacts
+- Import from gmail
+- Import from facebook
+- All vs Viewfinder
+- Autocomplete
+- Set nickname
+- Clear nickname
+- Conversations List
+ 
+Conversation View
+- Add comment
+- Add photo
+- Export photo
+- Unshare photo
+
+Event View
+- Share new
+- Share existing
+- Export photo
+- Remove photo
+
+Import Photos
+- Import Photos from Camera Roll
+- Import Photos from Synced Folder
+  - Verify duplicates are not created
+- Import Photos from iPhoto Event
+
+Photo Selection
+- Tapping photo toggles selection
+- Tapping title area toggles selection of group
+- Swipe left selects none
+- Swipe right selects all
+- Tapping reply-to-photo toggles selection of both thumbnail and original photo
+- Tapping cover photo toggles selection of both cover photo and the thumbnail
+
+Settings
+- Edit display name
+  - Verify done and dismiss buttons work
+  - Pan to dismiss keyboard, verify done and dismiss buttons disappear
+- Local storage
+  - Pan to dismiss
+
+ 
+Sidebar
+- Title bar
+  - User icon + user name if signed in
+  - Otherwise, "Sign Up and Start Sharing..."
+- Library
+- Conversations
+- Contacts
+- Settings
+- Restart Tutorial
+- Send Feedback
+
+Sign-up/Login
+
+Single Photo View
+- Share new
+- Share existing
+- Export photo
+- Remove photo
+- Unshare photo
+
+Summary (Library/Inbox) View
+- Viewfinder button
+- Sidebar button
+- Title scrolls to top, then toggles between views
+- Swipe to toggle between views
+  - Swipe while scrolling
+- Activate jump scroll via long press on right margin
+- Activate dial via long press on left margin
+  - Toggle between elastic and non-elastic dial
+
+
+Walk-through Script
+-------------------
+
+1. Remove any existing Viewfinder app.
+2. Go to Settings > General > Reset > Reset Location & Privacy.
+3. Install Viewfinder.
+4. Verify "Your Photos" page.
+5. Verify "Access Your Photos" alert.
+  a. Click "Don't Allow".
+    - Verify "Well this is boring..." page.
+    - Settings > Privacy > Photos > Viewfinder
+    - Re-enter app
+    - Verify "Library" appears.
+  b. Click "OK".
+    - Verify "Library" appears.
+6. Tap title to toggle between library and conversations.
+  a. Verify "Start a Conversation" page is displayed for conversations list.
+  b. Verify "Sign up and start sharing" button works.
+7. Tap sidebar button.
+8. Verify sidebar can be closed via dragging.
+9. Verify "Sign Up and Start Sharing..." at top of sidebar.
+  a. Tap "Sign Up and Start Sharing".
+  b. Verify "Create Account/I Have An Account" page appears.
+10. Tap "Send Feedback"
+  a. Verify feedback email template appears.
+11. Tap "Start Tutorial"
+  a. Verify tutorial is started.
+12. Tap "Settings"
+  a. Verify Settings page contains "Local Storage" and "Legalese" sections.
+  b. Verify "Local Storage" value can be changed.
+  c. Verify "Terms of Service" can be viewed.
+  d. Verify "Privacy Policy" can be viewed.
+13. Tap "Contacts"
+  a. Verify "Start a Conversation" appears.
+  b. Verify "Sign up and start sharing" button works.
+14. Navigate to Camera
+  a. Verify "Location Services Authorization" alert is displayed
+  b. Take a photo
+    - Flash on
+    - Flash off
+    - Flash auto
+    - Back camera, portrait
+    - Back camera, portrait upside-down
+    - Back camera, landscape left
+    - Back camera, landscape right
+    - Front camera, portrait
+    - Front camera, portrait upside-down
+    - Front camera, landscape left
+    - Front camera, landscape right

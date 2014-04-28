@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="match_parent" android:layout_height="match_parent">
+
+  <fragment class="com.hello.HelloActivity$MenuFragment"
+    android:id="@+id/titles" android:layout_weight="1"
+    android:layout_width="0px" android:layout_height="match_parent" />
+</LinearLayout>

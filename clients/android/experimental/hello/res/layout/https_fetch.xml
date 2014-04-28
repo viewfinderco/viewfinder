@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="URL:"
+    />
+<EditText android:id="@+id/url_box"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/url_box_default" />
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button android:id="@+id/ping_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Ping"
+      android:onClick="clickButton" />
+  </LinearLayout>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText android:id="@+id/email_box"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/email_box_default"
+      android:hint="email" />
+    <Button android:id="@+id/login_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Login"
+      android:onClick="clickButton" />
+  </LinearLayout>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText android:id="@+id/access_token_box"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:hint="access token" />
+    <Button android:id="@+id/verify_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Verify"
+      android:onClick="clickButton" />
+  </LinearLayout>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button android:id="@+id/query_notifications_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="QueryNotifications"
+      android:onClick="clickButton" />
+  </LinearLayout>
+</LinearLayout>

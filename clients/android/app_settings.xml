@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Viewfinder configuration. -->
+<!-- To override settings without submitting, copy this file to ~/.viewfinder.AndroidSettings.xml and edit.  -->
+<!-- .viewfinder.AndroidSettings.xml will take precedence over values defined in this file. -->
+<project name="app_settings">
+  <property name="app.version" value="0.0.2.dev"/>
+
+  <!-- True if talking to a production backend -->
+  <property name="backend.production" value="false"/>
+
+  <!-- Set to true to wipe the device at startup (debug builds only) -->
+  <property name="unlink_at_startup" value="false"/>
+
+  <!-- Custom DNS for the backend. go.viewfinder.com is used if empty. Ignored if backend.production=true -->
+  <property name="test_host" value="" />
+
+  <!-- Additional values set by ant: DO NOT SET THEM HERE -->
+  <!-- "build.target": build type (eg: debug) -->
+</project>

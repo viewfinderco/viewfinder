@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/contacts_background"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:paddingTop="-100dip">
+  <RelativeLayout android:id="@+id/contacts_title"
+                  style="@style/titlebar"
+                  android:padding="5dp"
+      >
+    <co.viewfinder.widgets.ViewfinderTextView
+        android:id="@+id/textView"
+        style="@style/titlebar_title"
+        android:text="@string/contacts_title" />
+    <ImageButton android:id="@+id/button_add_contact"
+                 android:background="@drawable/contacts_list_button_effect"
+                 android:paddingLeft="10.0dip"
+                 android:paddingRight="10.0dip"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/toolbar_add_contact"
+                 android:layout_alignParentTop="true"
+                 android:layout_alignParentRight="true" />
+  </RelativeLayout>
+  <ListView android:id="@+id/contacts_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null" android:dividerHeight="0.0dip"
+            android:layout_above="@+id/contacts_toggle"
+            android:layout_below="@+id/contacts_title" />
+  <RadioGroup android:orientation="horizontal"
+              android:id="@+id/contacts_toggle"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_centerHorizontal="true">
+    <RadioButton android:gravity="center"
+                 android:id="@+id/toggle_viewfinder_contacts"
+                 android:background="@drawable/single_photo_button_left_effect"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:button="@null" android:text="@string/contacts_list_toggle_viewfinder" android:layout_weight="1.0" android:textAlignment="center" />
+    <RadioButton android:gravity="center"
+                 android:id="@+id/toggle_all_contacts"
+                 android:background="@drawable/single_photo_button_right_effect"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:button="@null"
+                 android:text="@string/contacts_list_toggle_all"
+                 android:layout_weight="1.0"
+                 android:textAlignment="center" />
+  </RadioGroup>
+</RelativeLayout>

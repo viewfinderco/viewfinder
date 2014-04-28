@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Viewfinder</string>
+
+  <!-- Authentication -->
+  <string name="auth_back">Back</string>
+  <string name="auth_cancel">Cancel</string>
+  <string name="auth_changePassword">Change Password</string>
+  <string name="auth_confirmAccount">Confirm Your Account</string>
+  <string name="auth_continue">Continue</string>
+  <string name="auth_createAccount">Create Account</string>
+  <string name="auth_emailOrMobile">Email or Mobile</string>
+  <string name="auth_emailOrMobileRequired">Email or Mobile Required!</string>
+  <string name="auth_exit">Exit</string>
+  <string name="auth_first">First</string>
+  <string name="auth_forgotPassword">Forgot your password?</string>
+  <string name="auth_last">Last</string>
+  <string name="auth_login">Log In</string>
+  <string name="auth_mobile">Mobile Number</string>
+  <string name="auth_mobileRequired">Mobile Number Required!</string>
+  <string name="auth_newPassword">New Password</string>
+  <string name="auth_newPasswordRequired">New Password Required!</string>
+  <string name="auth_password">Password (min. 8 characters)</string>
+  <string name="auth_passwordRequired">Password Required!</string>
+  <string name="auth_reEnterPassword">Re-enter Password</string>
+  <string name="auth_reEnterPasswordRequired">Re-enter Password Required!</string>
+  <string name="auth_required">Required!</string>
+  <string name="auth_resetPassword">Reset Your Password</string>
+  <string name="auth_sendAgain">Send code again?</string>
+  <string name="auth_sentCodeTo">We\'ve sent a code to</string>
+  <string name="auth_signup">Sign Up</string>
+  <string name="auth_submit">Submit</string>
+  <string name="auth_verifyCode" formatted="false">Enter %d-Digit Code</string>
+  <string name="auth_welcome">Welcome to <b>Viewfinder.</b></string>
+
+  <!-- Compose -->
+  <string name="textView_compose">Compose</string>
+
+  <!-- Contacts -->
+  <string name="button_contacts">Contacts</string>
+  <string name="textView_contacts">Contacts</string>
+
+  <!-- Conversation -->
+  <string name="convPage_addMessageEditView">Add Message&#8230;</string>
+  <string name="convPage_headerTitle">Conversation</string>
+  <string name="convPage_footerSendButton">Send</string>
+
+  <!-- Inbox -->
+  <string name="textView_inbox">Inbox</string>
+  <string name="button_edit">Edit</string>
+
+  <!-- MyInfo -->
+  <string name="myinfo">My Info</string>
+  <string name="myinfo_addEmailOrMobile">Add Email or Mobile</string>
+  <string name="myinfo_done">Done</string>
+  <string name="myinfo_first">First name</string>
+  <string name="myinfo_last">Last name</string>
+  <string name="myinfo_oldPassword">Old Password</string>
+  <string name="myinfo_oldPasswordRequired">Old Password Required!</string>
+  <string name="myinfo_required">Required!</string>
+
+  <!-- MyPhotos -->
+  <string name="textView_myPhotos">My Photos</string>
+
+  <!-- Profile -->
+  <string name="textView_myInfo">My Info</string>
+  <string name="button_myInfo">My Info</string>
+  <string name="profile">Profile</string>
+  <string name="profile_close">Close</string>
+  <string name="profile_contacts">Contacts</string>
+  <string name="profile_convos">Conversations</string>
+  <string name="profile_photos">Photos</string>
+
+  <!-- Settings -->
+  <string name="emailAddress_support">support@emailscrubbed.com</string>
+  <string name="settings">Settings</string>
+  <string name="settings_crash">Crash</string>
+  <string name="settings_debugLogs">Debug Logs</string>
+  <string name="settings_development">Development</string>
+  <string name="settings_faq">FAQ</string>
+  <string name="settings_feedback">Send Feedback</string>
+  <string name="settings_help">Help</string>
+  <string name="settings_legalese">Legalese</string>
+  <string name="settings_privacy">Privacy Policy</string>
+  <string name="settings_terms">Terms of Service</string>
+  <string name="settings_testStatusBar">Test Status Bar</string>
+  <string name="settings_unlinkPhone">Unlink phone from Viewfinder</string>
+  <string name="settings_version" formatted="false">Version: %s</string>
+  <string name="settings_versionInfo" formatted="false">Viewfinder %s (%s)</string>
+  <string name="url_faq">https://www.viewfinder.co/faq</string>
+  <string name="url_termsOfService">https://www.viewfinder.co/terms</string>
+  <string name="url_privacyPolicy">https://www.viewfinder.co/privacy</string>
+  
+  <!-- Contacts -->
+  <string name="contacts_title">Contacts</string>
+  <string name="contact_info_title">Contact Info</string>
+  <string name="contacts_list_toggle_viewfinder">Viewfinder</string>
+  <string name="contacts_list_toggle_all">All</string>
+  <string name="contact_info_add_nickname">Add Nickname</string>
+
+  <!-- SinglePhoto -->
+  <string name="singlePhoto_unshare">Unshare</string>
+  <string name="singlePhoto_forward">Forward</string>
+  <string name="singlePhoto_export">Export</string>
+
+  <!-- TitleBar -->
+  <string name="textView_select">Select</string>
+
+  <!-- Tutorial -->
+  <string name="tutorial_dash">Real communication and <br/> unparalleled sharing.</string>
+  <string name="tutorial_inbox">Visually-rich conversations with the <br/> right people for each moment.</string>
+  <string name="tutorial_library">Easily share your organized photos.</string>
+
+  <!-- Errors -->
+  <string name="error_mismatchedPasswords" formatted="false">
+    Uh-oh!\n
+    The passwords you entered do not match.\n
+    OK
+  </string>
+  <string name="error_notValidCode" formatted="false">
+    That\'s Not A Valid Code\n
+    We need a %d digit access code and you gave us %d. Work with me.\n
+    OK
+  </string>
+  <string name="error_sentCode" formatted="false">
+    It\'s coming...\n
+    I sent a confirmation code %d seconds ago. Give it a few more seconds to arrive.\n
+    OK
+  </string>
+  <string name="error_server" formatted="false">
+    Uh-oh!\n
+    %s\n
+    OK
+  </string>
+
+</resources>

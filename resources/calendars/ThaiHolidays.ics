@@ -1,0 +1,1396 @@
+BEGIN:VCALENDAR
+PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+VERSION:2.0
+BEGIN:VTIMEZONE
+TZID:Asia/Bangkok
+X-LIC-LOCATION:Asia/Bangkok
+BEGIN:STANDARD
+TZOFFSETFROM:+0700
+TZOFFSETTO:+0700
+TZNAME:ICT
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T131910Z
+DTSTAMP:20111219T131910Z
+UID:06405551-386c-4d2b-9df2-da22740760ce
+SUMMARY:Makha Bucha
+DTSTART;VALUE=DATE:20120307
+DTEND;VALUE=DATE:20120308
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Magha Puja Day\n\nThai: วันม
+ าฆบูชา\n\nFairly widely celebrated as a public holiday\n\nDepe
+ nds on the lunar calendar\, difficult to nail down too far in advance. Ful
+ l moon of the 3rd lunar month\, called Makha. \n\nThis is in commemoration
+  of a spontaneous gathering of 1\,250 Sangha followers\, who came to Lord 
+ Buddha's first sermon 9 months after his first enlightenment. They were or
+ dinated by Lord Buddha and became enlightened themselves. Celebrated with 
+ candlelight processions three times clockwise around the temple\, usually 
+ in the evening. It is also a day when many people give alms like instant o
+ r canned foods and necessities like robes\, incense and candles to the mon
+ ks.
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T125419Z
+DTSTAMP:20111219T125419Z
+UID:0b2501a6-1ce9-48d1-843d-6975a9f06a02
+SUMMARY:Loy Kratong
+DTSTART;VALUE=DATE:20121128
+DTEND;VALUE=DATE:20121129
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n\nDepends on the lunar calendar\, difficu
+ lt to nail down too far in advance\; full moon in the 11th lunar month\, u
+ sually in November\, but it's not allowed to be the first 3 days of that m
+ onth.\n\nThai: วันลอยกระทง\n\nNot an official holida
+ y - people float small banana-wood or styrofoam \"kratongs\" on the water 
+ with a candle\, joss sticks and a coin to thank the river goddess and wash
+  away their sins of the past year. Apparently started in the 13th century 
+ in Sukhothai\; Nang Nopamas\, a royal consort of King Ramkhamhaeng (the fo
+ under of Sukhothai)\, made the first kratong as an offering to Mae Nam. Sh
+ e then set it afloat on one of the canals of the palace so that it would d
+ rift past her lover the king. The king was delighted with the creation\, a
+ nd thus was the origins of the saying that if two lovers set a kratong adr
+ ift and it stays afloat until out of sight\, their love will last forever.
+ 
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T130225Z
+DTSTAMP:20111219T130225Z
+UID:f6fbf087-e407-466b-a846-4a6084123d5f
+SUMMARY:HM The King's Birthday observed
+DTSTART;VALUE=DATE:20151207
+DTEND;VALUE=DATE:20151208
+DESCRIPTION:##@@T`@@@@@@@@@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T133430Z
+DTSTAMP:20111219T133430Z
+UID:afb64f40-ad3e-4819-bb59-3ea1a6936d12
+SUMMARY:Songkran
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20120413
+DTEND;VALUE=DATE:20120416
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n\nThai: วันสงกรานต\n\
+ nThai New Year\, 13-15 April every year\n\nMost important public holiday\,
+  substitution days given when any fall on a weekend (and probably an extra
+  day if they fall Tu-Th!)\n\nThe first day is known as วันมหา
+ สงกรานต์ (Wan Maha Songkran)\, the second as วันเ
+ นา (Wan Nao)\, and the third as วันเถลิงศก (Wan Th
+ aloeng Sok). The 14th is also observed as Family Day.
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T130500Z
+DTSTAMP:20111219T130500Z
+UID:f982d38e-d656-4695-be2d-8168bb144499
+SUMMARY:Children's Day
+EXDATE;VALUE=DATE:20120115
+RRULE:FREQ=YEARLY;BYDAY=2SA;BYMONTH=1
+DTSTART;VALUE=DATE:20120114
+DTEND;VALUE=DATE:20120115
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n\nThai: วันเด็กแห่ง
+ ชาติ\n\nNot at all a public holiday. \n\n2nd Saturday of January\,
+  can be celebrated on the following Monday as well (eg in schools) \n\nFea
+ sts and events organised by\, for and in celebration of children.
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123739Z
+DTSTAMP:20111219T123739Z
+UID:2555af7a-8531-4d72-a12b-871838f8584c
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120802
+DTEND;VALUE=DATE:20120803
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123645Z
+DTSTAMP:20111219T123645Z
+UID:bbc65650-1489-4f1f-8b45-750ce5f20d17
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120505
+DTEND;VALUE=DATE:20120506
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20091009T182520Z
+DTSTAMP:20091009T173300Z
+UID:914ec379-e9f3-4d61-8301-07607a552b4a
+SUMMARY:Substitution day for Songkran
+DTSTART;VALUE=DATE:20120416
+DTEND;VALUE=DATE:20120418
+DESCRIPTION:##@@T`@@@@@@@@@@@@@
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T130552Z
+DTSTAMP:20111219T130552Z
+UID:09231bec-e330-468c-9675-b3520036cde8
+SUMMARY:New Year's Eve
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20111231
+DTEND;VALUE=DATE:20120101
+DESCRIPTION:##@@DF@@@@@@@@@@@@@\n\nThai:  วันสิ้นปี (Wan
+  Sin Pi) or ลาทีปี 2552 (2009)\n\nPublic holiday
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20091009T182520Z
+DTSTAMP:20091009T173300Z
+UID:6c83a6c3-9169-43f7-bb0e-f6dec52fb4cd
+SUMMARY:Asanha Bucha
+DTSTART;VALUE=DATE:20120802
+DTEND;VALUE=DATE:20120803
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nalso Asalha/Asarnha Puja\, Asalabucha\n\n
+ Thai: วันอาสาฬหบูชา\n\nThe day before Khao Phans
+ a\; depends on the moon\, which month depends on the Buddhist Lunar calend
+ ar - very difficult to nail down too far in advance. The full moon the eig
+ hth lunar month\, called Asanha (or Asarnha\, Asalha\, Asalaha)\n\nCommemo
+ rates when the Lord Buddha gave his first sermon\, the Dhammacakkappavatta
+ na Sutta\, to five disciples\, introducing the middle way\, the noble eigh
+ t-fold path and the four noble truths. Celebrated with candlelight process
+ ions.
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123919Z
+DTSTAMP:20111219T123919Z
+UID:0be27fa3-5122-4f1d-96b0-d7526328ee09
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20121228
+DTEND;VALUE=DATE:20121229
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T131652Z
+DTSTAMP:20111219T131652Z
+UID:61843e19-f25f-45be-a9b6-9f32246e599f
+SUMMARY:Chinese New Year
+DTSTART;VALUE=DATE:20120123
+DTEND;VALUE=DATE:20120126
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n\nThai: วันตรุษจีน\n\
+ nNot widely observed as a public holiday\, but some businesses may be clos
+ ed\, especially in ethnic Chinese neighborhoods.\n\n2012: Dragon\n2013: Sn
+ ake\n2014: Horse\n2015: Goat\n\nDepends on the lunar calendar\, hard to na
+ il down in advance. It is on the second new moon day following Winter sols
+ tice (which is around December 22 in the nothern hemisphere)\n(Note in Tha
+ iland - TAT 1672)\n\nChinese people celebrate with a week of house-cleanin
+ g\, lion dances and fireworks. This is also the time for them to pay respe
+ ct to their ancestors.
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T133659Z
+DTSTAMP:20111219T133659Z
+UID:cfbadcdb-8ab1-4b55-aa90-c6cb91707702
+SUMMARY:Substitution for Coronation Day
+DTSTART;VALUE=DATE:20120507
+DTEND;VALUE=DATE:20120508
+DESCRIPTION:##F@T`@@@@@@@@@@@@@
+SEQUENCE:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20091009T182520Z
+DTSTAMP:20091009T173300Z
+UID:92226e36-735c-49c5-bc09-b114396927e4
+SUMMARY:Visakha Bucha Day
+DTSTART;VALUE=DATE:20120604
+DTEND;VALUE=DATE:20120605
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nalso Wisakha Puja\, Wesak/Vesak\n\nDepend
+ s on the lunar calendar\, difficult to nail down too far in advance\; the 
+ full moon of the sixth lunar month\, called Vesak\, Wesak or Vaisakha.\n\n
+ Fairly widely observed public holiday\n\nThai: วันวิสาขบ
+ ูชา\n\nThis day commemorates the birth\, the enlightment and the dea
+ th (entry into the nirvana) of Buddha. Temples through the country are cro
+ wded with people listening to sermons about Dharma (Buddha's teaching) and
+  in the evening there is a candlelit procession around the main building o
+ f the temple containing the Buddha statues.\n\nAlso observed as National T
+ ree Day.
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T125139Z
+DTSTAMP:20111219T125139Z
+UID:ced759c8-0727-4372-9731-56928176c7d1
+SUMMARY:Full Moon - \"Blue Moon\"!
+DTSTART;VALUE=DATE:20120831
+DTEND;VALUE=DATE:20120901
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T135333Z
+DTSTAMP:20111219T135333Z
+UID:830e65cf-18aa-45b4-b7a3-078222607c0c
+SUMMARY:Chinese Vegetarian festival
+DTSTART;VALUE=DATE:20121015
+DTEND;VALUE=DATE:20121024
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nNote - Difficult to determine dates in ad
+ vance - usually in October or November. (First nine days of the ninth Chin
+ ese lunar month?)\n\nThai: เทศกาลกินเจ\n\nNot at all
+  a public holiday\n\nHeld in the south of Thailand in the first days of th
+ e ninth Chinese lunar month (usually in late September or early October). 
+ Local residents of Chinese ancestry strictly observe a vegetarian diet for
+  9 days and other rules for the purpose of spiritual cleansing and merit m
+ aking. In Phuket\, there are also daily parades of people with  in a tranc
+ e state exhibiting extreme body piercings\, e.g. car parts\, TV antennas\,
+  large tools.\n\nhttp://www.phuketvegetarian.com/
+SEQUENCE:3
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134811Z
+DTSTAMP:20111219T134811Z
+UID:5cb09885-944e-4830-8dc3-ec96b3cc735c
+SUMMARY:HM The Queen's Birthday
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20120812
+DTEND;VALUE=DATE:20120813
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n12 August every year\n\nThai: วัน
+ แม่แห่งชาติ or \nวันเฉลิมพระ
+ ชนมพรรษา สมเด็จพระนางเจ้า
+ สิริกิติ์ พระบนมราชินีนาถ\
+ n\nBirthday of the Queen in 1932\, Somdet Phra Nang Chao Sirikit Phra Boro
+ mmarachininat\; a very important holiday\, most businesses close\, usually
+  no alcohol sold.\n\nAlso doubles as Mother's Day (วันแม่แ
+ ห่งชาติ\; Wan Mae Haeng Chat)\, as the Queen is the Mother o
+ f all Thais.
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123827Z
+DTSTAMP:20111219T123827Z
+UID:8384c2d5-30ba-482d-ad8e-1132e9aa0135
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120930
+DTEND;VALUE=DATE:20121001
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123622Z
+DTSTAMP:20111219T123622Z
+UID:b8f5f569-225c-4722-ac1d-d5e318fcb6a5
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120406
+DTEND;VALUE=DATE:20120407
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123559Z
+DTSTAMP:20111219T123559Z
+UID:cc94ac61-9f03-4664-859a-0b5a7a8fdeb0
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120307
+DTEND;VALUE=DATE:20120308
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T131253Z
+DTSTAMP:20111219T131253Z
+UID:80a9cf11-4997-4d11-b476-e83e0c281996
+SUMMARY:Thai Army Day
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20120118
+DTEND;VALUE=DATE:20120119
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nin Thai: วันกองทัพไ
+ ทย\n\nSometimes referred to \"Royal Armed Forces Day\"\, but the Army 
+ is the 800 pound gorilla that sits wherever it likes.\n\n18 January each y
+ ear - used to be 25th? Not at all a public holiday\; marked by military pa
+ rades and the King reviewing the army.\n\nCommemorates King Naraesuan the 
+ Great's victory in battle over the Burmese Prince\, Maha Uparaja\, on Janu
+ ary 18 1592 (or 1593?) during the Ayuthaya period\, and depicted by the 20
+ 06 Thai blockbuster \"The Legend of King Naresuan\".
+SEQUENCE:3
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T133026Z
+DTSTAMP:20111219T133026Z
+UID:0f79004e-0d8f-4b03-a5e5-fcafb42d26d6
+SUMMARY:Substitution day for Songkran
+DTSTART;VALUE=DATE:20140416
+DTEND;VALUE=DATE:20140417
+DESCRIPTION:##@@T`@@@@@@@@@@@@@
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134738Z
+DTSTAMP:20111219T134738Z
+UID:6c30da16-a467-4c81-9aa7-1e4ca1c609ad
+SUMMARY:Asanha Bucha (?)
+DTSTART;VALUE=DATE:20130722
+DTEND;VALUE=DATE:20130723
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nalso Asalha/Asarnha Puja\, Asalabucha\n\n
+ Thai: วันอาสาฬหบูชา\n\nThe day before Khao Phans
+ a\; depends on the moon\, which month depends on the Buddhist Lunar calend
+ ar - very difficult to nail down too far in advance. The full moon the eig
+ hth lunar month\, called Asanha (or Asarnha\, Asalha\, Asalaha)\n\nCommemo
+ rates when the Lord Buddha gave his first sermon\, the Dhammacakkappavatta
+ na Sutta\, to five disciples\, introducing the middle way\, the noble eigh
+ t-fold path and the four noble truths. Celebrated with candlelight process
+ ions.
+SEQUENCE:2
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134629Z
+DTSTAMP:20111219T134629Z
+UID:56e2de98-d2d9-4a33-9091-ff83e76e7d25
+SUMMARY:Khao Phansa (Buddhist Lent) (?)
+DTSTART;VALUE=DATE:20150731
+DTEND;VALUE=DATE:20150801
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nThe day after Asanha Bucha\, very difficu
+ lt to nail down too far in advance.\n\nThai: วันเข้าพร
+ รษา\n\nThe beginning of the Buddhist Lent\, or \"Khao Phansa\". Budd
+ hist monks remain within the temple grounds and do not venture out for a p
+ eriod of three months starting from the first day of the waning moon of th
+ e eighth lunar month (in July) to the fifteenth day of the waxing moon of 
+ the eleventh lunar month (in October). In former times\, this is done to p
+ revent monks from trampling upon rice paddies when they venture out to rec
+ eive offerings from the villagers. This period is translated as \"Lent\" b
+ ecause many lay people choose to be strict about keeping the precepts and 
+ even refrain from eating meat.
+SEQUENCE:2
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124528Z
+DTSTAMP:20111219T124528Z
+UID:6e84e465-cced-42a0-883d-57d05be19cad
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130226
+DTEND;VALUE=DATE:20130227
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T135429Z
+DTSTAMP:20111219T135429Z
+UID:917d6b7d-94cc-4e55-9c08-3f18b7a7954f
+SUMMARY:Chulalongkorn Day
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20121023
+DTEND;VALUE=DATE:20121024
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nThai: วันปิยมหารา
+ ช (Wan Piya Maharat)\n\n23 October every year\, public holiday.\n\nComme
+ morates the passing of King Chulalongkorn in 1910. Piya Maharat is a nickn
+ ame for the King\, meaning the beloved great king.
+SEQUENCE:3
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T125850Z
+DTSTAMP:20111219T125850Z
+UID:8a7c3078-4a30-41d0-880a-b749ad23a2ba
+SUMMARY:Bang Saen Races
+DTSTART;VALUE=DATE:20120201
+DTEND;VALUE=DATE:20120206
+DESCRIPTION:##@@DT@@@@@@@R@@@@@\n\nBang Saen Speed Festival\, Chonburi\nUs
+ ually in November\nrescheduled because of the 2011 flood\n
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T130419Z
+DTSTAMP:20111219T130419Z
+UID:af23c670-7e65-4336-9e16-9603ef6e6d17
+SUMMARY:Constitution Day
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20121210
+DTEND;VALUE=DATE:20121211
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n10 October every year\nThai: วันร
+ ัฐธรรมนูญ ( Wan Rattha Thammanun)\n\nIn 1932 the  monarc
+ hy was converted from absolute to constitutional\; this was the first step
+  towards democracy in Thailand. Some would say some further steps are need
+ ed\, but even when a coup suspends the actual Constitution\, this is is st
+ ill celebrated\, albeit perhaps a bit quietly\, as a public holiday.\n
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20091009T182520Z
+DTSTAMP:20091009T173300Z
+UID:173d5881-da2f-404d-948c-c469ff036b6e
+SUMMARY:Chinese New Year
+DTSTART;VALUE=DATE:20130210
+DTEND;VALUE=DATE:20130213
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n\nThai: วันตรุษจีน\n\
+ n2010: Tiger\n2011: Rabbit\n2012: Dragon\n2013:Snake\n\nNot widely observe
+ d as a public holiday\, but some businesses may be closed\, especially in 
+ ethnic Chinese neighborhoods.\n\nDepends on the lunar calendar\, hard to n
+ ail down in advance. It is on the second new moon day following Winter sol
+ stice (which is around December 22 in the nothern hemisphere)\n\nChinese p
+ eople celebrate with a week of house-cleaning\, lion dances and fireworks.
+  This is also the time for them to pay respect to their ancestors.
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T135516Z
+DTSTAMP:20111219T135516Z
+UID:c702b97a-cde2-451a-9d52-aa89eba18536
+SUMMARY:Substitution for Constitution Day
+DTSTART;VALUE=DATE:20161212
+DTEND;VALUE=DATE:20161213
+DESCRIPTION:##F@T`@@@@@@@@@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123528Z
+DTSTAMP:20111219T123528Z
+UID:c73a31fe-8b43-459b-99b3-6152d71ff443
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120207
+DTEND;VALUE=DATE:20120208
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124504Z
+DTSTAMP:20111219T124504Z
+UID:89ef70a1-b61f-43d3-90e7-a7de3e9524c9
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130127
+DTEND;VALUE=DATE:20130128
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T130021Z
+DTSTAMP:20111219T130021Z
+UID:f22fce83-8dde-4bf2-93b9-90e59be96510
+SUMMARY:HM The King's Birthday
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20121205
+DTEND;VALUE=DATE:20121206
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n5 December every year\nThai: วันเ
+ ฉลิมพระชนม์พรรษา\, or วันพ่อ
+ แห่งชาติ \nor even: วันเฉลิมพระช
+ นมพรรษาพระบาทสมเด็จพระเจ
+ ้าอยู่หัว (Wan Chaloem Phra Chonmaphansa Phrabat Somdet 
+ Phra Chao Yuhua)\n\nBirthday of King Bhumibol Adulyadej\, or Rama IX in 19
+ 27\; a very important holiday\, most businesses close\, usually no alcohol
+  sold.\nDoes triple duty as Father's Day\, as the King is the father of al
+ l Thais and also Thailand's National Day.\n\nIf it falls on a weekend\, ma
+ ny workplaces will close on the following Monday.
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T130509Z
+DTSTAMP:20111219T130509Z
+UID:63b3fa69-9579-4818-bba0-5d1dd18f113c
+SUMMARY:[Children's Day observed]
+DTSTART;VALUE=DATE:20120116
+DTEND;VALUE=DATE:20120117
+DESCRIPTION:##@@D@@@@@tbpB@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134742Z
+DTSTAMP:20111219T134742Z
+UID:09427f91-7589-48f0-8708-0d871493a414
+SUMMARY:Asanha Bucha (?)
+DTSTART;VALUE=DATE:20140711
+DTEND;VALUE=DATE:20140712
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nalso Asalha/Asarnha Puja\, Asalabucha\n\n
+ Thai: วันอาสาฬหบูชา\n\nThe day before Khao Phans
+ a\; depends on the moon\, which month depends on the Buddhist Lunar calend
+ ar - very difficult to nail down too far in advance. The full moon the eig
+ hth lunar month\, called Asanha (or Asarnha\, Asalha\, Asalaha)\n\nCommemo
+ rates when the Lord Buddha gave his first sermon\, the Dhammacakkappavatta
+ na Sutta\, to five disciples\, introducing the middle way\, the noble eigh
+ t-fold path and the four noble truths. Celebrated with candlelight process
+ ions.
+SEQUENCE:1
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20091009T182520Z
+DTSTAMP:20091009T173300Z
+UID:534a146c-4eec-4517-ae97-228d36089814
+SUMMARY:Substitution for Chakri Day
+DTSTART;VALUE=DATE:20130408
+DTEND;VALUE=DATE:20130409
+DESCRIPTION:##@@T`@@@@@@@@@@@@@
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123900Z
+DTSTAMP:20111219T123900Z
+UID:8e0fb483-4263-441a-8262-2c8f1ec20876
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20121128
+DTEND;VALUE=DATE:20121129
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134646Z
+DTSTAMP:20111219T134646Z
+UID:91e8afeb-6779-4e72-93b0-59a616287e2e
+SUMMARY:Khao Phansa (Buddhist Lent) (?)
+DTSTART;VALUE=DATE:20130723
+DTEND;VALUE=DATE:20130724
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nThe day after Asaha Bucha\, very difficul
+ t to nail down too far in advance.\n\nThai: วันเข้าพรร
+ ษา\n\nThe beginning of the Buddhist Lent\, or \"Khao Phansa\". Buddhis
+ t monks remain within the temple grounds and do not venture out for a peri
+ od of three months starting from the first day of the waning moon of the e
+ ighth lunar month (in July) to the fifteenth day of the waxing moon of the
+  eleventh lunar month (in October). In former times\, this is done to prev
+ ent monks from trampling upon rice paddies when they venture out to receiv
+ e offerings from the villagers. This period is translated as \"Lent\" beca
+ use many lay people choose to be strict about keeping the precepts and eve
+ n refrain from eating meat.
+SEQUENCE:1
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T130614Z
+DTSTAMP:20111219T130614Z
+UID:bdd24743-2986-49ef-9905-6ccd08b9d526
+SUMMARY:New Year's Day
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE:20120101
+DTEND;VALUE=DATE:20120102
+DESCRIPTION:##@@DF@@@@@@@@@@@@@\n\nThai:  วันขึ้นปีใ
+ หม่  (Wan Khuen Pi Mai)\n\n\"Sawatdee Pee Mai\"\n\nPublic holiday
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134114Z
+DTSTAMP:20111219T134114Z
+UID:e4f4927c-954c-494b-b2b7-813ba4d25f72
+SUMMARY:Visakha Bucha Day (?)
+DTSTART;VALUE=DATE:20140514
+DTEND;VALUE=DATE:20140515
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nalso Wisakha Puja\, Wesak/Vesak\n\nDepend
+ s on the lunar calendar\, difficult to nail down too far in advance\; the 
+ full moon of the sixth lunar month\, called Vesak\, Wesak or Vaisakha.\n\n
+ Fairly widely observed public holiday\n\nThai: วันวิสาขบ
+ ูชา\n\nThis day commemorates the birth\, the enlightment and the dea
+ th (entry into the nirvana) of Buddha. Temples through the country are cro
+ wded with people listening to sermons about Dharma (Buddha's teaching) and
+  in the evening there is a candlelit procession around the main building o
+ f the temple containing the Buddha statues.\n\nAlso observed as National T
+ ree Day.
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20091009T182520Z
+DTSTAMP:20091009T173300Z
+UID:48684d10-d667-45fb-b6ff-57aac7c04637
+SUMMARY:Awk Phansa
+DTSTART;VALUE=DATE:20121030
+DTEND;VALUE=DATE:20121031
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Ok Paansa\nThai: วันปวาร
+ ณา ออกพรรษา\n\nEnd of \"Buddhist Lent\"\, which began 
+ with Khao Phansa\; depends on the lunar calendar\, difficult to nail down 
+ far in advance. \n\nThe monks prepare to leave their temples the next day 
+ and travel throughout the countryside by shaving their heads and eyebrows\
+ , and donning fresh robes\, offered in ceremonies the following day.\n\nAp
+ parently the \"Naga fireballs\" can be seen coming out of the Mekong River
+  about this time\, see Wikipedia or\nhttp://www.thaifolk.com/doc/literate/
+ payanak/payanak_e.htm\nfor more information.\n
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123703Z
+DTSTAMP:20111219T123703Z
+UID:1aa9e6b7-14ee-41da-a781-1c3fa8678a7f
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120604
+DTEND;VALUE=DATE:20120605
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123457Z
+DTSTAMP:20111219T123457Z
+UID:eab22542-336f-481b-92fa-925b30d287cd
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120108
+DTEND;VALUE=DATE:20120109
+DESCRIPTION:##@@DM@@@@tvH]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134854Z
+DTSTAMP:20111219T134854Z
+UID:7b6d917a-296e-4186-854c-42bbb7747737
+SUMMARY:Awk Phansa (?)
+DTSTART;VALUE=DATE:20131019
+DTEND;VALUE=DATE:20131020
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Ok Paansa\nThai: วันปวาร
+ ณา ออกพรรษา\n\nEnd of \"Buddhist Lent\"\, which began 
+ with Khao Phansa\; depends on the lunar calendar\, difficult to nail down 
+ far in advance. \n\nThe monks prepare to leave their temples the next day 
+ and travel throughout the countryside by shaving their heads and eyebrows\
+ , and donning fresh robes\, offered in ceremonies the following day.\n\nAp
+ parently the \"Naga fireballs\" can be seen coming out of the Mekong River
+  about this time\, see Wikipedia or\nhttp://www.thaifolk.com/doc/literate/
+ payanak/payanak_e.htm\nfor more information.\n
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T123722Z
+DTSTAMP:20111219T123722Z
+UID:cd4bda43-e368-4485-8d0a-6438119ccbe9
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20120703
+DTEND;VALUE=DATE:20120704
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134911Z
+DTSTAMP:20111219T134911Z
+UID:9f2fac8b-77f3-481a-9024-d802fd8e7a28
+SUMMARY:Awk Phansa (?)
+DTSTART;VALUE=DATE:20141008
+DTEND;VALUE=DATE:20141009
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Ok Paansa\nThai: วันปวาร
+ ณา ออกพรรษา\n\nEnd of \"Buddhist Lent\"\, which began 
+ with Khao Phansa\; depends on the lunar calendar\, difficult to nail down 
+ far in advance. \n\nThe monks prepare to leave their temples the next day 
+ and travel throughout the countryside by shaving their heads and eyebrows\
+ , and donning fresh robes\, offered in ceremonies the following day.\n\nAp
+ parently the \"Naga fireballs\" can be seen coming out of the Mekong River
+  about this time\, see Wikipedia or\nhttp://www.thaifolk.com/doc/literate/
+ payanak/payanak_e.htm\nfor more information.\n
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T133827Z
+DTSTAMP:20111219T133827Z
+UID:6f5944ff-2b76-4d20-a27c-7f101ae2f75d
+SUMMARY:Royal Ploughing Ceremony Day
+DTSTART;VALUE=DATE:20120509
+DTEND;VALUE=DATE:20120510
+DESCRIPTION:##F@T`@@@@@@@@@@@@@\n\nThe day is selected by Brahmin Priests 
+ according to their astrological calendars\, so VERY difficult to nail down
+  far in advance. (Note in Thailand  TAT 1672)\n\nIn Thai: วันพื
+ ชมงคล (Wan Phuetcha Mongkhon)\nor วันพระราชพ
+ ิธีพืชมงคลจรดพระนังคัลแร
+ กนาขวัญ (Wan Phra Ratcha Phithi Phuetcha Monkhon Lae Charot 
+ Phra Nangkhan Raek Na Khwan\n\nNot widely observed as a public holiday\, e
+ xcept by government offices.  Also observed as Farmer's Day.\n\nThis is an
+  ancient Brahman ceremony which celebrates the beginning of the rice plant
+ ing season\, and thus is important for the many rice farmers of Thailand. 
+  HM King Bhumibol presides over ceremonies held in front of Wat Phrakaew a
+ t Sanam Luang\, in which Brahmin priests bless seeds and make symbolic fur
+ rows using a plough pulled by buffalos. Once the ceremony is over\, the au
+ dience runs to the furrows to get the blessed seeds\, which are supposed t
+ o bring good harvests.
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134032Z
+DTSTAMP:20111219T134032Z
+UID:37b80bac-b8ad-4be5-985b-164b810cb3f5
+SUMMARY:Visakha Bucha Day (?)
+DTSTART;VALUE=DATE:20130525
+DTEND;VALUE=DATE:20130526
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nalso Wisakha Puja\, Wesak/Vesak\n\nDepend
+ s on the lunar calendar\, difficult to nail down too far in advance\; the 
+ full moon of the sixth lunar month\, called Vesak\, Wesak or Vaisakha.\n\n
+ Fairly widely observed public holiday\n\nThai: วันวิสาขบ
+ ูชา\n\nThis day commemorates the birth\, the enlightment and the dea
+ th (entry into the nirvana) of Buddha. Temples through the country are cro
+ wded with people listening to sermons about Dharma (Buddha's teaching) and
+  in the evening there is a candlelit procession around the main building o
+ f the temple containing the Buddha statues.\n\nAlso observed as National T
+ ree Day.
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20091009T182520Z
+DTSTAMP:20091009T173300Z
+UID:7d4076ee-c9bf-4c5f-a6a5-352bff4a28b2
+SUMMARY:Khao Phansa (Buddhist Lent)
+DTSTART;VALUE=DATE:20120803
+DTEND;VALUE=DATE:20120804
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nThe day after Asanha Bucha\, very difficu
+ lt to nail down too far in advance.\n\nThai: วันเข้าพร
+ รษา\n\nThe beginning of the Buddhist Lent\, or \"Khao Phansa\". Budd
+ hist monks remain within the temple grounds and do not venture out for a p
+ eriod of three months starting from the first day of the waning moon of th
+ e eighth lunar month (in July) to the fifteenth day of the waxing moon of 
+ the eleventh lunar month (in October). In former times\, this is done to p
+ revent monks from trampling upon rice paddies when they venture out to rec
+ eive offerings from the villagers. This period is translated as \"Lent\" b
+ ecause many lay people choose to be strict about keeping the precepts and 
+ even refrain from eating meat.
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T125610Z
+DTSTAMP:20111219T125610Z
+UID:8219a8bb-8ec3-44f1-aa06-26afca1ad169
+SUMMARY:Loy Kratong (?)
+DTSTART;VALUE=DATE:20131117
+DTEND;VALUE=DATE:20131118
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n\nDepends on the lunar calendar\, difficu
+ lt to nail down too far in advance\; full moon in the 11th lunar month\, u
+ sually in November\, but it's not allowed to be the first 3 days of that m
+ onth.\n\nThai: วันลอยกระทง\n\nNot an official holida
+ y - people float small banana-wood or styrofoam \"kratongs\" on the water 
+ with a candle\, joss sticks and a coin to thank the river goddess and wash
+  away their sins of the past year. Apparently started in the 13th century 
+ in Sukhothai\; Nang Nopamas\, a royal consort of King Ramkhamhaeng (the fo
+ under of Sukhothai)\, made the first kratong as an offering to Mae Nam. Sh
+ e then set it afloat on one of the canals of the palace so that it would d
+ rift past her lover the king. The king was delighted with the creation\, a
+ nd thus was the origins of the saying that if two lovers set a kratong adr
+ ift and it stays afloat until out of sight\, their love will last forever.
+ 
+SEQUENCE:1
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20070926T025219Z
+LAST-MODIFIED:20111219T133340Z
+DTSTAMP:20111219T133340Z
+UID:2abe8793-e14a-4ac6-9e6e-6739a7e03b90
+SUMMARY:Chakri Day
+PRIORITY:0
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE;TZID=Asia/Bangkok:20120406
+DTEND;VALUE=DATE;TZID=Asia/Bangkok:20120407
+CLASS:PUBLIC
+DESCRIPTION:##@@\\`@@@@@@@@@@@@@\n\n6 April every year\n\nThai: วัน
+ จักรี or วันที่ระลึกมหาจักร
+ ีบรมราชวงศ์\n\nFairly widely observed as a public ho
+ liday\n\nCommemorates King Rama I\, the founder of the current Chakri dyna
+ sty\, of which the current King is the ninth. He moved the capital from Th
+ onburi to Bangkok\, retrieved Buddhist texts that were lost during the occ
+ upation of the former capital Ayuthaya by the Burmese\, and wrote the law 
+ codex the Book of Three Seals.
+TRANSP:TRANSPARENT
+X-MOZ-GENERATION:3
+SEQUENCE:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20071004T034052Z
+LAST-MODIFIED:20111219T140601Z
+DTSTAMP:20111219T140601Z
+UID:2d5fbe2e-5b20-4a9f-ae92-376c20a83281
+SUMMARY:Teacher's Day
+PRIORITY:0
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE;TZID=Asia/Bangkok:20120116
+DTEND;VALUE=DATE;TZID=Asia/Bangkok:20120117
+CLASS:PUBLIC
+DESCRIPTION:##@@\\`@@@@@@@@@@@@@\nNot at all a public holiday\, but many T
+ hai public schools close. Events are organised to show respect for teacher
+ s.\n\nThai: วันครู\n\nJanuary 16th every year
+TRANSP:TRANSPARENT
+X-MOZ-GENERATION:7
+SEQUENCE:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20070926T025629Z
+LAST-MODIFIED:20111219T133510Z
+DTSTAMP:20111219T133510Z
+UID:2e690675-d92b-4977-b019-9318cc1fd0fa
+SUMMARY:Labor Day
+PRIORITY:0
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE;TZID=Asia/Bangkok:20120501
+DTEND;VALUE=DATE;TZID=Asia/Bangkok:20120502
+CLASS:PUBLIC
+DESCRIPTION:##@@\\`@@@@@@@@@@@@@\nIn thoery all businesses required to clo
+ se (except for schools?)\nThai: วันแรงงานแห่งช
+ าติ
+TRANSP:TRANSPARENT
+X-MOZ-GENERATION:3
+SEQUENCE:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20070926T025652Z
+LAST-MODIFIED:20111219T133545Z
+DTSTAMP:20111219T133545Z
+UID:540d55b4-3161-425a-98f3-afa21a646b4c
+SUMMARY:Coronation Day
+PRIORITY:0
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE;TZID=Asia/Bangkok:20120505
+DTEND;VALUE=DATE;TZID=Asia/Bangkok:20120506
+CLASS:PUBLIC
+DESCRIPTION:##@@L@@@@@@@@@@@@@@\nThai: วันฉัตรมงคล \
+ n\nKing Bhumibol Adulyadej\, or Rama IX\, was crowned on 5 May 1950.
+X-MOZ-GENERATION:3
+TRANSP:TRANSPARENT
+SEQUENCE:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20070926T030047Z
+LAST-MODIFIED:20111219T134141Z
+DTSTAMP:20111219T134141Z
+UID:9d790c6f-0dbe-46be-8707-82b8613c47d7
+SUMMARY:Mid Year Bank Holiday
+PRIORITY:0
+RRULE:FREQ=YEARLY
+DTSTART;VALUE=DATE;TZID=Asia/Bangkok:20120701
+DTEND;VALUE=DATE;TZID=Asia/Bangkok:20120702
+CLASS:PUBLIC
+DESCRIPTION:##@@\\`@@@@@@@@@@@@@\nOnly affects banks
+X-MOZ-GENERATION:3
+TRANSP:TRANSPARENT
+SEQUENCE:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124602Z
+DTSTAMP:20111219T124602Z
+UID:2a152189-6b24-43d0-b3ec-3394eeb93b4f
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130327
+DTEND;VALUE=DATE:20130328
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124620Z
+DTSTAMP:20111219T124620Z
+UID:bbf9eea5-50ca-4b33-8c55-b8fd63b4744b
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130426
+DTEND;VALUE=DATE:20130427
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124712Z
+DTSTAMP:20111219T124712Z
+UID:961b0119-2f33-4419-a4b9-2adb7b6c7a63
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130723
+DTEND;VALUE=DATE:20130724
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:3
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124656Z
+DTSTAMP:20111219T124656Z
+UID:ef897e68-94ce-4174-8503-f9adbe0063d3
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130623
+DTEND;VALUE=DATE:20130624
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:3
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124825Z
+DTSTAMP:20111219T124825Z
+UID:0d6701d4-1ec4-4de8-ab09-78ff13785993
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20131117
+DTEND;VALUE=DATE:20131118
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:4
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124641Z
+DTSTAMP:20111219T124641Z
+UID:fd038ca9-7744-4c17-86f6-eca4a938d636
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130525
+DTEND;VALUE=DATE:20130526
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124745Z
+DTSTAMP:20111219T124745Z
+UID:33af81ec-a68d-4b6f-a060-48c8e0d1a017
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20130919
+DTEND;VALUE=DATE:20130920
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:4
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124801Z
+DTSTAMP:20111219T124801Z
+UID:43cf6e1c-aa05-4a72-913e-55169683441a
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20131019
+DTEND;VALUE=DATE:20131020
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:4
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124843Z
+DTSTAMP:20111219T124843Z
+UID:719d52c7-8eeb-4bfb-a895-3f36e60cf0f3
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20131217
+DTEND;VALUE=DATE:20131218
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:4
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T125158Z
+DTSTAMP:20111219T125158Z
+UID:0f14f97e-0ebb-436d-8481-660246721554
+SUMMARY:Full Moon - \"Blue Moon\"!
+DTSTART;VALUE=DATE:20130821
+DTEND;VALUE=DATE:20130822
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:3
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124909Z
+DTSTAMP:20111219T124909Z
+UID:7cbddd46-3382-465f-92f0-177a6387a9aa
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140116
+DTEND;VALUE=DATE:20140117
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:5
+X-MOZ-GENERATION:5
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T124922Z
+DTSTAMP:20111219T124922Z
+UID:53858f2a-bb8d-44e0-90d0-cd4e7f6e396c
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140215
+DTEND;VALUE=DATE:20140216
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:5
+X-MOZ-GENERATION:5
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132501Z
+DTSTAMP:20111219T132501Z
+UID:60665d71-23f1-47bb-a8f9-965fd11e452b
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140613
+DTEND;VALUE=DATE:20140614
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:7
+X-MOZ-GENERATION:7
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T131810Z
+DTSTAMP:20111219T131810Z
+UID:0a518701-80d9-41e4-b898-0fee83484a6a
+SUMMARY:Chinese New Year
+DTSTART;VALUE=DATE:20140131
+DTEND;VALUE=DATE:20140203
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\n\nThai: วันตรุษจีน\n\
+ n2010: Tiger\n2011: Rabbit\n2012: Dragon\n2013:Snake\n\nNot widely observe
+ d as a public holiday\, but some businesses may be closed\, especially in 
+ ethnic Chinese neighborhoods.\n\nDepends on the lunar calendar\, hard to n
+ ail down in advance. It is on the second new moon day following Winter sol
+ stice (which is around December 22 in the nothern hemisphere)\n\nChinese p
+ eople celebrate with a week of house-cleaning\, lion dances and fireworks.
+  This is also the time for them to pay respect to their ancestors.
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132346Z
+DTSTAMP:20111219T132346Z
+UID:f90e0fa1-5120-4c33-a5e4-2072bcdfd216
+SUMMARY:Makha Bucha (?)
+DTSTART;VALUE=DATE:20130226
+DTEND;VALUE=DATE:20130227
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Magha Puja Day\n\nThai: วันม
+ าฆบูชา\n\nFairly widely celebrated as a public holiday\n\nDepe
+ nds on the lunar calendar\, difficult to nail down too far in advance. Ful
+ l moon of the 3rd lunar month\, called Makha. \n\nThis is in commemoration
+  of a spontaneous gathering of 1\,250 Sangha followers\, who came to Lord 
+ Buddha's first sermon 9 months after his first enlightenment. They were or
+ dinated by Lord Buddha and became enlightened themselves. Celebrated with 
+ candlelight processions three times clockwise around the temple\, usually 
+ in the evening. It is also a day when many people give alms like instant o
+ r canned foods and necessities like robes\, incense and candles to the mon
+ ks.
+SEQUENCE:3
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134703Z
+DTSTAMP:20111219T134703Z
+UID:c3e4a074-b432-4712-bcd2-0e3364f7f30c
+SUMMARY:Makha Bucha (?)
+DTSTART;VALUE=DATE:20140214
+DTEND;VALUE=DATE:20140215
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Magha Puja Day\n\nThai: วันม
+ าฆบูชา\n\nFairly widely celebrated as a public holiday\n\nDepe
+ nds on the lunar calendar\, difficult to nail down too far in advance. Ful
+ l moon of the 3rd lunar month\, called Makha. \n\nThis is in commemoration
+  of a spontaneous gathering of 1\,250 Sangha followers\, who came to Lord 
+ Buddha's first sermon 9 months after his first enlightenment. They were or
+ dinated by Lord Buddha and became enlightened themselves. Celebrated with 
+ candlelight processions three times clockwise around the temple\, usually 
+ in the evening. It is also a day when many people give alms like instant o
+ r canned foods and necessities like robes\, incense and candles to the mon
+ ks.
+SEQUENCE:3
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134716Z
+DTSTAMP:20111219T134716Z
+UID:7714f202-2b00-4125-a7d5-c861d6868ea7
+SUMMARY:Makha Bucha (?)
+DTSTART;VALUE=DATE:20150304
+DTEND;VALUE=DATE:20150305
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Magha Puja Day\n\nThai: วันม
+ าฆบูชา\n\nFairly widely celebrated as a public holiday\n\nDepe
+ nds on the lunar calendar\, difficult to nail down too far in advance. Ful
+ l moon of the 3rd lunar month\, called Makha. \n\nThis is in commemoration
+  of a spontaneous gathering of 1\,250 Sangha followers\, who came to Lord 
+ Buddha's first sermon 9 months after his first enlightenment. They were or
+ dinated by Lord Buddha and became enlightened themselves. Celebrated with 
+ candlelight processions three times clockwise around the temple\, usually 
+ in the evening. It is also a day when many people give alms like instant o
+ r canned foods and necessities like robes\, incense and candles to the mon
+ ks.
+SEQUENCE:4
+X-MOZ-GENERATION:5
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132451Z
+DTSTAMP:20111219T132451Z
+UID:7062bd21-171b-4d90-8949-1c8c6202512f
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140514
+DTEND;VALUE=DATE:20140515
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:7
+X-MOZ-GENERATION:7
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132423Z
+DTSTAMP:20111219T132423Z
+UID:038efac5-d32d-4991-ab4a-d27a17909dc9
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140316
+DTEND;VALUE=DATE:20140317
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:6
+X-MOZ-GENERATION:6
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132529Z
+DTSTAMP:20111219T132529Z
+UID:4af4f557-ffd6-4833-9d94-0b220b810eaf
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140712
+DTEND;VALUE=DATE:20140713
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:8
+X-MOZ-GENERATION:8
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132540Z
+DTSTAMP:20111219T132540Z
+UID:c9a663b2-8ef4-4924-b2a7-5d2e02decc34
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140810
+DTEND;VALUE=DATE:20140811
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:8
+X-MOZ-GENERATION:8
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132622Z
+DTSTAMP:20111219T132622Z
+UID:96776eaa-a41f-40a9-acdc-787920a75d6f
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20141106
+DTEND;VALUE=DATE:20141107
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:9
+X-MOZ-GENERATION:9
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132609Z
+DTSTAMP:20111219T132609Z
+UID:fd24f556-f378-461d-aa74-9d1e492faab2
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20141008
+DTEND;VALUE=DATE:20141009
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:9
+X-MOZ-GENERATION:9
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132554Z
+DTSTAMP:20111219T132554Z
+UID:9768cdb8-a37f-477c-bfd3-e121b5ddb0ef
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20140909
+DTEND;VALUE=DATE:20140910
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:8
+X-MOZ-GENERATION:8
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132638Z
+DTSTAMP:20111219T132638Z
+UID:0cef87e6-5e73-4240-b55f-eeff8fdb1c9b
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20141206
+DTEND;VALUE=DATE:20141207
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:9
+X-MOZ-GENERATION:9
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T132652Z
+DTSTAMP:20111219T132652Z
+UID:3a095073-d29f-4d21-bb9a-ce85bdc30aec
+SUMMARY:Full Moon
+DTSTART;VALUE=DATE:20150105
+DTEND;VALUE=DATE:20150106
+DESCRIPTION:##@@DM@@@@ssh]@@@@@
+SEQUENCE:10
+X-MOZ-GENERATION:10
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T133127Z
+DTSTAMP:20111219T133127Z
+UID:5d546991-afe2-46cb-9531-8e81bccebc86
+SUMMARY:Substitution day for Songkran
+DTSTART;VALUE=DATE:20130416
+DTEND;VALUE=DATE:20130417
+DESCRIPTION:##@@T`@@@@@@@@@@@@@
+SEQUENCE:3
+X-MOZ-GENERATION:4
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T133636Z
+DTSTAMP:20111219T133636Z
+UID:dbbc27be-bdea-423f-96f9-704c03ea2409
+SUMMARY:Substitution day for Songkran
+DTSTART;VALUE=DATE:20130507
+DTEND;VALUE=DATE:20130508
+DESCRIPTION:##@@T`@@@@@@@@@@@@@
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T133725Z
+DTSTAMP:20111219T133725Z
+UID:96aeb521-a6e0-448e-a515-1f866ce538cc
+SUMMARY:Substitution for Coronation Day
+DTSTART;VALUE=DATE:20130506
+DTEND;VALUE=DATE:20130507
+DESCRIPTION:##F@T`@@@@@@@@@@@@@
+SEQUENCE:3
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134747Z
+DTSTAMP:20111219T134747Z
+UID:077a8f78-ce37-4abb-9008-e598094c1563
+SUMMARY:Asanha Bucha (?)
+DTSTART;VALUE=DATE:20150730
+DTEND;VALUE=DATE:20150731
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nalso Asalha/Asarnha Puja\, Asalabucha\n\n
+ Thai: วันอาสาฬหบูชา\n\nThe day before Khao Phans
+ a\; depends on the moon\, which month depends on the Buddhist Lunar calend
+ ar - very difficult to nail down too far in advance. The full moon the eig
+ hth lunar month\, called Asanha (or Asarnha\, Asalha\, Asalaha)\n\nCommemo
+ rates when the Lord Buddha gave his first sermon\, the Dhammacakkappavatta
+ na Sutta\, to five disciples\, introducing the middle way\, the noble eigh
+ t-fold path and the four noble truths. Celebrated with candlelight process
+ ions.
+SEQUENCE:2
+X-MOZ-GENERATION:3
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134638Z
+DTSTAMP:20111219T134638Z
+UID:1a5d4fb2-84df-4c73-b79c-e3dfdeb18870
+SUMMARY:Khao Phansa (Buddhist Lent) (?)
+DTSTART;VALUE=DATE:20140712
+DTEND;VALUE=DATE:20140713
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nThe day after Asanha Bucha\, very difficu
+ lt to nail down too far in advance.\n\nThai: วันเข้าพร
+ รษา\n\nThe beginning of the Buddhist Lent\, or \"Khao Phansa\". Budd
+ hist monks remain within the temple grounds and do not venture out for a p
+ eriod of three months starting from the first day of the waning moon of th
+ e eighth lunar month (in July) to the fifteenth day of the waxing moon of 
+ the eleventh lunar month (in October). In former times\, this is done to p
+ revent monks from trampling upon rice paddies when they venture out to rec
+ eive offerings from the villagers. This period is translated as \"Lent\" b
+ ecause many lay people choose to be strict about keeping the precepts and 
+ even refrain from eating meat.
+SEQUENCE:1
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20091009T182520Z
+LAST-MODIFIED:20111219T134950Z
+DTSTAMP:20111219T134950Z
+UID:d06401ca-4025-48c4-9ea3-7fc9c4bb88be
+SUMMARY:Awk Phansa (?)
+DTSTART;VALUE=DATE:20141027
+DTEND;VALUE=DATE:20141028
+DESCRIPTION:##@@T`@@@@@@@@@@@@@\nor Ok Paansa\nThai: วันปวาร
+ ณา ออกพรรษา\n\nEnd of \"Buddhist Lent\"\, which began 
+ with Khao Phansa\; depends on the lunar calendar\, difficult to nail down 
+ far in advance. \n\nThe monks prepare to leave their temples the next day 
+ and travel throughout the countryside by shaving their heads and eyebrows\
+ , and donning fresh robes\, offered in ceremonies the following day.\n\nAp
+ parently the \"Naga fireballs\" can be seen coming out of the Mekong River
+  about this time\, see Wikipedia or\nhttp://www.thaifolk.com/doc/literate/
+ payanak/payanak_e.htm\nfor more information.\n
+SEQUENCE:2
+X-MOZ-GENERATION:2
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20111219T135827Z
+LAST-MODIFIED:20111219T135908Z
+DTSTAMP:20111219T135908Z
+UID:0d5c9f1b-b70c-4bd7-bb23-8dce91feda2a
+SUMMARY:Substitution for New Year's Day
+DTSTART;VALUE=DATE:20120102
+DTEND;VALUE=DATE:20120104
+DESCRIPTION:##@@DF@@@@@@@@@@@@@\n
+TRANSP:TRANSPARENT
+SEQUENCE:1
+X-MOZ-GENERATION:1
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20111219T140308Z
+LAST-MODIFIED:20111219T140347Z
+DTSTAMP:20111219T140347Z
+UID:c788dd37-17dc-4df0-aebe-5f10e8f74ef8
+SUMMARY:Substitution day for HM Queen's Birthday
+DTSTART;VALUE=DATE:20120813
+DTEND;VALUE=DATE:20120814
+TRANSP:TRANSPARENT
+DESCRIPTION:##@@T`@@@@@@@@@@@@@
+X-MOZ-GENERATION:1
+END:VEVENT
+END:VCALENDAR

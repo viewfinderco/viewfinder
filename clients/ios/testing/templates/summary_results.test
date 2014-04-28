@@ -1,0 +1,622 @@
+<html>
+<head>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+<!--  This template has a .test extension to prevent Tornado from minimizing whitespace -->
+<script type="text/javascript" src="/static/js/third_party/jquery.js"></script>
+<script type="text/javascript" src="/static/js/third_party/jquery-ui-1.10.2.custom.min.js"></script>
+<script type="text/javascript" src="/testing/static/html/js/jquery.corner.js"></script>
+<script type="text/javascript" src="/testing/static/js/viewfinder.client-1.0.0.js"></script>
+<script>
+var winW = $(window).width();
+var randomnumber=Math.floor(Math.random()*101);
+var showPopup = function(test_name, image_name, warning) {
+  $("#popup1").attr('src','/testing/static/results/baseline/{{ scheme }}/'+test_name+'/'+image_name+'?'+randomnumber);
+  $("#popup2").attr('src','/testing/static/results/current/{{ scheme }}/'+test_name+'/Run%201/'+image_name+'?'+randomnumber);
+  
+  var popupTitle = image_name.replace(/_/g, " ").substring(0,image_name.length-4);
+  $("#popupTitle").html(popupTitle.toTitleCase());
+  
+  var warn_text = (warning != "None") ? warning.split(".")[0]+"." : "";
+  $("#popupWarning").html(warn_text);
+  $("#popupWarning").css({ "color": "red", "font-weight": "bold" });
+  
+  $('#popup').fadeIn("slow");
+  $("#container").css({ "opacity": "0.3" }); 
+}
+
+
+String.prototype.toTitleCase = function () {
+  var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|vs?\.?|via)$/i;
+
+  return this.replace(/([^\W_]+[^\s-]*) */g, function (match, p1, index, title) {
+    if (index > 0 && index + p1.length !== title.length &&
+      p1.search(smallWords) > -1 && title.charAt(index - 2) !== ":" && 
+      title.charAt(index - 1).search(/[^\s-]/) < 0) {
+      return match.toLowerCase();
+    }
+
+    if (p1.substr(1).search(/[A-Z]|\../) > -1) {
+      return match;
+    }
+
+    return match.charAt(0).toUpperCase() + match.substr(1);
+  });
+};
+
+$(document).ready(function() {
+  
+  testnames = new Array();
+  {% for testname in summary.keys() %}testnames.push('{{ testname }}');
+  {% end %} 
+  $('.content-inner').corner();
+  $('.testContent').corner('5px');
+  $('#popup').corner();
+  $('.codeblock').corner();
+  
+  
+  $('#popup').css({
+    'position': 'fixed',
+    'top': 100,
+    'left': parseInt((winW / 2) - ($('#popup').width() / 2), 10)
+  });
+
+  $(".imagePopup").click(function(e){
+    e.stopPropagation();
+  });
+  
+  $(document).keydown(function(e) {
+    // ESCAPE key pressed
+    if (e.keyCode == 27) {
+        unloadPopup();
+    }
+  }); 
+  
+  var updateDetailsView = function(state) {
+    switch(state) {
+      case 'show':
+        $('.testResults').show();
+        for (var i=0; i<testnames.length; i++) {
+          $("#"+testnames[i]+"_arrow").attr("src","/testing/static/html/images/arrow_down.png");
+          $("#"+testnames[i]+"_arrow").css("padding-top","2px");
+        }     
+        break;
+      case 'hide':
+        $('.testResults').hide();
+        for (var i=0; i<testnames.length; i++) {
+          $("#"+testnames[i]+"_arrow").attr("src","/testing/static/html/images/arrow_right.png");
+          $("#"+testnames[i]+"_arrow").css("padding-top","0px");
+        }
+        break;
+    }
+  };
+  
+  var processResult = function(testname, urls, num) {
+    //var randomnumber=Math.floor(Math.random()*101);
+    var url = urls['baseline'] + '?' + randomnumber;
+    $('#'+testname+'_baseline_'+num).attr("src", url); 
+    $('.'+testname+'_status_'+num).html('Baseline screenshot was updated successfully').css('color','green'); 
+    $('.'+testname+'_status').html('Baseline screenshot was updated successfully').css('color','green'); 
+    $('#'+testname+'_error_'+num).html('');
+  };
+  
+  var remoteImageCopy = function(testname, imagename, num) {
+      var vf = new Viewfinder(true);
+      request = { 'testname': testname, 'imagename': imagename, 'scheme': '{{scheme}}' };
+      vf.copy_image_ajax(request, null,
+          function (result) {
+              processResult(testname, result, num);
+          },
+          function (xhr, ajaxOptions, thrownError) {
+              alert(xhr.status);
+              alert(ajaxOptions);
+              alert(thrownError);
+          }
+      );
+  };
+  
+  $("#tab_0").click(function(){
+    resetAllTabs();
+    setTab('#tab_0', 'active');
+    window.location = $("#tab_0 a").attr("href");
+    return false;
+  });
+  $("#tab_1").click(function(){
+    resetAllTabs();
+    setTab('#tab_1', 'active');
+    window.location = $("#tab_1 a").attr("href");
+    return false;
+  });
+  $("#tab_2").click(function(){
+    resetAllTabs();
+    setTab('#tab_2', 'active');
+    window.location = $("#tab_2 a").attr("href");
+    return false;
+  });
+  $("#tab_3").click(function(){
+    resetAllTabs();
+    setTab('#tab_3', 'active');
+    window.location = $("#tab_3 a").attr("href");
+    return false;
+  });
+  $("#tab_4").click(function(){
+    resetAllTabs();
+    setTab('#tab_4', 'active');
+    window.location = $("#tab_4 a").attr("href");
+    return false;
+  });
+  $("#tab_5").click(function(){
+    resetAllTabs();
+    setTab('#tab_5', 'active');
+    window.location = $("#tab_5 a").attr("href");
+    return false;
+  });
+  $("#tab_6").click(function(){
+    resetAllTabs();
+    setTab('#tab_6', 'active');
+    window.location = $("#tab_6 a").attr("href");
+    return false;
+  });
+    
+  $('#showDetails').click( function() {
+      updateDetailsView('show');
+    });
+  $('#hideDetails').click( function() {
+      updateDetailsView('hide');
+    });
+ 
+  {% for testname in summary.keys() %}
+  $('#{{ testname }}_acceptAll').click( function() {
+    {% for count, imagename in enumerate(summary[testname]['images']) %}
+    remoteImageCopy('{{ testname }}', '{{ imagename }}', {{ count }});
+    {% end %}
+  });
+  {% end %}
+ 
+  // setup Accept button click handlers
+  var setupAcceptClickHandler = function() {
+    
+    {% for testname in summary.keys() %}
+      {% for counter, imagename in enumerate(summary[testname]['images']) %}
+      
+      $('#{{ testname }}_accept_{{ counter }}').click( function() {
+        remoteImageCopy('{{ testname }}', '{{ imagename }}', {{ counter }});
+      });   
+      {% end %}
+    {% end %}
+  } 
+    // setup Accept button click handlers
+  var setupHeaderClickHandler = function() {
+    {% for testname in summary.keys() %}
+      $('#{{ testname }}_header').click( function() {
+        $('#{{ testname }}').toggle();
+        if ($("#{{ testname }}").is(":hidden")) {
+           $("#{{ testname }}_arrow").attr("src","/testing/static/html/images/arrow_right.png");
+           $("#{{ testname }}_arrow").css("padding-top","0px");
+        } 
+        else {
+           $("#{{ testname }}_arrow").attr("src","/testing/static/html/images/arrow_down.png");
+           $("#{{ testname }}_arrow").css("padding-top","2px");
+        }
+      });   
+    {% end %}
+  } 
+
+  $('#popupClose').click( function() {            
+    unloadPopup();
+  });
+        
+  $('#container').click( function() {
+    unloadPopup();
+  });
+
+  function unloadPopup() {
+    $('#popup').fadeOut("slow");
+    $("#container").css({ // this is just for style        
+        "opacity": "1" 
+    }); 
+  }
+   
+  function setTab(id,state) {
+    console.log(id+":"+state);
+    if (state == 'active') {
+      $(id).removeClass('inactive');
+    }
+    else {
+      $(id).removeClass('active');
+    }
+    $(id).addClass(state);
+  }
+  
+  function resetAllTabs() {
+    var id = null;
+    var state = null;
+    for (var i=0; i<7; i++) {
+      id = '#tab_'+i;
+      state = 'inactive';
+      setTab(id, state);
+    }
+  }
+  
+  $(document).ready(function() {
+
+  });
+            
+  setupAcceptClickHandler();
+  setupHeaderClickHandler();
+  
+});
+</script>
+<style>
+body {
+  background:#F8F6F3;
+  font-family:Arial;
+  font-size:14px;
+}
+
+.codeblock {
+  background:#efefef;
+  height:120px;
+  width:690px;
+  padding:10px 5px;
+  overflow:auto;
+}
+
+#container {
+  height:100%;
+  width:100%;
+}
+
+.content {
+  margin:10px auto;
+  width:760px;
+}
+
+.content-inner {
+  background:#ffffff;
+  padding:10px;
+  float:left;
+}
+
+.testContent {
+  margin:2px 0px 0px 0px;
+  padding:0px 10px;
+  width:720px;
+  background:#cdffd2;
+  float:left;
+}
+
+.testDetails {
+  float:left;
+  width:100px;
+}
+
+.testDetails a {
+  text-decoration:none;
+}
+
+.testHeader {
+  padding:10px;
+  width:600px;
+  float:left;
+}
+
+.testImages {
+  padding:20px 10px;
+  width:700px;
+  margin:0px auto;
+  background:#cdffd2;
+  height:260px;
+}
+
+.testImage {
+  width:33%;
+  float:left;
+  font-weight:bold;
+}
+
+.testMessage {
+  float:left;
+  height:18px;
+  width:270px;
+  overflow:hidden;
+}
+
+.testName {
+  font-weight:bold;
+  float:left;
+  width:270px;
+}
+
+.testResults {
+  display:none;
+  padding:10px;
+}
+
+.testStatus {
+  font-weight:bold;
+  float:left;
+  width:100px;
+}
+
+#popup {
+  position:fixed;  
+  _position:absolute; /* hack for internet explorer 6 */  
+  left: auto;
+  top: 100px;
+  width:980px;
+  display:none;
+  z-index:100;
+  background:#FFFFFF;
+  border:2px solid #fda632;      
+  padding:15px;  
+  font-size:15px;  
+  -moz-box-shadow: 0 0 5px #fda632;
+  -webkit-box-shadow: 0 0 5px #fda632;
+  box-shadow: 0 0 5px #fda632;
+}
+
+a {
+  text-decoration:none;
+}
+
+.tab {
+  padding-top:5px;
+  font-size:12px;
+  font-family:Verdana;
+  
+}
+.active {
+  float:left;
+  width:140px;
+  height:18px;
+  background: url('/testing/static/html/images/tab_active.png') no-repeat top left;
+  z-index:10;
+}
+.inactive {
+  float:left;
+  width:140px;
+  height:18px;
+  background: url('/testing/static/html/images/tab_inactive.png') no-repeat top left;
+  z-index:1;
+}
+
+#tab_0 {
+  margin-left:30px;
+  position:relative;
+}
+#tab_1 {
+  margin-left:-30px;
+  position:relative;
+}
+#tab_2 {
+  margin-left:-30px;
+  position:relative;
+}
+#tab_3 {
+  margin-left:-30px;
+  position:relative;
+}
+#tab_4 {
+  margin-left:-30px;
+  position:relative;
+}
+#tab_5 {
+  margin-left:-30px;
+  position:relative;
+}
+#tab_6 {
+  margin-left:-30px;
+  position:relative;
+}
+
+
+</style>
+</head>
+<body>
+  
+  <div id="popup">
+    <div id="popupTitle" style="float:left;font-weight:bold;font-size:16px;margin-top:0px;height:30px;">
+    </div>
+    <div id="popupWarning" style="padding:0px 40px;float:left;font-color:red;font-weight:bold;">hello</div>
+    <div id="popupClose" style="float:right;margin-top:-30px;margin-right:-30px;"><img src="/testing/static/html/images/close.png"/></div>
+    <br clear="all"/>
+    <img id="popup1" src="" width="480"/>
+    <img id="popup2" src="" width="480"/>
+  </div>
+  <div id="container">
+  <div class="content">
+    <div style="height:40px">
+      <img src="/testing/static/html/images/logo.png"/>
+    </div>
+    <br/>
+    <div id="schemes">
+      {% for counter,label in enumerate(schemes) %}
+        {% if label == scheme %}
+          <div id="tab_{{counter}}" class="tab active" align="center">
+        {% else %}
+          <div id="tab_{{counter}}" class="tab inactive" align="center">
+        {% end %}
+        <a href="/testing/static/results/current/{{label}}/index.html"></a>{{label}}
+      </div>
+      {% end %}
+    </div>
+    
+    <div class="content-inner">
+      <div id="navbar" style="padding:3px;">
+        <button id="showDetails">show all</button> | 
+        <button id="hideDetails">hide all</button>
+        
+      </div>
+      {% for dict in errors %}
+      <div class="testContent" style="background:#ffaba8;">
+        
+        <div id="{{ dict['testname'] }}_header" class="testHeader">
+          <div style="float:left;width:15px;padding-top:3px;">
+            <img id="{{ dict['testname'] }}_arrow" src="/testing/static/html/images/arrow_down.png"/>
+          </div>
+          <div class="testName" style="width:250px">
+            {{ dict['testname'] }}
+          </div>
+          <div class="testStatus" style="width:60px;">
+            {{ dict['status'] }}
+          </div>
+
+          <div class="testMessage" style="width:250px;">
+            <font class="{{ dict['testname'] }}_status" color="red">
+              {% if summary[ dict['testname'] ]['alert'] %}
+              Warning:  Check for screenshot mismatch
+              {% end %}
+            </font>
+          </div>
+          
+        </div>
+        <div style="float:left;margin-top:6px;">
+            <button id="{{ dict['testname'] }}_acceptAll">accept all</button>
+          </div>
+        <br clear="both"/>
+        <div id="{{ dict['testname'] }}" class="testResults" style="display:block">
+          Name:  {{ dict['testname'] }}<br/>
+          Status:  {{ dict['status'] }}<br/>
+          Timestamp:  {{ dict['timestamp'] }}<br/> 
+          {% for counter, image in enumerate(summary[ dict['testname'] ]['images']) %}
+          <div class="testImageName" style="font-weight:bold;">
+          {{ image[:-4].replace("_"," ").title() }}:
+          </div>
+          <div class="testImages" style="background:#ffaba8;">
+            <div class="imagePopup" onclick="showPopup('{{ dict['testname'] }}', '{{ image }}');">
+              <div class="testImage" align="center">
+                Baseline<br/>
+                <img id="{{ dict['testname'] }}_baseline_{{ counter }}" 
+                  src="/testing/static/results/baseline/{{scheme}}/{{ dict['testname'] }}/{{ image }}?{{ random_num }}"  
+                  height="240"/>
+              </div>
+              <div class="testImage" align="center">
+                Current<br/>
+                <img src="/testing/static/results/current/{{scheme}}/{{ dict['testname'] }}/Run%201/{{ image }}?{{ random_num }}" 
+                  height="240"/>
+              </div>
+            </div>
+            <div class="testImage" align="center">
+              Actions<br/>
+              
+              <font class="{{ dict['testname'] }}_status_{{ counter }}" color="red">
+              {% if summary[ dict['testname'] ]['warnings'][image] %}
+                {{ summary[ dict['testname'] ]['warnings'][image] }}
+              {% end %}
+              </font>
+              
+              <div id="{{ dict['testname'] }}_error_{{ counter }}">
+                {% if summary[ dict['testname'] ]['warnings'][image] is not None %}
+                
+                <button type="submit"
+                    id="{{ dict['testname'] }}_accept_{{ counter }}" 
+                    title="Accept Current Screenshot">Accept</button>      
+                {% else %}
+                    <span style="font-weight:normal;">No actions available.</span>    
+                {% end %}
+              </div>
+              
+            </div>
+          </div>
+          {% end %}
+          
+          <div class="codeblock" style="padding:10px;">
+            <div style="font-weight:bold;">
+              Error Details
+            </div>
+            <pre>
+{{ summary[dict['testname']]['details'] }} 
+            </pre>
+          </div>
+        </div>
+      
+      </div>
+      {% end %}
+      {% for dict in passes %}
+      <div class="testContent" style="background:#cdffd2;">
+        <div id="{{ dict['testname'] }}_header" class="testHeader">
+          <div style="float:left;width:15px;padding-top:3px;">
+            <img id="{{ dict['testname'] }}_arrow" src="/testing/static/html/images/arrow_right.png"/>
+          </div>
+          <div class="testName" style="width:250px;">
+            {{ dict['testname'] }}
+          </div>
+          <div class="testStatus" style="width:60px;">
+            {{ dict['status'] }}
+          </div>
+
+          <div class="testMessage" style="width:270px;">
+            <font class="{{ dict['testname'] }}_status" color="red">
+              {% if summary[ dict['testname'] ]['alert'] is True %}
+              Warning:  Check for screenshot mismatch
+              {% end %}
+            </font>
+          </div>
+          
+        </div>
+        <div style="float:left;margin-top:6px;">
+          <button id="{{ dict['testname'] }}_acceptAll">accept all</button>
+          </div>
+        <br clear="both"/>
+        <div id="{{ dict['testname'] }}" class="testResults">
+          Name:  {{ dict['testname'] }}<br/>
+          Status:  {{ dict['status'] }}<br/>
+          Timestamp:  {{ dict['timestamp'] }}<br/> 
+          
+
+          {% for counter, image in enumerate(summary[dict['testname']]['images']) %}
+          <div class="testImageName" style="font-weight:bold;">
+          {{ image[:-4].replace("_"," ").title() }}:
+          </div>
+          
+          <div class="testImages">
+            <div class="imagePopup" 
+              onclick="showPopup('{{ dict['testname'] }}', 
+                  '{{ image }}', 
+                  '{{ summary[ dict['testname'] ]['warnings'][image]  }}' );">
+              <div class="testImage" align="center">
+                Baseline<br/>
+                <img id="{{ dict['testname'] }}_baseline_{{ counter }}" 
+                  src="/testing/static/results/baseline/{{scheme}}/{{ dict['testname'] }}/{{ image }}?{{ random_num }}" 
+                  height="240"/>
+              </div>
+              <div class="testImage" align="center">
+                Current<br/>
+                <img src="/testing/static/results/current/{{scheme}}/{{ dict['testname'] }}/Run%201/{{ image }}?{{ random_num }}" 
+                  height="240"/>
+              </div>
+            </div>
+            <div class="testImage" align="center">
+              Actions<br/>
+              
+              <font class="{{ dict['testname'] }}_status_{{ counter }}" color="red">
+              {% if summary[ dict['testname'] ]['warnings'][image] is not None %}
+                {{ summary[ dict['testname'] ]['warnings'][image]  }}
+              {% end %}
+              </font>
+             
+              <div id="{{ dict['testname'] }}_error_{{ counter }}">
+                {% if summary[ dict['testname'] ]['warnings'][image] is not None %}
+                <button type="submit"
+                    id="{{ dict['testname'] }}_accept_{{ counter }}" 
+                    title="Accept Current Screenshot">Accept</button>      
+                {% else %}
+                    <span style="font-weight:normal;">No actions available.</span>    
+                {% end %}                 
+
+              </div>
+            </div>
+          </div>
+
+          {% end %}
+        </div>
+      
+      </div>
+      {% end %}
+
+    </div>
+  </div>
+  </div>
+</body>
+</html>

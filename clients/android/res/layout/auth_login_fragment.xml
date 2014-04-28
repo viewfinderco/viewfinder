@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/co.viewfinder"
+    android:id="@+id/auth_loginFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/auth_loginTabs"
+      android:background="@drawable/tabs_modal_login_default_android">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/auth_tabText"
+        android:layout_marginTop="17dp">
+
+      <view
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_signupTabButton"
+          android:layout_weight="1"
+          android:text="@string/auth_signup"
+          style="@style/big_button"
+          android:background="@android:color/transparent"
+          android:layout_marginLeft="8dp"/>
+
+      <view
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:layout_weight="1"
+          android:text="@string/auth_login"
+          android:singleLine="false"
+          android:background="@android:color/transparent"
+          android:selectAllOnFocus="false"
+          style="@style/big_button"
+          android:id="@+id/auth_loginTabButton"
+          android:layout_marginRight="8dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/auth_loginCard"
+        android:layout_below="@+id/auth_tabText"
+        android:paddingBottom="8dp">
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/auth_loginEmailOrMobile"
+          android:background="@drawable/signup_text_inputs_top"
+          android:padding="0dp">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/email_or_text_edit"
+            android:id="@+id/include"
+            />
+      </FrameLayout>
+
+      <view
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderEditText"
+          android:id="@+id/auth_loginPassword"
+          android:hint="@string/auth_password"
+          android:background="@drawable/signup_text_inputs_bottom"
+          style="@style/input"
+          android:inputType="textPassword"
+          android:layout_below="@+id/auth_loginEmailOrMobile"
+          android:imeOptions="actionDone"/>
+
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/auth_loginPassword"
+          android:layout_marginTop="8dp"
+          android:id="@+id/auth_loginButtons">
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="co.viewfinder.widgets.ViewfinderButton"
+            android:id="@+id/auth_loginCancel"
+            android:background="@drawable/big_button_grey_selector"
+            android:text="@string/auth_cancel"
+            style="@style/big_button"
+            android:layout_weight="1"/>
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="co.viewfinder.widgets.ViewfinderButton"
+            android:id="@+id/auth_loginAccount"
+            android:background="@drawable/big_button_green_selector"
+            style="@style/big_button"
+            android:text="@string/auth_login"
+            android:layout_weight="2"
+            android:layout_marginLeft="8dp"/>
+
+      </LinearLayout>
+
+      <view
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_forgotPassword"
+          android:text="@string/auth_forgotPassword"
+          style="@style/auth_message"
+          android:layout_below="@+id/auth_loginButtons"
+          android:paddingTop="12dp"
+          android:paddingBottom="6dp"
+          android:layout_centerInParent="true"
+          custom:normalTypeface="ProximaNova-Reg-VF.ttf"/>
+
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+</RelativeLayout>

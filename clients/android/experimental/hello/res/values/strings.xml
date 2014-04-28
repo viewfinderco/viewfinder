@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Viewfinder</string>
+
+    <string name="fetch_activity_name">JSON HTTPS Post</string>
+    <string name="url_box_default">https://www.goviewfinder.com:8443</string>
+    <string name="email_box_default">marc.berhault@emailscrubbed.com</string>
+
+    <string name="capture_activity_name">Capture Photo</string>
+    <string name="button_capture_thumbnail">Thumbnail</string>
+    <string name="button_capture_full">Full</string>
+    <string name="button_photos_list">List</string>
+
+    <string name="settings_activity_name">Settings</string>
+    <string name="settings_box_a_hint">setting A</string>
+    <string name="settings_b">setting B</string>
+
+    <string name="dynamic_list_activity_name">Dynamic List</string>
+</resources>

@@ -1,0 +1,8 @@
+Viewfinder marketing website
+============================
+
+To work on the marketing site on its own, run server.py and
+visit http://localhost:8443 in your browser.
+
+In the full viewfinder repo the marketing site is loaded as a subrepo
+and served from the main server via symlinks.

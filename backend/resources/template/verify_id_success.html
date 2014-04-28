@@ -1,0 +1,65 @@
+{% extends "base_nohead.html" %}
+{% block title %}{{title}}{% end %}
+{% block page_class %}verify_id{% end %}
+
+
+{% block content %}
+{% module Css('viewfinder.css') %}
+{% module Css('verify_id_success.css') %}
+
+    <div id="background">
+        <img src="/static/css/images/verify_id/success_background.jpg" width="100%" class="background-image" />
+    </div>
+    <div id="message">
+        <h2><b>Well done.</b><br />Your Viewfinder Account is all set.</h2>
+        <a href="/faq" class="learn-more"><img src="/static/css/images/verify_id/learn_more.png" /></a>
+        <a href="viewfinder://" class="open-app"><img src="/static/css/images/verify_id/open_app.png" /></a>
+    </div>
+    <div id="footer">
+        <div class="footer-logo">
+            <div class="white-logo">
+                <img src="/static/css/images/verify_id/white_logo.png" width="100%" />
+            </div>
+            <div class="home-link">Go to <a href="/">viewfinder.co</a>.</div>
+        </div>
+        <div class="support">
+            Having an issue? Email us at <a href="mailto:support@emailscrubbed.com">support@viewfinder.co</a>.
+        </div>
+    </div>
+
+{% end %}
+
+
+{% block script_content %}
+$(document).ready(function() {
+
+    function resize() {
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
+
+        var photoRatio = 1.281;
+        var photoWidth = windowWidth;
+        var photoHeight = windowWidth / photoRatio;
+        var photoLeft = 0;
+        var photoTop = -Math.abs(photoHeight - windowHeight) / 2;
+        // portrait
+        if ((windowWidth / windowHeight) < photoRatio) {
+            photoHeight = windowHeight;
+            photoWidth = windowHeight * photoRatio;
+            photoLeft = -Math.abs(photoWidth - windowWidth) / 2;
+            photoTop = 0;
+        }
+        $('#background').css({ width: photoWidth + 'px',
+                               height: photoHeight + 'px',
+                               left: photoLeft + 'px',
+                               top: photoTop + 'px' });
+
+        var messageTop = (windowHeight - $("#message").height()) / 3;
+        $("#message").css({ "margin-top": messageTop + "px" });
+    }
+
+    $(window).resize(resize);
+    resize();
+
+});
+{% end %}

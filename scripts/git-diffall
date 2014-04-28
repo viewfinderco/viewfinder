@@ -1,0 +1,252 @@
+#!/bin/bash -e
+# Copyright 2010 - 2011, Tim Henigan <tim.henigan@emailscrubbed.com>
+#
+# Perform a directory diff between commits in the repository using
+# the external diff tool specified in the 'diff.tool' configuration
+# option.
+#
+# NOTE: When making changes to this script, only use POSIX features.
+# The 'checkbashisms' script provides a good test.  This perl script
+# may be found at http://sourceforge.net/projects/checkbaskisms
+
+USAGE='[--cached] [--copy-back] [-x|--extcmd=<command>] <commit>{0,2} -- <path>*
+
+    --cached     Compare to the index rather than the working tree.
+
+    --copy-back  Copy files back to the working tree when the diff
+                 tool exits (in case they were modified by the
+                 user).  This option is only valid if the diff
+                 compared with the working tree.
+
+    -x=<command>
+    --extcmd=<command>  Specify a custom command for viewing diffs.
+                 git-diffall ignores the configured defaults and
+                 runs $command $LOCAL $REMOTE when this option is
+                 specified. Additionally, $BASE is set in the
+                 environment.
+'
+
+SUBDIRECTORY_OK=1
+. "$(git --exec-path)/git-sh-setup"
+
+TOOL_MODE=diff
+. "$(git --exec-path)/git-mergetool--lib"
+
+merge_tool="$(get_merge_tool)"
+if [ -z "$merge_tool" ]; then
+    echo "Error: Either the 'diff.tool' or 'merge.tool' option must be set."
+    usage
+fi
+
+start_dir=$(pwd)
+
+# needed to access tar utility
+cdup=$(git rev-parse --show-cdup) &&
+cd "$cdup" || {
+    echo >&2 "Cannot chdir to $cdup, the toplevel of the working tree"
+    exit 1
+}
+
+# mktemp is not available on all platforms (missing from msysgit)
+# Use a hard-coded tmp dir if it is not available
+if [ -z $(which mktemp 2>/dev/null) ]; then
+    tmp=/tmp/git-diffall-tmp
+else
+    export TMPDIR=/tmp
+    tmp="$(mktemp -d -t diffall)"
+fi
+mkdir -p "$tmp"
+
+left=
+right=
+paths=
+path_sep=
+compare_staged=
+common_ancestor=
+left_dir=
+right_dir=
+diff_tool=
+copy_back=
+
+while test $# != 0; do
+    case "$1" in
+    -h|--h|--he|--hel|--help)
+        usage
+        ;;
+    --cached)
+        compare_staged=1
+        ;;
+    --copy-back)
+        copy_back=1
+        ;;
+    -x|--e|--ex|--ext|--extc|--extcm|--extcmd)
+        diff_tool=$2
+        shift
+        ;;
+    --)
+        path_sep=1
+        ;;
+    -*)
+        echo Invalid option: "$1"
+        usage
+        ;;
+    *)
+        # could be commit, commit range or path limiter
+        case "$1" in
+        *...*)
+            left=${1%...*}
+            right=${1#*...}
+            common_ancestor=1
+            ;;
+        *..*)
+            left=${1%..*}
+            right=${1#*..}
+            ;;
+        *)
+            if [ -n "$path_sep" ]; then
+                if [ -z "$paths" ]; then
+                    paths=$1
+                else
+                    paths="$paths $1"
+                fi
+            elif [ -z "$left" ]; then
+                left=$1
+            elif [ -z "$right" ]; then
+                right=$1
+            else
+                if [ -z "$paths" ]; then
+                    paths=$1
+                else
+                    paths="$paths $1"
+                fi
+            fi
+            ;;
+        esac
+        ;;
+    esac
+    shift
+done
+
+# Determine the set of files which changed
+if [ -n "$left" ] && [ -n "$right" ]; then
+    left_dir="cmt-`git rev-parse --short $left`"
+    right_dir="cmt-`git rev-parse --short $right`"
+
+    if [ -n "$compare_staged" ]; then
+        usage
+    elif [ -n "$common_ancestor" ]; then
+        git diff --name-only "$left"..."$right" -- "$paths" > "$tmp"/filelist
+    else
+        git diff --name-only "$left" "$right" -- "$paths" > "$tmp"/filelist
+    fi
+elif [ -n "$left" ]; then
+    left_dir="cmt-`git rev-parse --short $left`"
+
+    if [ -n "$compare_staged" ]; then
+        right_dir="staged"
+        git diff --name-only --cached "$left" -- "$paths" > "$tmp"/filelist
+    else
+        right_dir="working_tree"
+        git diff --name-only "$left" -- "$paths" > "$tmp"/filelist
+    fi
+else
+    left_dir="HEAD"
+
+    if [ -n "$compare_staged" ]; then
+        right_dir="staged"
+        git diff --name-only --cached -- "$paths" > "$tmp"/filelist
+    else
+        right_dir="working_tree"
+        git diff --name-only -- "$paths" > "$tmp"/filelist
+    fi
+fi
+
+# Exit immediately if there are no diffs
+if [ ! -s "$tmp"/filelist ]; then
+    exit 0
+fi
+
+if [ -n "$copy_back" ] && [ "$right_dir" != "working_tree" ]; then
+    echo "--copy-back is only valid when diff includes the working tree."
+    exit 1
+fi
+
+# Create the named tmp directories that will hold the files to be compared
+mkdir -p "$tmp"/"$left_dir" "$tmp"/"$right_dir"
+
+# Populate the tmp/right_dir directory with the files to be compared
+if [ -n "$right" ]; then
+    while read name; do
+        ls_list=$(git ls-tree $right $name)
+        if [ -n "$ls_list" ]; then
+            mkdir -p "$tmp"/"$right_dir"/"$(dirname "$name")"
+            git show "$right":"$name" > "$tmp"/"$right_dir"/"$name" || true
+        fi
+    done < "$tmp"/filelist
+elif [ -n "$compare_staged" ]; then
+    while read name; do
+        ls_list=$(git ls-files -- $name)
+        if [ -n "$ls_list" ]; then
+            mkdir -p "$tmp"/"$right_dir"/"$(dirname "$name")"
+            git show :"$name" > "$tmp"/"$right_dir"/"$name"
+        fi
+    done < "$tmp"/filelist
+else
+    if [ -n "$(which gnutar 2>/dev/null)" ]; then
+        gnutar --ignore-failed-read -c -T "$tmp"/filelist | (cd "$tmp"/"$right_dir" && gnutar -x)
+    else
+        tar --ignore-failed-read -c -T "$tmp"/filelist | (cd "$tmp"/"$right_dir" && tar -x)
+    fi
+fi
+
+# Populate the tmp/left_dir directory with the files to be compared
+while read name; do
+    if [ -n "$left" ]; then
+        ls_list=$(git ls-tree $left $name)
+        if [ -n "$ls_list" ]; then
+            mkdir -p "$tmp"/"$left_dir"/"$(dirname "$name")"
+            git show "$left":"$name" > "$tmp"/"$left_dir"/"$name" || true
+        fi
+    else
+        if [ -n "$compare_staged" ]; then
+            ls_list=$(git ls-tree HEAD $name)
+            if [ -n "$ls_list" ]; then
+                mkdir -p "$tmp"/"$left_dir"/"$(dirname "$name")"
+                git show HEAD:"$name" > "$tmp"/"$left_dir"/"$name"
+                fi
+            else
+                mkdir -p "$tmp"/"$left_dir"/"$(dirname "$name")"
+                    git show :"$name" > "$tmp"/"$left_dir"/"$name"
+        fi
+    fi
+done < "$tmp"/filelist
+
+cd "$tmp"
+LOCAL="$left_dir"
+REMOTE="$right_dir"
+
+# This function is called on exit
+cleanup () {
+    cd "$start_dir"
+
+    # Copy files back to the working dir, if requested
+    if [ -n "$copy_back" ] && [ "$right_dir" = "working_tree" ]; then
+        git_top_dir=$(git rev-parse --show-toplevel)
+        find "$tmp/$right_dir" -type f|while read file; do
+            cp "$file" "$git_top_dir/${file#$tmp/$right_dir/}"
+        done
+    fi
+
+    # Remove the tmp directory
+    rm -rf "$tmp"
+}
+
+trap cleanup 0
+
+if [ -n "$diff_tool" ]; then
+    export BASE
+    eval $diff_tool '"$LOCAL"' '"$REMOTE"'
+ else
+    run_merge_tool "$merge_tool" false
+fi
+

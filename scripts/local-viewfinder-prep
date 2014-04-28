@@ -1,0 +1,37 @@
+#!/bin/bash
+# Initialize some state for a local viewfinder instance.
+# scripts/local-viewfinder-prep <user>
+# Add <user> in the AdminPermissions table with rights ROOT.
+
+if [ -z "${VF_HOME}" ]; then
+  echo "Missing VF_HOME env variable, exiting.";
+  exit
+fi
+
+user=$1
+if [ -z "${user}" ]; then
+  echo "No user specified. Invocation is: scripts/local-viewfinder-prep <user>.";
+  exit
+fi
+# Skip user argument when appending remaining args to the invocation of viewfinder admin tool
+shift
+
+LOCAL_DB_DIR="${HOME}/local/db"
+LOCAL_OBJ_STORE="${HOME}/local/fileobjstore"
+LOCAL_LOG_DIR="${HOME}/local/server_log_backup"
+
+cd ${VF_HOME}
+echo "Adding ${user} as admin in local DB"
+${PYTHON:-python} -m viewfinder.backend.db.tools.admin_tool \
+  --domain=goviewfinder.com \
+  --fileobjstore=True \
+  --fileobjstore_dir=${LOCAL_OBJ_STORE} \
+  --localdb=True \
+  --localdb_dir=${LOCAL_DB_DIR} \
+  --devbox \
+  --op=set \
+  --short_domain=short.goviewfinder.com \
+  --user=${user} \
+  --rights="root,support" \
+  "$@"
+

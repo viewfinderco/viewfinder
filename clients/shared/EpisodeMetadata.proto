@@ -1,0 +1,38 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+import "ContentIds.proto";
+import "ContactMetadata.proto";
+import "Location.proto";
+import "Placemark.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "EpisodeMetadataPB";
+
+message EpisodeMetadata {
+  optional EpisodeId id = 1;
+  optional EpisodeId parent_id = 2;
+  optional ViewpointId viewpoint_id = 3;
+  optional int64 user_id = 4;
+  optional int64 sharing_user_id = 5;
+  optional double timestamp = 6;
+  optional double publish_timestamp = 12;
+  optional string title = 7;
+  optional string description = 8;
+  optional string name = 11;
+
+  // Bits indicating labels on the user-episode relation.
+  // NOTE: add labels here; none as of now.
+
+  // Client-side state.
+  optional double earliest_photo_timestamp = 30;
+  optional double latest_photo_timestamp = 31;
+
+  optional bool upload_episode = 32;
+
+  repeated string indexed_terms = 33;
+  repeated string indexed_location_terms = 34;
+
+  optional Location DEPRECATED_location = 9;
+  optional Placemark DEPRECATED_placemark = 10;
+}

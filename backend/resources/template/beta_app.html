@@ -1,0 +1,26 @@
+{% extends "beta.html" %}
+
+{% block beta %}
+<p>Congratulations and thanks for participating in our beta
+program. We're very excited to make Viewfinder a reality and we
+sincerely appreciate your help and feedback.</p>
+
+<p class="dark">The Viewfinder team</p>
+
+<div class="separator"></div>
+
+{% if install_link %}
+<p>Install the latest version of the client by
+clicking the install button.</p>
+
+<a class="button" href="itms-services://?action=download-manifest&url=http://www.viewfinder.co/beta/{{version}}.plist">Install the application</a>
+
+{% else %}
+
+<p><span class="h4 dark">View this page from your iPhone to install the application.</p>
+
+{% end %}
+
+<div class="separator"></div>
+<div class="center"><a class="button" href="/">Return to viewfinder</a></div>
+{% end %}

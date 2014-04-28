@@ -1,0 +1,13 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "EpisodeStatsPB";
+
+message EpisodeStats {
+  required int32 hidden_photos = 5;
+  required int32 posted_photos = 1;
+  required int32 quarantined_photos = 4;
+  required int32 removed_photos = 2;
+  required int32 unshared_photos = 3;
+}

@@ -1,0 +1,15 @@
+{% extends "admin_base.html" %}
+{% block title %}Viewfinder Administration{% end %}
+
+{% block content %}
+{% module Admin(is_root=is_root, is_support=is_support) %}
+<div id="admin-content">
+  <div id="title" class="h3">{% block admin-title %}Viewfinder Administration Console.{% end %}</div>
+  <div class="separator"></div>
+  {% block admin %}
+  {% end %}
+  {% block admin-footer %}
+  {% end %}
+</div>
+{% end %}
+

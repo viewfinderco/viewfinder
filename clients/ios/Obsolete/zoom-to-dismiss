@@ -1,0 +1,106 @@
+# HG changeset patch
+# Parent 3fc35dbaaa22152d7e0e2bbf89255e7c76197a66
+Allow a zoom out to dismiss from single photo layout controller.
+
+Fixes Issue #411
+
+ISSUE=1204001
+
+diff --git a/clients/ios/Source/PhotoLayoutController.mm b/clients/ios/Source/PhotoLayoutController.mm
+--- a/clients/ios/Source/PhotoLayoutController.mm
++++ b/clients/ios/Source/PhotoLayoutController.mm
+@@ -12,6 +12,7 @@
+ #import "LayoutController.h"
+ #import "LayoutUtils.h"
+ #import "Logging.h"
++#import "MathUtils.h"
+ #import "Matrix.h"
+ #import "Navbar.h"
+ #import "PhotoHeader.h"
+@@ -39,6 +40,7 @@
+ const float kPhotoSpacing = 10;
+ const float kEventMarginWidth = 2;
+ const float kDuration = 0.3;
++const float kMinZoomScale = 0.6;
+ 
+ const float kPhotoTrapdoorsLeftMargin = 0;
+ const float kPhotoTrapdoorsRightMargin = 0;
+@@ -432,6 +434,7 @@
+   // kFullSize.
+   const float max_dim = std::max(p->view.frame.size.width,
+                                  p->view.frame.size.height);
++  p->scroll_view.minimumZoomScale = 0.5;
+   p->scroll_view.maximumZoomScale = kFullSize / max_dim;
+ }
+ 
+@@ -1347,6 +1350,13 @@
+   }
+ }
+ 
++- (float)getDismissOffset {
++  if (clamp_scroll_ == CLAMP_SCROLL_VERTICAL) {
++    return fabs(scroll_view_.contentOffsetY / kDragToExitThreshold);
++  }
++  return 0;
++}
++
+ - (void)scrollViewDidScroll:(UIScrollView*)scroll_view {
+   if (self.numPhotos == 0) {
+     return;
+@@ -1428,13 +1438,6 @@
+   }
+ }
+ 
+-- (float)getDismissOffset {
+-  if (clamp_scroll_ == CLAMP_SCROLL_VERTICAL) {
+-    return fabs(scroll_view_.contentOffsetY / kDragToExitThreshold);
+-  }
+-  return 0;
+-}
+-
+ - (void)scrollViewDidEndDragging:(UIScrollView*)scroll_view
+                   willDecelerate:(BOOL)decelerate {
+   if (!decelerate) {
+@@ -1477,6 +1480,14 @@
+   return p->view;
+ }
+ 
++- (void)scrollViewWillBeginZooming:(UIScrollView*)scroll_view
++                          withView:(UIView*)view {
++  CachedPhoto* p = FindPtrOrNull(
++      &photo_cache_, [self photoIndexToId:scroll_view.tag]);
++  if (p && p->scroll_view == scroll_view) {
++  }
++}
++
+ - (void)scrollViewDidZoom:(UIScrollView*)scroll_view {
+   if (scroll_view == scroll_view_) {
+     return;
+@@ -1488,6 +1499,27 @@
+     return;
+   }
+   [self photoDidZoom:p];
++
++  // Potentially fade out the title and navbar if we're zooming out.
++  const float alpha = LinearInterp<float>(scroll_view.zoomScale, kMinZoomScale, 1, 0, 1);
++  header_.alpha = alpha;
++  navbar_.alpha = alpha;
++}
++
++- (void)scrollViewDidEndZooming:(UIScrollView*)scroll_view
++                       withView:(UIView*)view
++                        atScale:(float)scale {
++  CachedPhoto* p = FindPtrOrNull(
++      &photo_cache_, [self photoIndexToId:scroll_view.tag]);
++  if (p && p->scroll_view == scroll_view) {
++    if (scroll_view.zoomScale < 1) {
++      // If our zoom exceeds a max limit below 1, return to previous view.
++      if (scroll_view.zoomScale <= 1 - (1 - kMinZoomScale) / 2) {
++        [self navbarActionBack];
++      }
++      [scroll_view setZoomScale:1 animated:YES];
++    }
++  }
+ }
+ 
+ - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)recognizer {

@@ -1,0 +1,10 @@
+{% extends "admin.html" %}
+{% block title %}Log file '{{ log_file }}'{% end %}
+
+{% block admin %}
+<pre>
+{{ log_contents }}
+</pre>
+{% end %}
+
+

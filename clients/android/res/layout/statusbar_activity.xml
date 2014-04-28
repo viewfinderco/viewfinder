@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/statusbar"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    >
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@android:string/untitled"
+      android:id="@+id/statusbar_text"
+      android:gravity="center"
+      android:layout_centerHorizontal="true"
+      />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/statusbar_text"
+      android:id="@+id/statusbar_content">
+  </RelativeLayout>
+
+</RelativeLayout>

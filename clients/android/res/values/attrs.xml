@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="EmailOrMobileEdit">
+    <attr name="normalTypeface" />
+    <attr name="emailHint" format="string" />
+    <attr name="mobileHint" format="string" />
+  </declare-styleable>
+
+  <declare-styleable name="ViewfinderTextView">
+    <attr name="normalTypeface" format="string" />
+    <attr name="boldTypeface" format="string" />
+    <attr name="italicTypeface" format="string" />
+  </declare-styleable>
+</resources>

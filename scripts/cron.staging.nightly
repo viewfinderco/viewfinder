@@ -1,0 +1,47 @@
+#!/bin/bash
+# Script for nightly crontab on staging AWS instances.
+#
+# We want all jobs in this script to be run serially, so we cannot put them as separate entries in crontab.
+# Jobs all perform their own locking to ensure only one instance runs them.
+# Additionally, most jobs have a --hours_between_runs flag to prevent re-execution by another instance.
+runtime=$1
+
+cd ${HOME}
+
+# Set environment variables (AWS specific).
+source ${HOME}/viewfinder/scripts/viewfinder-prod.bash
+
+if [ "${runtime}" -eq "12" ];
+then
+  # Run most jobs at Noon UTC.
+
+  # Run dbchk in smart mode: it automatically detect the start of the last successul run and only scans
+  # viewpoints updated since then.
+  # Specify repair=False and require_lock=True even though they are the default values.
+  python -m viewfinder.backend.db.tools.dbchk --smart_scan=True --repair=False --require_lock=True \
+    --hours_between_runs=6
+
+  # Run server logs analysis.
+  python -m viewfinder.backend.logs.run_logs_analysis --job_set=server_logs_analysis
+
+  # Run client logs analysis.
+  python -m viewfinder.backend.logs.run_logs_analysis --job_set=client_logs_analysis
+
+  # Get dynamodb table sizes and save count/size to the metrics table.
+  python -m viewfinder.backend.logs.get_table_sizes --dry_run=False
+
+  # Crawl dynamodb and compute statistics.
+  python -m viewfinder.backend.logs.analyze_dynamodb --dry_run=False
+
+  # Process itunes subscription renewals.
+  python -m viewfinder.backend.services.tools.itunes_renew
+
+elif [ "${runtime}" -eq "14" ];
+then
+  # Itunes trends is usually updated around 4am PST (noon UTC) but can be late by a couple of hours.
+  # See http://appfigures.com/itcstatus for historical data.
+  # Lookup itunes downloads/updates/subscriptions information and write to metrics table.
+  python -m viewfinder.backend.logs.itunes_trends --dry_run=False --require_lock=True --smart_scan=True
+else
+  echo "Got runtime=${runtime}, nothing to do."
+fi

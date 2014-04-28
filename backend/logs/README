@@ -1,0 +1,10 @@
+This directory contains all modules falling in the broad category of "logs analysis".
+This includes:
+- get_server_logs: iterates over 'full' backend logs and merges them per day and instance
+- analyze_merged_logs: iterates over merged 'full' backend logs and computes various statistics
+- itunes_trends: fetches daily stats from iTunesConnect
+- get_table_sizes: looks up dynamodb table sizes
+
+These jobs all touch common stats: S3 logs or dynamodb metrics table.
+They all require individual locks to prevent concurrent instances from running.
+They are run serially by 'run_logs_analysis.py' to guarantee order and prevent concurrent runs.

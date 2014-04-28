@@ -1,0 +1,84 @@
+{% extends "table_base.html" %}
+{% block title %}Metrics details{% end %}
+
+{% block datatable_script %}
+<script type="text/javascript">
+
+function set_metric_name(def_val) {
+  var element = document.getElementById("metric_name");
+  if (element) {
+    for(var i = 0; i < element.options.length; i++) {
+      if (element.options[i].value == def_val) {
+        element.selectedIndex = i;
+        break;
+      }
+    }
+  }
+}
+
+$(document).ready(function() {
+  $('#datatable').dataTable({
+    "bProcessing": true,
+    "bStateSave": true,
+    "bFilter": false,
+    "bSort": false,
+    "iDisplayLength": 50,
+  });
+
+  var $start = $('#start-time');
+  var $end = $('#end-time');
+  $start.datetimepicker({
+    onSelect: function(selectedDateTime){
+    }
+  });
+
+  $end.datetimepicker({
+    onSelect: function(selectedDateTime){
+    }
+  });
+
+  var $go = $('#go');
+  $go.click(function() {
+    var endTime = $('#end-time').datetimepicker('getDate').getTime() / 1000;
+    var startTime = $('#start-time').datetimepicker('getDate').getTime() / 1000;
+    $('#start-secs').val(startTime);
+    $('#end-secs').val(endTime);
+  })
+
+  set_metric_name("{{metric_name}}");
+  $start.datetimepicker('setDate', new Date("{{start_secs}}" * 1000));
+  $end.datetimepicker('setDate', new Date("{{end_secs}}" * 1000));
+});
+</script>
+{% end %}
+
+{% block table_description %}
+  <form id="table-query-form" action="/admin/metrics" method="get">
+    Metric: <select name="metric_name" id="metric_name">
+    <option value="itunes.downloads">itunes.downloads</option>
+    <option value="itunes.inapp_subscriptions_auto_renew">itunes.inapp_subscriptions</option>
+    <option value="itunes.updates">itunes.updates</option>
+    <option value="db.table.count">db.table.count</option>
+    <option value="db.table.size">db.table.size</option>
+    <option value="dynamodb.user.identities">dynamodb.user.identities</option>
+    <option value="dynamodb.user.identity_types">dynamodb.user.identity_types</option>
+    <option value="dynamodb.user.locale">dynamodb.user.locale</option>
+    <option value="dynamodb.user.state">dynamodb.user.state</option>
+    <option value="dynamodb.user.device_highest_version">dynamodb.user.device_highest_version</option>
+    <option value="dynamodb.user.device_has_notification">dynamodb.user.device_has_notification</option>
+    <option value="dynamodb.user.devices_with_notification">dynamodb.user.devices_with_notification</option>
+    <option value="dynamodb.user.settings_email_alerts">dynamodb.user.settings_email_alerts</option>
+    <option value="dynamodb.user.settings_sms_alerts">dynamodb.user.settings_sms_alerts</option>
+    <option value="dynamodb.user.settings_push_alerts">dynamodb.user.settings_push_alerts</option>
+    <option value="dynamodb.user.settings_storage">dynamodb.user.settings_storage</option>
+    <option value="dynamodb.user.settings_marketing">dynamodb.user.settings_marketing</option>
+    </select>
+    Start: <input type="text" id="start-time" size=13 class="timeinput" />
+    End: <input type="text" id="end-time" size=13 class="timeinput" />
+    <input type="hidden" name="start-secs" id="start-secs">
+    <input type="hidden" name="end-secs" id="end-secs">
+    <input type="submit" id="go" value="go" />
+  </form>
+{% end %}
+
+{% block admin-title %}Metrics details{% end %}

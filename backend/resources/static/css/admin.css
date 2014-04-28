@@ -1,0 +1,105 @@
+#dialog {
+    margin-top: 60px;
+}
+
+#title {
+	font-weight: 400;
+	color: #222;
+	margin-top: 2%;
+}
+
+#admin-sidebar {
+    position: absolute;
+    top: 50px;
+    left: 12px;
+    width: 238px;
+    z-index: 1;
+}
+
+#admin-sidebar ul {
+	margin-top: 0;
+	margin-bottom: 10pt;
+}
+
+#admin-sidebar h2 {
+	margin-top: 10pt;
+	margin-bottom: 0;
+}
+
+#admin-content {
+	position: relative;
+	padding: 0 30px 30px 250px;
+	min-height: 500px;
+}
+
+#chart-container {
+	width: 100%;
+}
+
+#timespan-outer {
+	float: none;
+	display: block;
+}
+
+#counters {
+	float: left;
+	width: 20%;
+}
+
+#chart {
+	height: 700px; 
+	width: 80%; 
+	float:left;
+}
+
+#counters ul {
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#counters li {
+	display: block;
+	margin-bottom: 5px;
+}
+
+#counters li p {
+	font-size: 12px;
+	margin: 0;
+	padding-left: 10px;
+}
+
+#counters li p a.checked {
+	font-weight:bold;
+	color: #3b88d4;
+}
+
+
+#counters li p a {
+	font-weight:normal;
+	color: #555;
+}
+
+#counters li div a.title {
+	font-size: 14px;
+	color: #909090;
+	margin: 0;
+	padding: 0;
+}
+
+#counters li h3 {
+	font-size: 14px;
+	color: #909090;
+	margin: 0;
+	padding: 0;
+}
+
+#counters li div {
+}
+
+#counters li input {
+	float: left;	
+	height: 20px;
+	vertical-align: middle;
+	margin: 0 10px 0 0;
+}

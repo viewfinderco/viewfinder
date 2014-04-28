@@ -1,0 +1,154 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+import "ContactMetadata.proto";
+import "ContentIds.proto";
+import "ImageFingerprint.proto";
+import "Location.proto";
+import "Placemark.proto";
+import "QueueMetadata.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "PhotoMetadataPB";
+
+message PhotoMetadata {
+  /*
+  message Features {
+    message Point {
+      optional float x = 1;
+      optional float y = 2;
+    }
+
+    message Rect {
+      optional float x = 1;
+      optional float y = 2;
+      optional float width = 3;
+      optional float height = 4;
+    }
+
+    message Face {
+      // The bounds of the face in normalized image coordinates. All values are
+      // in the range [0,1).
+      optional Rect bounds = 1;
+      // The position of the left eye (if detected) in normalized image
+      // coordinates.
+      optional Point left_eye = 2;
+      // The position of the right eye (if detected) in normalized image
+      // coordinates.
+      optional Point right_eye = 3;
+      // The position of the mouth (if detected) in normalized image coordinates.
+      optional Point mouth = 4;
+    };
+
+    repeated Face faces = 1;
+  };
+  */
+
+  message Image {
+    optional int32 size = 1;
+    optional string md5 = 2;
+  }
+
+  message Images {
+    optional Image tn = 1;
+    optional Image med = 2;
+    optional Image full = 3;
+    optional Image orig = 4;
+  }
+
+  enum PhotoType {
+    THUMBNAIL = 1;
+    MEDIUM = 2;
+    FULL = 4;
+    ORIGINAL = 8;
+  }
+
+  optional PhotoId id = 1;
+  optional PhotoId parent_id = 2;
+  optional EpisodeId episode_id = 3;
+  optional int64 user_id = 4;
+  optional int64 sharing_user_id = 5;
+  optional int32 DEPRECATED_orientation = 6;
+  optional double aspect_ratio = 7;  // width / height
+  optional double timestamp = 8;
+  optional Location location = 9;
+  optional Placemark placemark = 10;
+  optional string caption = 11;
+  optional string link = 12;
+  //optional Features features = 13;
+  optional Images images = 14;
+  optional QueueMetadata queue = 15;
+  // Has the photo been shared? Used to override a disabled cloud_storage and
+  // force the photo to be uploaded.
+  optional bool shared = 16;
+  optional string DEPRECATED_adjustment_xmp = 17;
+  // Full asset keys, i.e. a/url#fingerprint
+  repeated string asset_keys = 18;
+  // Bare fingerprints. Includes fingerprints of keys found in asset_keys.
+  // Append-only set.
+  repeated string asset_fingerprints = 19;
+  // The perceptual fingerprint. The terms inside of the fingerprint are an
+  // append-only set.
+  optional ImageFingerprint perceptual_fingerprint = 24;
+  // The list of candidate duplicate (local) photo ids for this photo.
+  repeated int64 candidate_duplicates = 25;
+
+  // Bits indicating labels on the user-photo relation.
+  optional bool label_removed = 20;
+  optional bool label_hidden = 23;
+  optional bool label_unshared = 21;
+  // TODO(spencer): figure out what to do with this error label. I think
+  //   it'll need to be reported to the server via an update_photo request.
+  optional bool label_error = 22;
+
+  // Bits indicating network activity that is required for the photo.
+  optional bool update_metadata = 49;
+  optional bool upload_metadata = 40;
+  optional bool upload_thumbnail = 41;
+  optional bool upload_medium = 42;
+  optional bool upload_full = 43;
+  optional bool upload_original = 44;
+  optional bool download_thumbnail = 45;
+  optional bool download_medium = 46;
+  optional bool download_full = 47;
+  optional bool download_original = 48;
+
+  // Various error states the photo can be in.
+  optional bool error_update_metadata = 77;
+  optional bool error_upload_metadata = 75;
+  optional bool error_upload_thumbnail = 60;
+  optional bool error_upload_medium = 61;
+  optional bool error_upload_full = 62;
+  optional bool error_upload_original = 63;
+  optional bool error_download_thumbnail = 64;
+  optional bool error_download_medium = 65;
+  optional bool error_download_full = 66;
+  optional bool error_download_original = 67;
+  optional bool error_asset_thumbnail = 68;
+  optional bool error_asset_full = 69;
+  optional bool error_asset_original = 70;
+  optional bool error_ui_thumbnail = 71;
+  optional bool error_ui_full = 72;
+  optional bool error_ui_original = 74;
+  optional bool error_timestamp = 73;
+  optional bool error_timestamp_invalid = 76;
+  optional bool error_placemark_invalid = 78;
+
+  // Has this photo's placemark been processed into the placemark
+  // histogram?
+  optional bool placemark_histogram = 90;
+}
+
+message PhotoPathMetadata {
+  // The server_id of the photo. Only set once the photo has been uploaded to
+  // the server.
+  optional string server_id = 1;
+  // The md5 of the file contents.
+  optional string md5 = 2;
+  // The last access time of the file in seconds since the epoch.
+  optional uint32 access_time = 3;
+  // The size of the file contents.
+  optional int64 size = 4;
+  // The size of the parent image which was used to generate this image.
+  optional int32 parent_size = 5;
+}

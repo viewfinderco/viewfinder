@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_inboxFragment"
+    android:background="@color/inbox_background"
+    >
+
+  <include layout="@layout/title_bar"
+      android:id="@+id/include_titleBar"
+      android:layout_below="@+id/include_statusBar"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      />
+
+  <co.viewfinder.widgets.SpringyListView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/listView_inbox"
+      android:divider="@null"
+      android:dividerHeight="0dp"
+      android:layout_alignParentBottom="true"
+      android:layout_below="@+id/include_titleBar"
+      />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="55dp"
+      android:id="@+id/relativeLayout_navbar"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/navbar_gradient"
+      >
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton_navbarLeft"
+        android:layout_gravity="center_vertical|left"
+        android:src="@drawable/navbar_icon_contacts"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/navbar_button_outer"
+        android:layout_marginLeft="5dp"
+        android:padding="10dp"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout_navbar"
+        android:background="@android:color/transparent"
+        android:layout_toRightOf="@+id/imageButton_navbarLeft"
+        android:layout_toLeftOf="@+id/imageButton_navbarRight"
+        >
+
+      <ImageButton
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:id="@+id/imageButton_navbarMiddleLeft"
+          android:layout_gravity="center_vertical"
+          android:src="@drawable/navbar_icon_camera"
+          android:layout_weight="1"
+          android:background="@drawable/navbar_button_middle_left"
+          android:paddingBottom="5dp"
+          android:paddingTop="5dp"
+          />
+
+      <ImageButton
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:id="@+id/imageButton_navbarMiddleRight"
+          android:layout_gravity="center_vertical"
+          android:layout_weight="1"
+          android:src="@drawable/navbar_icon_compose"
+          android:background="@drawable/navbar_button_middle_right"
+          android:paddingBottom="5dp"
+          android:paddingTop="5dp"
+          />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton_navbarRight"
+        android:src="@drawable/navbar_icon_myphotos"
+        android:layout_gravity="center_vertical|right"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/navbar_button_outer"
+        android:layout_marginRight="5dp"
+        android:padding="10dp"
+        />
+
+  </RelativeLayout>
+
+</RelativeLayout>

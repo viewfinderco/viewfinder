@@ -1,0 +1,3 @@
+#!/bin/bash
+# Quick list of all EC2 instances with custom formatting.
+list_instances -H "ID,Zone,Hostname,State,T:NodeType,T:Name"

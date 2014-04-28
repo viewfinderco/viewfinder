@@ -1,0 +1,69 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "InvalidateMetadataPB";
+
+message ContactSelection {
+  optional string start_key = 1;
+
+  // If set, all existing contacts should be erased and re-queried.
+  // Should not be saved to the database; it is only used for
+  // communication between the notification manager and contact
+  // manager.
+  optional bool all = 2;
+}
+
+message EpisodeSelection {
+  optional string episode_id = 1;
+  optional bool get_attributes = 2 [default=false];
+  optional bool get_photos = 3 [default=false];
+  optional string photo_start_key = 4;
+  // IMPORTANT: update the handler in EpisodeTable.mm to reflect
+  //   any additional invalidation attributes as they are added.
+}
+
+message ViewpointSelection {
+  optional string viewpoint_id = 1;
+  optional bool get_attributes = 2 [default=false];
+  optional bool get_followers = 3 [default=false];
+  optional string follower_start_key = 4;
+  optional bool get_activities = 5 [default=false];
+  optional string activity_start_key = 6;
+  optional bool get_episodes = 7 [default=false];
+  optional string episode_start_key = 8;
+  optional bool get_comments = 9 [default=false];
+  optional string comment_start_key = 10;
+  // IMPORTANT: update the handler in ViewpointTable.mm to reflect
+  //   any additional invalidation attributes as they are added.
+}
+
+message UserSelection {
+  optional int64 user_id = 1;
+}
+
+message InvalidateMetadata {
+  optional bool all = 1;
+
+  repeated ViewpointSelection viewpoints = 2;
+  repeated EpisodeSelection episodes = 3;
+  optional ContactSelection contacts = 4;
+  repeated UserSelection users = 5;
+}
+
+message NotificationSelection {
+  // The last received notification key.
+  optional string last_key = 1;
+  // True if all existing notifications have been queried.
+  optional bool query_done = 2;
+
+  // The minimum notification id received for a notification with a
+  // min_required_version indicating that the client is too old to
+  // fully understand invalidation.
+  optional int64 low_water_notification_id = 3;
+
+  // The maximum of all min_required_version values received by the
+  // client. Once the client has reached this version, old
+  // notifications may be productively re-queried.
+  optional int32 max_min_required_version = 4;
+}

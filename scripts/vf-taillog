@@ -1,0 +1,138 @@
+#!/usr/bin/env python
+# Copyright 2012 Viewfinder Inc. All Rights Reserved.
+# Tail the log from staging or production servers.
+# Filter and colorize output based on options.
+#
+from subprocess import Popen, PIPE
+import optparse
+import os
+
+def color(string, code):
+  return '\033[%dm' % code + string
+
+def bold(string=''):
+  return color(string, 1)
+
+def black(string=''):
+  return color(string, 30)
+
+def red(string=''):
+  return color(string, 31)
+
+def green(string=''):
+  return color(string, 32)
+
+def yellow(string=''):
+  return color(string, 33)
+
+def blue(string=''):
+  return color(string, 34)
+
+def magenta(string=''):
+  return color(string, 35)
+
+def cyan(string=''):
+  return color(string, 36)
+
+def white(string=''):
+  return color(string, 37)
+
+def black_bg(string=''):
+  return color(string, 40)
+
+def red_bg(string=''):
+  return color(string, 41)
+
+def green_bg(string=''):
+  return color(string, 42)
+
+def yellow_bg(string=''):
+  return color(string, 43)
+
+def blue_bg(string=''):
+  return color(string, 44)
+
+def magenta_bg(string=''):
+  return color(string, 45)
+
+def cyan_bg(string=''):
+  return color(string, 46)
+
+def white_bg(string=''):
+  return color(string, 47)
+
+def reset(string=''):
+ return color(string, 0)
+
+
+def TailLog(server_name, skip_x, skip_i, skip_w):
+  """Tail the log and colorize the output.  Also filter output based on arguments."""
+  print("\033];%s\007" % server_name)
+  proc = None
+  try:
+    proc = Popen(["vf-ssh %s tail -f -n 10000 local/logs/server_log" % server_name],
+                 stdout=PIPE,
+                 env=os.environ.copy(),
+                 shell=True)
+
+    line = ''
+    while True:
+      char = proc.stdout.readline(1)
+      if char == '\n':
+        # The following can be modified to call to attention to anything we're interested in.
+        if skip_i and line.startswith('[I'):
+          line = ''
+          continue
+        if skip_w and line.startswith('[W'):
+          line = ''
+          continue
+        if skip_x and not line.startswith('['):
+          line = ''
+          continue
+        if line.find('] 500 ') > 0:
+          line = red(line)
+        elif line.startswith('[W'):
+          line = yellow(line)
+        elif line.startswith('[E'):
+          line = red(line)
+        print line + reset()
+        line = ''
+      else:
+        line = line + char
+  finally:
+    if proc is not None:
+      proc.terminate()
+
+def main():
+  p = optparse.OptionParser()
+  p.add_option('--level', default='I', help='Filter Level. (i)nfo, (w)arning, or (e)rror')
+  options, arguments = p.parse_args()
+
+  if len(arguments) < 1:
+    raise Exception('Need server name as first argument.')
+
+  skip_x = False
+  skip_i = False
+  skip_w = False
+
+  if options.level.lower() == 'w':
+    skip_i = True
+    skip_x = True
+  elif options.level.lower() == 'e':
+    skip_i = True
+    skip_w = True
+    skip_x = True
+
+  while True:
+    try:
+      TailLog(arguments[0], skip_x, skip_i, skip_w)
+    except KeyboardInterrupt:
+      break
+    except Exception:
+      pass
+
+  print("FINISHED")
+
+
+if __name__ == '__main__':
+  main()

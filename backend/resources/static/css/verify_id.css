@@ -1,0 +1,204 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+body.verify_id {
+    height: 100%;
+    background: #F7F4F1;
+    text-align: center;
+}
+body.verify_id #layout {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    margin: 3% auto 0;
+    padding: 0;
+    overflow: auto;
+    position: relative;
+    top: auto;
+    left: auto;
+    bottom: auto;
+}
+
+#phone-holder {
+    float: left;
+    min-width: 300px;
+    width: 30%;
+    margin-right: 5%;
+    position: relative;
+}
+
+#message-holder {
+    float: left;
+    width: 50%;
+    min-width: 500px;
+    text-align: left;
+}
+#message-holder h2 {
+    font-size: 40px;
+    font-weight: normal;
+    margin: 0;
+    line-height: 45px;
+}
+#message-holder p {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 60px 0 0 0;
+    line-height: 30px;
+}
+#message-holder p b {
+    color: #CF5E13;
+}
+#message-holder .access-code-holder {
+    float: left;
+    width: 100%;
+    margin: 20px 0 0 0;
+}
+#message-holder .access-code-holder .code-partial { 
+    border: 1px solid #ADA4A1;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #fff;
+    padding: 15px 20px 12px;
+    float: left;
+    margin: 0 15px 0 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: #504441;
+    outline: none;
+}
+#message-holder .support {
+    color: #504441;
+    font-size: 13px;
+    line-height: 17px;
+    margin: 175px 0 0 0;
+}
+#message-holder .support a {
+    font-weight: normal;
+    text-decoration: underline;
+    color: #504441;
+    font-size: 13px;
+}
+#message-holder .footer-logo {
+    float: left;
+    margin: 20px 0 0 0;
+}
+#message-holder .footer-logo .dark-logo {
+    float: left;
+    margin: 0 6px 0 0;
+}
+#message-holder .footer-logo .home-link {
+    color: #504441;
+    float: left;
+    font-size: 13px;
+    margin: 7px 0 0 0;
+}
+#message-holder .footer-logo .home-link a {
+    color: #504441;
+    text-decoration: underline;
+    font-weight: normal;
+    font-size: 13px;
+    margin: 10px 0 0 0;
+}
+
+#support-sticky-footer {
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-weight: normal;
+    font-size: 12px;
+    color: #504441;
+    padding: 5px 0;
+    display: none;
+}
+#support-sticky-footer a {
+    text-decoration: underline;
+    font-weight: normal;
+    font-size: 12px;
+    color: #504441;
+}
+
+
+/* Styles for devices with < 1100px horizontal resolution */
+@media only screen and (max-width:  1100px) {
+    #phone-holder {
+        min-width: 250px;
+    }
+
+    #message-holder {
+        min-width: 300px;
+    }
+    #message-holder h2 {
+        font-size: 28px;
+        line-height: 35px;
+    }
+    #message-holder p {
+        font-size: 18px;
+        margin: 40px 0 0 0;
+        line-height: 24px;
+    }
+    #message-holder .support {
+        margin-top: 125px;
+    }
+    #message-holder .access-code-holder .code-partial {
+        padding: 10px 15px 8px;
+        margin: 0 10px 0 0;
+        font-size: 26px;
+    }
+}
+
+
+/* Styles for devices with < 650px horizontal resolution */
+@media only screen and (max-width:  650px) {
+    #phone-holder {
+        min-width: 300px;
+        clear: both;
+        float: none;
+        margin: 0 auto 50px auto;
+        text-align: center;
+    }
+    #phone-holder .activate1 {
+        margin-left: -80px;
+    }
+
+    #message-holder {
+        min-width: 300px;
+        float: none;
+        margin: 0 auto;
+    }
+    #message-holder h2 {
+        font-size: 28px;
+        line-height: 40px;
+        text-align: center;
+    }
+    #message-holder p {
+        font-size: 18px;
+        margin: 30px 0 0 0;
+        line-height: 24px;
+        text-align: center;
+    }
+    #message-holder .access-code-holder {
+        margin: 20px 0 50px 15px;
+    }
+    #message-holder .access-code-holder .code-partial {
+        padding: 10px 15px 8px;
+        margin: 0 10px 0 0;
+        font-size: 26px;
+    }
+    #message-holder .support {
+        display: none;
+    }
+    #message-holder .footer-logo {
+        display: none;
+    }
+
+    #support-sticky-footer {
+        display: block;
+    }
+}

@@ -1,0 +1,27 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+import "Location.proto";
+import "Placemark.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "PlacemarkHistogramEntryPB";
+
+message PlacemarkHistogramEntry {
+  optional Placemark placemark = 1;
+
+  // The aggregate values for latitude, longitude, accuracy, and altitude.
+  optional Location location_sum = 2;
+
+  // The total number of photo locations matching this placemark entry. The
+  // location_sum divided by this count gives the average location.
+  optional int32 count = 3;
+
+  // A complete set of sublocalities with counts.
+  message Sublocality {
+    optional string name = 1;
+    optional int32 count = 2;
+  }
+
+  repeated Sublocality sublocalities = 4;
+}

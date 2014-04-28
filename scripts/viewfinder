@@ -1,0 +1,55 @@
+#!/usr/bin/env python
+#
+# Copyright 2012 Viewfinder Inc. All Rights Reserved.
+
+"""Runs the Viewfinder web server.
+
+If --read_only, we change the following:
+- process name is viewfinder-ro
+- do not scan the ops table
+- do not upload server logs
+and verify that the proper flags are set:
+- db client is read-only
+- object store is read-only
+- upload metrics is off
+
+"""
+
+__author__ = 'spencer@emailscrubbed.com (Spencer Kimball)'
+
+import os
+
+from functools import partial
+from tornado import ioloop, options
+from viewfinder.backend.base import process_util, util
+from viewfinder.backend.www import server, www_main
+
+options.options.define('readonly_server', default=False, help='Run server in read-only mode')
+options.options.define('requirements_file', default=os.path.join(os.path.dirname(__file__), 'prod-requirements.txt'),
+                       help='Fail unless packages from this file are installed; set empty to disable')
+
+if __name__ == '__main__':
+  # Parse command line and verify that read-only flags are set. We need to do this here as InitAndRun both
+  # parses flags and initialized the DB/S3 object.
+  options.parse_command_line(final=False)
+  process_name = 'viewfinder'
+  scan_ops = True
+  server_logging = True
+
+  if options.options.readonly_server:
+    assert options.options.readonly_db == True, 'You must specify --readonly_db=True'
+    assert options.options.readonly_store == True, 'You must specify --readonly_store=True'
+    assert options.options.upload_metrics == False, 'You must specify --upload_metrics=False'
+    process_name = 'viewfinder-ro'
+    scan_ops = False
+    server_logging = False
+
+  if options.options.requirements_file:
+    util.CheckRequirements(options.options.requirements_file)
+
+  process_util.SetProcessName(process_name)
+  io_loop = ioloop.IOLoop.instance()
+  www_main.InitAndRun(server.StartServer,
+                      server.ShutdownServer,
+                      scan_ops=scan_ops,
+                      server_logging=server_logging)

@@ -1,0 +1,16 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "PlacemarkPB";
+
+message Placemark {
+  optional string iso_country_code = 1;
+  optional string country = 2;
+  optional string state = 3;
+  optional string postal_code = 4;
+  optional string locality = 5;
+  optional string sublocality = 6;
+  optional string thoroughfare = 7;
+  optional string subthoroughfare = 8;
+}

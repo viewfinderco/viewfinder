@@ -1,0 +1,17 @@
+Fabric==1.4.3
+beautifulsoup4==4.1.3
+cogapp==2.3
+coverage==3.5.2
+gprof2dot==1.0
+html5lib==0.95
+keyring==0.10
+# Used to generate PDF summary reports. Requires libfreetype.
+# matplotlib==1.2.1
+mercurial==2.3.2
+nose==1.2.1
+py==1.4.9
+pyflakes==0.5.0
+python-gcm==0.1.4
+ssh==1.7.14
+tox==1.4.2
+virtualenv==1.8.2

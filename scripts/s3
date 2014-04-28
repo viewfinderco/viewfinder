@@ -1,0 +1,3 @@
+#!/bin/bash
+# Shortcut to s3_utils.
+exec python -m viewfinder.backend.storage.tools.s3util --devbox "${@:1}"

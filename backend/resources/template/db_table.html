@@ -1,0 +1,72 @@
+{% extends "table_base.html" %}
+{% block title %}Database Table: {{ table_name }}{% end %}
+
+{% block datatable_script %}
+<script type="text/javascript">
+
+function set_sort_desc(def_val) {
+  var element = document.getElementById("sort_desc");
+  if (element) {
+    for(var i = 0; i < element.options.length; i++) {
+      if (element.options[i].value == def_val) {
+        element.selectedIndex = i;
+        break;
+      }
+    }
+  }
+}
+
+$(document).ready(function() {
+  $('#datatable').dataTable({
+    "bProcessing": true,
+    "bStateSave": true,
+    "bFilter": false,
+    "bSort": false,
+    "bServerSide": true,
+    "sAjaxSource": "{{ ajax_src }}",
+    "iDisplayLength": 50,
+  });
+  set_sort_desc("{{sort_desc}}");
+});
+</script>
+{% end %}
+
+{% block table_description %}
+  <form id="table-query-form" action="/admin/db" method="get">
+    {% set hash_val = hash_key if hash_key is not None else "" %}
+    <input name="hash_key" value="{{hash_val}}" id="hash-key-input" type="text" length="50" placeholder="hash-key"/>
+    {% if has_range_key %}
+      {% set sort_val = sort_key if sort_key is not None else "" %}
+      <!-- TODO(marc): handle BETWEEN operator. this requires a second sort-key field. -->
+      <select name="sort_desc" id="sort_desc">
+      <option value="EQ">Equals</option>
+      <option value="LE">Less or equal</option>
+      <option value="LT">Less than</option>
+      <option value="GE">Greater or equal</option>
+      <option value="GT">Greater than</option>
+      <option value="BEGINS_WITH">Begins with</option>
+      </select>
+      <input name="sort_key" value="{{sort_val}}" id="sort-key-input" type="text" length="50" placeholder="sort-key"/>
+    {% end %}
+    <input type="hidden" name="table" value="{{table_name}}">
+    <input type="hidden" name="type" value="query">
+    <input type="submit" value="go" />
+  </form>
+
+  {% if op_type == 'query' %}
+    {% if reverse %}
+    <div><a class="button" href="?table={{table_name}}&type=query&hash_key={{hash_key}}">Forward</a></div>
+    {% else %}
+    <div><a class="button" href="?table={{table_name}}&type=query&hash_key={{hash_key}}&reverse=true">Reverse</a></div>
+    {% end %}
+  {% else %}
+  <div class="warning">WARNING: only forward scans are supported; will reset to beginning of table otherwise</div>
+  {% end %}
+{% end %}
+
+{% block admin-title %}Database Table: {{ table_name }}{% end %}
+
+{% block admin-footer %}
+<div class="separator"></div>
+<div class="center"><a class="button" href="/admin/db">Back to All Tables</a></div>
+{% end %}

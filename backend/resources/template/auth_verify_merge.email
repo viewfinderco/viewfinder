@@ -1,0 +1,6 @@
+{% extends auth_verify_base.email %}
+
+{% block greeting %}Hello {{ user_name or '' }}{% end %}
+{% block intro %}We received your request to link {{ user_email }} to your existing Viewfinder account. Use this code to complete the process:{% end %}
+{% block legal %}By using Viewfinder{% end %}
+{% block closing %}Disregard this email if you did not submit this request.{% end %}

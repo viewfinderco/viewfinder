@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <RelativeLayout
+      android:id="@+id/titlebar"
+      style="@style/titlebar">
+
+    <view
+        android:id="@+id/titlebar_title"
+        style="@style/titlebar_title"
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:text="@android:string/untitled"
+        />
+
+  </RelativeLayout>
+
+  <WebView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/titlebar_content"
+      android:layout_below="@+id/titlebar"
+      android:focusable="true"
+      android:background="@color/settings_background"/>
+
+</RelativeLayout>

@@ -1,0 +1,138 @@
+body, html {
+    height: 100%;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    font-family: "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: medium;
+    font-size: 11pt;
+    color: #909090;
+    background: #eaebec;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+}
+
+.light {
+    color:#786c6a;
+}
+
+.dark {
+    color: #444;
+}
+
+.semidark {
+    color: #666;
+}
+
+.orange { 
+	color:#FA9214; 
+}
+
+.gigantic {
+    font-size: 65pt;
+}
+.h1 {
+    font-size: 45pt;
+}
+.h2 {
+    font-size: 24pt;
+}
+.h3 {
+    font-size: 16pt;
+}
+.h4 {
+    font-size: 12pt;
+}
+.small {
+    font-size: 9pt;
+}
+
+#layout {
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Styles for devices with < 480px horizontal resolution */
+@media only screen and (max-width: 480px) {
+    html {
+    -webkit-text-size-adjust: none;
+    }
+}
+
+a, a:visited {
+    text-decoration: none;
+    font-weight: bold;
+    color: #3b88d4;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a.important, a.important:visited {
+    color: #e2001e;
+}
+
+#user-img {
+    float: left;
+    border: 2px inset #ccc;
+    display: none;
+}
+
+#opaque {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: #f4f4f4;
+    filter: alpha(opacity=95);
+    opacity: 0.95;
+}
+
+.center {
+    text-align: center;
+}
+
+.clearfix:after {
+    content:"";
+    display:table;
+    clear:both;
+}
+
+.separator {
+    clear: both;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid #ccc;
+}
+
+.hidden {
+    display : none;
+}
+
+#google-login {
+    margin-left: 100px;
+    float: left;
+}
+
+#google-login .badge {
+    background: url(/static/css/images/google.png);
+    width: 64px;
+    height: 64px;
+}
+
+#facebook-login {
+    margin-right: 100px;
+    float: right;
+}
+
+#facebook-login .badge {
+    background: url(/static/css/images/facebook.png);
+    width: 64px;
+    height: 64px;
+}

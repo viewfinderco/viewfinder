@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+Viewfinder Login
+{% end %}
+
+{% block content %}
+  <script type="text/javascript">
+    $(function () {
+        var am = viewfinder.authModel = new viewfinder.models.AuthorizationModel({
+          identity : {% raw json_encode(identity) %},
+          mode : 'register_confirm',
+          access_token : {% raw json_encode(access_token) %}
+        });
+      });
+  </script>
+  {% module Auth() %}
+{% end %}

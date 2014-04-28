@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/auth_signupFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/auth_signupTabs"
+      android:clipChildren="false"
+      android:clipToPadding="false"
+      android:background="@drawable/tabs_modal_signup_default_android">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/auth_tabText"
+        android:layout_marginTop="17dp">
+
+      <view
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_signupTabButton"
+          android:layout_weight="1"
+          android:text="@string/auth_signup"
+          style="@style/big_button"
+          android:background="@android:color/transparent"
+          android:layout_marginLeft="8dp"/>
+
+      <view
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:layout_weight="1"
+          android:text="@string/auth_login"
+          android:singleLine="false"
+          android:background="@android:color/transparent"
+          android:selectAllOnFocus="false"
+          style="@style/big_button"
+          android:id="@+id/auth_loginTabButton"
+          android:layout_marginRight="8dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="9dp"
+        android:id="@+id/auth_signupCard"
+        android:layout_below="@+id/auth_tabText"
+        android:paddingBottom="8dp">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/auth_signupName"
+          android:background="@drawable/signup_text_inputs_top"
+          android:padding="0dp">
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/auth_signupFirst"
+            android:hint="@string/auth_first"
+            android:layout_weight="1"
+            android:layout_toLeftOf="@+id/auth_nameSpacer"
+            android:layout_alignParentLeft="true"
+            android:inputType="textCapWords"
+            style="@style/input"
+            android:nextFocusDown="@+id/auth_signupLast"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:id="@+id/auth_nameSpacer"
+            android:layout_centerInParent="true"
+            android:background="@drawable/spacer"/>
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="co.viewfinder.widgets.ViewfinderEditText"
+            android:id="@+id/auth_signupLast"
+            android:layout_weight="1"
+            android:hint="@string/auth_last"
+            android:layout_toRightOf="@+id/auth_nameSpacer"
+            android:layout_alignParentRight="true"
+            android:inputType="textCapWords"
+            style="@style/input"
+            android:nextFocusDown="@+id/auth_signupEmailOrMobile"/>
+      </RelativeLayout>
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/auth_signupEmailOrMobile"
+          android:layout_below="@+id/auth_signupName"
+          android:background="@drawable/signup_text_inputs_middle"
+          android:padding="0dp">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/email_or_text_edit"
+            android:id="@+id/include"/>
+      </FrameLayout>
+
+      <view
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          class="co.viewfinder.widgets.ViewfinderEditText"
+          android:id="@+id/auth_signupPassword"
+          android:hint="@string/auth_password"
+          android:background="@drawable/signup_text_inputs_bottom"
+          style="@style/input"
+          android:inputType="textPassword"
+          android:layout_below="@+id/auth_signupEmailOrMobile"
+          android:imeOptions="actionDone"/>
+
+      <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/auth_signupPassword"
+          android:layout_marginTop="8dp">
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="co.viewfinder.widgets.ViewfinderButton"
+            android:id="@+id/auth_signupCancel"
+            android:background="@drawable/big_button_grey_selector"
+            android:text="@string/auth_cancel"
+            style="@style/big_button"
+            android:clickable="true"
+            android:layout_weight="1"/>
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="co.viewfinder.widgets.ViewfinderButton"
+            android:id="@+id/auth_signupCreateAccount"
+            android:background="@drawable/big_button_green_selector"
+            style="@style/big_button"
+            android:text="@string/auth_createAccount"
+            android:layout_weight="2"
+            android:layout_marginLeft="8dp"/>
+      </LinearLayout>
+
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+</RelativeLayout>

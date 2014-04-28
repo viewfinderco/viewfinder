@@ -1,0 +1,16 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Marc Berhault.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "CookieMetadataPB";
+
+message CookieMetadata {
+  optional string name = 1;
+  optional string value = 2;
+  optional string comment = 3;
+  optional string domain = 4;
+  optional int64 expiry_date = 5;
+  optional string path = 6;
+  optional int32 version = 7;
+  optional bool is_secure = 8;
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:src="@drawable/dashboard_default"
+      android:scaleType="centerCrop"/>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/welcome"
+      android:layout_marginBottom="50dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome_logo"
+        android:src="@drawable/signup_logo"
+        android:layout_centerInParent="true"/>
+
+    <co.viewfinder.widgets.ViewfinderTextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/auth_welcome"
+        android:id="@+id/welcome_text"
+        android:layout_below="@+id/welcome_logo"
+        android:paddingTop="40dp"
+        android:textSize="24dp"
+        android:textColor="@color/auth_welcomeText"
+        android:layout_centerHorizontal="true"/>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="110dp"
+      android:id="@+id/welcome_pager"
+      android:layout_alignParentBottom="true"
+      android:layout_marginRight="8dp"
+      android:layout_marginLeft="8dp">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/welcome_takeTour"
+        android:background="@android:color/transparent"
+        android:src="@drawable/take_tour_arrow"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
+        android:padding="16dp"/>
+  </RelativeLayout>
+
+</RelativeLayout>

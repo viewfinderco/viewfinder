@@ -1,0 +1,17 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+import "ContentIds.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "CommentMetadataPB";
+
+message CommentMetadata {
+  optional CommentId comment_id = 1;
+  optional ViewpointId viewpoint_id = 2;
+  optional int64 user_id = 3;
+  optional string asset_id = 4;
+  optional double timestamp = 5;
+  optional string message = 6;
+  repeated string indexed_terms = 7;
+}

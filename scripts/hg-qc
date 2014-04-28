@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Author: Peter Mattis.
+#
+# A better "hg qfinish -a" command.
+
+if ! hg id --rev qtip >/dev/null 2>&1; then
+  echo "Nothing to commit. Current patch queue is empty."
+  exit
+fi
+
+uncommitted_changes=$(hg status 2>/dev/null | wc -l)
+if test "${uncommitted_changes}" -ne 0; then
+  hg status
+  echo
+  read -p "Uncommitted changes. Continue? [y/N] "
+  if test "${REPLY}" != "y" -a "${REPLY}" != "Y"; then
+    echo "User aborted"
+    exit
+  fi
+fi
+
+hg log --rev qtip:qbase
+
+read -p "Continue? [Y/n] "
+if test -n "${REPLY}" -a "${REPLY}" != "y" -a "${REPLY}" != "Y"; then
+  echo "User aborted"
+  exit
+fi
+
+# TODO(pmattis): Check for incoming changes and prompt to continue.
+
+echo "Committing"
+hg qfinish -a

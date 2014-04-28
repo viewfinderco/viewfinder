@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Authentication -->
+  <dimen name="auth_openTabPadding">30dp</dimen>
+  <dimen name="auth_closedTabPadding">8dp</dimen>
+
+  <!-- Conversation -->
+  <dimen name="conv_titleBarButtonWidth">60dp</dimen>
+
+  <!-- ConvItem -->
+  <dimen name="convItem_commentImage">50dp</dimen>
+  <dimen name="convItem_contentMargin">24dp</dimen>
+  <dimen name="convItem_conversationSpacing">8dp</dimen>
+  <dimen name="convItem_conversationMargin">8dp</dimen>
+  <dimen name="convItem_cornerRadius">6.5dp</dimen>
+  <dimen name="convItem_leftRightMargin">8dp</dimen>
+  <dimen name="convItem_threadingMargin">14dp</dimen>
+  <dimen name="convItem_threadingWidth">12dp</dimen>
+  <dimen name="convItem_updateLeftMargin">34dp</dimen>
+
+  <!-- ConvSummary -->
+  <dimen name="convSummary_titleText">20sp</dimen>
+  <dimen name="convSummary_headerText">12sp</dimen>
+  <dimen name="convSummary_FooterText">15sp</dimen>
+  <dimen name="convSummary_cardPadding">8dp</dimen>
+</resources>

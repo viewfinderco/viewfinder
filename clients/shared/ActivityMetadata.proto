@@ -1,0 +1,106 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Spencer Kimball.
+
+import "ContentIds.proto";
+import "ContactMetadata.proto";
+import "QueueMetadata.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "ActivityMetadataPB";
+
+message ActivityMetadata {
+  message Episode {
+    optional EpisodeId episode_id = 1;
+    repeated PhotoId photo_ids = 2;
+  }
+
+  message AddFollowers {
+    // On receipt from the server, only user_id will be set in each
+    // contact metadata. However, on a locally-generated activity,
+    // the full contact metadata is set, which allows contacts to be
+    // named without necessarily having a user-id yet for the intended
+    // follower.
+    repeated ContactMetadata contacts = 1;
+  }
+
+  message MergeAccounts {
+    optional int64 source_user_id = 1;
+    optional int64 target_user_id = 2;
+  }
+
+  message PostComment {
+    optional CommentId comment_id = 1;
+  }
+
+  message RemoveFollowers {
+    repeated int64 user_ids = 1;
+  }
+
+  message SavePhotos {
+    repeated Episode episodes = 1;
+    // For viewpoint autosave.
+    optional ViewpointId viewpoint_id = 2;
+  }
+
+  message ShareNew {
+    repeated Episode episodes = 1;
+    repeated ContactMetadata contacts = 2;
+  }
+
+  message ShareExisting {
+    repeated Episode episodes = 1;
+  }
+
+  message Unshare {
+    repeated Episode episodes = 1;
+  }
+
+  message UpdateEpisode {
+    optional EpisodeId episode_id = 1;
+  }
+
+  message UpdateViewpoint {
+    optional ViewpointId viewpoint_id = 1;
+  }
+
+  message UploadEpisode {
+    optional EpisodeId episode_id = 1;
+    repeated PhotoId photo_ids = 2;
+  }
+
+  // NOTE: if any new activity type is added, make sure to also clear
+  //   it in ActivityTable_Activity::MergeFrom.
+
+  optional ActivityId activity_id = 1;
+  optional ViewpointId viewpoint_id = 2;
+  optional int64 user_id = 3;
+  optional double timestamp = 4;
+  optional int64 update_seq = 5;
+  optional QueueMetadata queue = 6;
+
+  // NOTE: if any new activities are added here, be sure to update
+  // ActivityTable_Activity::MergeFrom.
+  optional AddFollowers add_followers = 7;
+  optional MergeAccounts merge_accounts = 16;
+  optional PostComment post_comment = 8;
+  optional RemoveFollowers remove_followers = 17;
+  optional SavePhotos save_photos = 15;
+  optional ShareNew share_new = 9;
+  optional ShareExisting share_existing = 10;
+  optional Unshare unshare = 11;
+  optional UpdateEpisode update_episode = 12;
+  optional UpdateViewpoint update_viewpoint = 13;
+  optional UploadEpisode upload_episode = 14;
+
+  optional bool label_error = 20;
+
+  // Provisional activities are not uploaded to the server until they become
+  // permanent.
+  optional bool provisional = 32;
+  // A boolean indicating whether the activity needs to be uploaded to the
+  // server or not.
+  optional bool upload_activity = 30;
+
+  // Timestamp at which this activity was viewed on this device.
+  optional double viewed_timestamp = 31;
+}

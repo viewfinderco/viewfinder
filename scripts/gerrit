@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+# Gerrit utility 
+
+GERRIT_USER=${USER}
+GERRIT_HOST="pmattis-imac.local."
+
+# Initialize the user's ~/.ssh/config
+if ! grep -q '^Host gerrit$' ~/.ssh/config ; then
+  echo "Adding \"gerrit\" to ~/.ssh/config"
+  cat >> ~/.ssh/config <<EOF
+
+Host gerrit
+     User ${GERRIT_USER}
+     Port 29418
+     Hostname ${GERRIT_HOST}
+EOF
+fi
+
+die() {
+  echo "error: $@"
+  exit 1
+}
+
+function run_gerrit() {
+  ssh gerrit gerrit "$@"
+}
+
+function init_approval_categories() {
+local sql=$(cat <<EOF
+DELETE FROM approval_categories      WHERE category_id = 'VRIF';
+DELETE FROM approval_category_values WHERE category_id = 'VRIF';
+EOF)
+  run_gerrit gsql --format PRETTY -c "\"${sql}\""
+  run_gerrit flush-caches
+}
+
+function setup() {
+  echo "changing master to point to gerrit"
+  git config branch.master.remote origin || die "git config"
+  # make sure "git push" works as expected
+  git config remote.origin.push HEAD:refs/for/master || die "git config"
+
+  # copy the commit-msg hook to get Change-Id support
+  if ! test -x .git/hooks/commit-msg; then
+    echo "adding gerrit commit message hook"
+    scp -p gerrit:hooks/commit-msg .git/hooks/ || die
+  fi  
+}
+
+if [ $# -eq 0 ]; then
+  run_gerrit --help
+  exit 1
+fi
+
+case "$1" in 
+  init-approval-categories)
+    shift
+    init_approval_categories "$@"
+    ;;
+  setup)
+    setup
+    ;;
+  *)
+    run_gerrit "$@"
+    ;;
+esac

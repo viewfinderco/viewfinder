@@ -1,0 +1,7 @@
+option java_package = "com.hello.proto";
+
+message Settings {
+  optional string setting_string = 1;
+  optional bool setting_checkbox = 2;
+  optional string device_uuid = 3;
+}

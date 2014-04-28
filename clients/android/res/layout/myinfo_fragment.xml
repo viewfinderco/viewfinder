@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/myinfo_fragment">
+
+  <RelativeLayout
+      android:id="@+id/titlebar"
+      style="@style/titlebar">
+
+    <view
+        style="@style/titlebar_title"
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:text="@string/myinfo"
+        />
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/titlebar_content"
+      android:layout_below="@+id/titlebar"
+      android:background="@color/settings_background"
+      android:padding="8dp">
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="co.viewfinder.widgets.ContactCardLayout"
+        android:id="@+id/myinfo_contact"
+        android:minHeight="30dp"
+        android:orientation="vertical"/>
+
+    <view
+        class="co.viewfinder.widgets.ViewfinderButton"
+        style="@style/big_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/myinfo_changePassword"
+        android:layout_below="@+id/myinfo_contact"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/big_button_grey_selector"
+        android:text="@string/auth_changePassword"/>
+
+  </RelativeLayout>
+
+</RelativeLayout>

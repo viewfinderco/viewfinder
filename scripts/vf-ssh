@@ -1,0 +1,27 @@
+#!/bin/bash
+# SSH into an amazon instance, specified by name (eg: vf-ssh STAGING_0003)
+# To make things simpler, you should probably add the following to your ~/.ssh/config:
+# All arguments after the instance name are passed to ssh.
+#
+# Host *.amazonaws.com
+#   User ec2-user
+#   IdentityFile ~/.ssh/wwwkey.pem
+#   KeepAlive yes
+
+name=$1
+if [ -z "${name}" ];
+then
+  echo "Usage:"
+  echo "  vf-ssh <instance name>"
+  echo "Example: vf-ssh STAGING_0003"
+  exit 1
+fi
+
+output=$(python -m viewfinder.backend.prod.ec2_utils --op=list --names=${name})
+if [ -z "${output}" ];
+then
+  echo "No such instance: ${name}"
+  exit 1
+fi
+
+ssh ${output} ${@:2}

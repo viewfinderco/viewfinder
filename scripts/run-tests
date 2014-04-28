@@ -1,0 +1,155 @@
+#!/usr/bin/env python
+#
+# Copyright 2011 Viewfinder Inc. All Rights Reserved.
+
+"""Utility to run python unittests.
+
+With no arguments, runs all tests under the current directory (tests must be
+named "*_test.py").
+  $ scripts/run-tests
+
+With --test_packager=module.path, finds all tests under that directory.
+  $ scripts/run-tests --test_package=viewfinder.backend.base
+
+With a qualified module or class, runs that test
+  $ scripts/run-tests viewfinder.backend.base.test.base64hex_test
+
+Tip:  Prefix this command with "python -m tornado.autoreload" and the selected
+tests will automatically re-run themselves whenever any source file changes.
+"""
+
+__author__ = 'peter@emailscrubbed.com (Peter Mattis)'
+
+import logging
+import gc
+import os
+import re
+import subprocess
+import sys
+import tornado.httpclient
+import tornado.options
+import unittest
+from viewfinder.backend.base import logging_utils
+from viewfinder.backend.base import testing
+from viewfinder.backend.base import util
+
+tornado.options.define("test_package", default='viewfinder',
+                help="top-level directory for discovering tests")
+
+tornado.options.define('httpclient',
+                       default='tornado.curl_httpclient.CurlAsyncHTTPClient',
+                       help='tornado httpclient implementation class')
+
+tornado.options.define('smart', default=False,
+                       help=('attempt to run only relevant tests based on '
+                             'hg/mq status'))
+
+tornado.options.define('profile', default=False,
+                       help='run tests under cProfile and display result as a pdf.  Requires graphviz to be installed.')
+
+tornado.options.define('requirements_file', default=os.path.join(os.path.dirname(__file__), 'prod-requirements.txt'),
+                       help='Fail unless packages from this file are installed; set empty to disable')
+
+def GetSmartTests():
+  """Returns a test suite for the files currently modified according to hg/mq.
+
+  Relies on our naming convention: Tests end in '_test.py', and tests
+  for 'foo/bar.py' are usually in 'foo/test/bar_test.py'.
+
+  Works nicely with tornado.autoreload, although it can't see when new files
+  are added/modified, so you have to either manually restart the process
+  or touch a file that's already used in the tests.
+  """
+  paths = []
+  # If there are mq patches applied, compare to qparent to include all mq
+  # patches and pending changes.  If not, just use '.' to get pending changes.
+  for base_rev in ['qparent', '.']:
+    proc = subprocess.Popen(['hg', 'status',
+                             '--no-status', '--print0',  # machine-readable output
+                             '--added', '--modified', '--unknown',  # new and modified files
+                             '--include', 'backend/**.py',
+                             '--rev', base_rev],
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = proc.communicate()
+    if proc.returncode == 0:
+      paths = stdout.split('\0')
+      break
+
+  def _FileToModule(path):
+    assert path.endswith('.py')
+    mod = path[:-3].replace('/', '.')
+    assert mod.startswith('backend.')
+    return 'viewfinder.' + mod
+
+  def _SourceToTest(path):
+    return re.sub(r'(.*)/([^/]+).py', r'\1/test/\2_test.py', path)
+
+  tests = set()
+  for path in paths:
+    if path.endswith('_test.py'):
+      tests.add(_FileToModule(path))
+    test_path = _SourceToTest(path)
+    if os.path.exists(test_path):
+      tests.add(_FileToModule(test_path))
+
+  return unittest.TestLoader().loadTestsFromNames(tests)
+
+
+def RunAndShowProfile(func):
+    import cProfile
+    import shutil
+    import subprocess
+    import tempfile
+    tmpdir = tempfile.mkdtemp()
+
+    basefile = os.path.join(tmpdir, 'profile')
+    cProfile.runctx('func()', globals(), locals(), filename=basefile + '.pstats')
+    subprocess.check_call(['gprof2dot', '-f', 'pstats', basefile + '.pstats', '-o', basefile + '.dot'])
+    subprocess.check_call(['dot', '-Tpdf', '-o' + basefile + '.pdf', basefile + '.dot'])
+    # TODO: I think the "open" command is mac-specific; may need a different viewer on other platforms
+    subprocess.check_call(['open', basefile + '.pdf'])
+
+    # Note that we do not clean up our temp directory, since preview doesn't like if the pdf
+    # gets deleted out from under it (and it can be slow to start up)
+
+
+def all():
+  if tornado.options.options.smart:
+    return GetSmartTests()
+  return unittest.TestLoader().discover(tornado.options.options.test_package,
+                                        pattern="*_test.py")
+
+
+def main():
+  sys.stdout = logging_utils.StdStreamProxy('stdout')
+  sys.stderr = logging_utils.StdStreamProxy('stderr')
+  rest = tornado.options.parse_command_line(sys.argv)
+
+  if tornado.options.options.requirements_file:
+    util.CheckRequirements(tornado.options.options.requirements_file)
+
+  tornado.httpclient.AsyncHTTPClient.configure(tornado.options.options.httpclient)
+  # module must be None to let us specify a test on the command line
+  # without importing them all here.
+  def Run():
+    unittest.main(module=None, defaultTest='__main__.all',
+                  argv=[sys.argv[0]] + rest, verbosity=2, buffer=True,
+                  testRunner=testing.TimingTextTestRunner)
+
+  if tornado.options.options.profile:
+    RunAndShowProfile(Run)
+  else:
+    Run()
+
+if __name__ == '__main__':
+  try:
+    main()
+  finally:
+    # A memory leak is possible with @gen.engine in rare situations
+    # (if the generator object itself gets involved in a reference
+    # cycle).  I haven't pinned down exactly how that happens,
+    # but other projects have observed it in the wild so I'm adding
+    # a check here to make sure it doesn't happen to us.
+    gc.collect()
+    if gc.garbage:
+      logging.warning("WARNING: uncollectable garbage (talk to Ben): %r", gc.garbage)

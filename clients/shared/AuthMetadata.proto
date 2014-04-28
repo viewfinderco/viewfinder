@@ -1,0 +1,18 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "AuthMetadataPB";
+
+message AuthMetadata {
+  optional int64 user_id = 1;
+  optional int64 device_id = 2;
+  optional bytes user_cookie = 3;
+  optional bytes xsrf_cookie = 4;
+  // This value differs from "device_id" in that it is
+  // furnished by the device itself instead of by Viewfinder.
+  // It's used to determine whether the device has changed
+  // out from under the database, as in a backup / restore to
+  // a new physical device.
+  optional string device_uuid = 5;
+}

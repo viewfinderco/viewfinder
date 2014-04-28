@@ -1,0 +1,74 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+// The ContactMetadata protobuf is used for both contacts and users.  Contacts are imported from some
+// contact source (mobile contacts, gmail, facebook) and never have the user_id field set.  Users
+// are retrieved from the server and always have user_id set.  When a user and contact both exist for
+// the same identity, the user should be used because that is the more authoritative source.
+//
+// LevelDB schema:
+//   c/<contact_id> -> ContactMetadata
+//   cn/<indexed_name> -> contact_id
+//   u/<user_id> -> ContactMetadata
+//   ui/<identity> -> user_id
+//   un/<indexed_name> -> user_id
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "ContactMetadataPB";
+
+message ContactIdentityMetadata {
+  optional string identity = 1;
+  // A label such as "home", "work", "mobile".
+  optional string description = 2;
+
+  // Not stored, but returned by the server in query_contacts.
+  optional int64 user_id = 3;
+}
+
+message ContactMetadata {
+  // The primary identity, usually an Email: identity if one exists.
+  // Important invariant: primary_identity should always be present in identities.
+  optional string primary_identity = 1;
+  // All of the user's identities, including the primary identity.
+  repeated ContactIdentityMetadata identities = 16;
+  optional string name = 3;
+  optional string first_name = 6;
+  optional string last_name = 8;
+  optional string nickname = 10;
+  repeated string indexed_names = 4;
+  // The first time this contact/user was seen on this device.  The creation timestamp is updated when a user
+  // transitions from prospective to registered.
+  optional double creation_timestamp = 24;
+
+  // The following fields are only set for contacts.
+  optional string contact_id = 15;
+  optional string server_contact_id = 19;
+  optional int64 rank = 5;
+  optional string contact_source = 17;
+
+  optional bool label_contact_removed = 22;
+
+  // The following fields are only set for users.
+  optional int64 user_id = 2;
+  optional int64 merged_with = 9;
+  // We usually want to use identities instead of these fields, but sometimes for prospective users
+  // they are all we have.
+  optional string email = 7;
+  optional string phone = 26;
+
+  optional bool label_registered = 20;
+  optional bool label_terminated = 21;
+  optional bool label_friend = 23;
+  optional bool label_system = 25;
+
+  optional bool need_query_user = 18;
+
+  optional bool deprecated_user_name = 11;
+  optional bool deprecated_user_first_name = 12;
+  optional bool deprecated_user_last_name = 13;
+  repeated string deprecated_identities = 14;
+}
+
+message ContactSourceMetadata {
+  optional double last_import_timestamp = 1;
+}

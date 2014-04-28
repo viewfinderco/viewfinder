@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name = "viewport" content = "width = device-width, height = device-height, initial-scale = 1" />
+    <title>{% block title %}Viewfinder{% end %}</title>
+    <style type="text/css">
+      .column {
+        position: relative;
+        float: left;
+        margin-left: 50px;
+      }
+      
+      #columna {  
+        width: 867px;
+      }
+      
+      #columnb {
+        width : 438px;
+      }
+      
+      img {
+        display: block;
+      }
+      
+      #columna .group {
+        background-color : red;
+      }
+      
+      #columnb .group {
+        background-color : blue;
+      }
+    </style>
+    <script type="text/javascript" src="{{ static_url('js/third_party/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('js/third_party/underscore.js') }}"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var calculateColumns = function () {
+          var $acol = $('#columna');
+          var $bcol = $('#columnb');
+          
+          var cols = [];
+          
+          var $a= $acol.find('img');
+          var $b = $bcol.find('img');
+
+          var cumuHeight = 0;
+          var cumuAdjust = [0, 0];
+          for (var i = 0; i < $a.length; i++) {
+            var ah = $($a[i]).height();
+            var bh = $($b[i]).height();
+            var size = Math.max(ah, bh);
+            var obj = {
+              start : cumuHeight,
+              size : Math.max(ah, bh),
+              preAdjusts : cumuAdjust.slice(0),
+              adjusts : [size - ah, size - bh]
+            };
+            
+            cumuHeight += size;
+            for (var j = 0; j < cumuAdjust.length; j++) {
+              cumuAdjust[j] += obj.adjusts[j];
+            }
+            
+            cols.push(obj); 
+          }
+          
+          $('#sizecolumn').css('height', cumuHeight);
+          
+          $w = $(window);
+          $w.off('scroll');
+          $w.scroll(function () {
+            var cutoff = $w.scrollTop();
+            var idx = _(cols).sortedIndex({start : cutoff}, function (o) { return o.start }) - 1;
+            var atop = 0;
+            var btop = 0;
+            if (idx !== -1) {
+              var active = cols[idx];
+              var atop = active.preAdjusts[0];
+              var btop = active.preAdjusts[1];
+              atop += Math.min(active.adjusts[0], cutoff - active.start);
+              btop += Math.min(active.adjusts[1], cutoff - active.start);
+            }
+            
+            $acol.css('top', atop);
+            $bcol.css('top', btop);
+          });  
+        }
+        
+        $('#columna').click(calculateColumns);
+        
+        calculateColumns();
+      });
+    </script>
+  </head>
+  <body>
+    <div id="layout">
+      <div id="columnb" class="column">
+        <img src="{{ static_url('css/images/temp/comm001.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm002.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm003.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm004.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm005.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm006.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm007.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm008.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm009.png') }}" />
+        <img src="{{ static_url('css/images/temp/comm010.png') }}" />
+      </div>
+      <div id="columna" class="column">
+        <img src="{{ static_url('css/images/temp/pics001.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics002.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics003.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics004.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics005.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics006.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics007.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics008.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics009.png') }}" />
+        <img src="{{ static_url('css/images/temp/pics010.png') }}" />
+      </div>
+      <div id="sizecolumn">
+        
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Viewfinder{% end %}
+
+{% block content %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#teaser-content').on('click', function() { viewfinder.invite.registerForInvite(); });
+});
+</script>
+{% module Script('invite.js') %}
+{% module Css('teaser.css') %}
+
+<div id="teaser">
+  <div id="teaser-content">
+    <div class="title gigantic">Viewfinder.</div>
+    <div class="heading h3">Photographs just got a lot more interesting.</div>
+    <div id="register" class="h3"><a>Register for Beta.</a></div>
+  </div>
+  <div id="questions" class="h4">Questions?  <a href="mailto:info@emailscrubbed.com">info@viewfinder<span class="dotco">.co</span></a></div>
+  <div id="teaser-invite" class="h3">
+    <div class="heading">Register for Beta: <input id="teaser-email" autocorrect="off" autocapitalize="off" name="email" size="32" maxngth="256" type="text" placeholder="Enter your email address"/></div>
+    <div id="teaser-error" class="h4"></div>
+    <div id="teaser-status" class="h4"></div>
+  </div>
+</div>
+{% end %}

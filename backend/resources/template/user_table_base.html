@@ -1,0 +1,21 @@
+{% extends "table_base.html" %}
+
+{% block datatable_script %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#datatable').dataTable({
+    "bProcessing": true,
+    "bStateSave": true,
+    "bFilter": false,
+    "bSort": false,
+    "bServerSide": true,
+    "sAjaxSource": "{{ ajax_src }}",
+    "iDisplayLength": 50,
+  });
+});
+</script>
+{% end %}
+
+{% block table_description %}
+<div class="warning">WARNING: only forward scans are supported; will reset to beginning of table otherwise</div>
+{% end %}

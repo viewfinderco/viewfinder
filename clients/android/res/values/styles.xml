@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Theme" parent="@android:style/Theme.NoTitleBar">
+    <item name="switchStyle">@style/Widget.Holo.CompoundButton.Switch</item>
+    <item name="switchPreferenceStyle">@style/Preference.SwitchPreference</item>
+  </style>
+
+  <style name="Theme.Fullscreen" parent="@style/Theme">
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+  </style>
+
+  <style name="input">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:background">@android:color/transparent</item>
+    <item name="android:padding">8dp</item>
+    <item name="android:textColorHint">@color/auth_hintText</item>
+    <item name="android:textSize">20dp</item>
+    <item name="android:imeOptions">actionNext</item>
+    <item name="android:layout_centerVertical">true</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="auth_title">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">20dp</item>
+    <item name="android:textColor">@color/auth_messageText</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:shadowColor">@color/auth_messageTextShadow</item>
+    <item name="android:shadowDy">-2</item>
+    <item name="android:shadowRadius">.01</item>
+  </style>
+
+  <style name="big_button">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">8dp</item>
+    <item name="android:textSize">20dp</item>
+    <item name="android:textColor">@color/bigButton_titleText</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:shadowColor">@color/bigButton_titleTextShadow</item>
+    <item name="android:shadowDy">-2</item>
+    <item name="android:shadowRadius">.01</item>
+  </style>
+
+  <style name="auth_message">
+    <item name="android:textSize">14dp</item>
+    <item name="android:textColor">@color/auth_messageText</item>
+    <item name="android:background">@android:color/transparent</item>
+  </style>
+
+  <style name="profile_stat">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:clickable">true</item>
+    <item name="android:paddingRight">16dp</item>
+    <item name="android:minWidth">85dp</item>
+  </style>
+
+  <style name="profile_statCount">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">17dp</item>
+    <item name="android:textColor">@color/profile_statCount</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="profile_statName">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">12dp</item>
+    <item name="android:textColor">@color/profile_statName</item>
+  </style>
+
+  <style name="settings_header">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">17dp</item>
+    <item name="android:textColor">@color/settings_header</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:paddingLeft">16dp</item>
+    <item name="android:paddingTop">4dp</item>
+    <item name="android:paddingBottom">4dp</item>
+  </style>
+
+  <style name="settings_name">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textSize">17dp</item>
+    <item name="android:textColor">@color/settings_text</item>
+    <item name="android:padding">12dp</item>
+    <item name="android:gravity">center_vertical|left</item>
+  </style>
+
+  <style name="titlebar">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:background">@drawable/title_bar_top</item>
+    <item name="android:paddingTop">4dp</item>
+    <item name="android:paddingBottom">4dp</item>
+    <item name="android:paddingLeft">8dp</item>
+    <item name="android:paddingRight">8dp</item>
+  </style>
+
+  <style name="titlebar_title">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_centerVertical">true</item>
+    <item name="boldTypeface">ProximaNova-Sbold-VF.ttf</item>
+    <item name="android:textSize">21dp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/titlebar_title</item>
+    <item name="android:gravity">center</item>
+  </style>
+
+  <style name="titlebar_button">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:background">@drawable/title_bar_button_selector</item>
+    <item name="boldTypeface">ProximaNova-Sbold-VF.ttf</item>
+    <item name="android:textSize">16dp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@color/titlebar_title</item>
+    <item name="android:paddingTop">4dp</item>
+    <item name="android:paddingBottom">4dp</item>
+    <item name="android:paddingLeft">8dp</item>
+    <item name="android:paddingRight">8dp</item>
+    <item name="android:layout_centerVertical">true</item>
+    <item name="android:minWidth">64dp</item>
+  </style>
+
+  <style name="titlebar_greenButton" parent="titlebar_button">
+    <item name="android:background">@drawable/title_bar_button_green_selector</item>
+  </style>
+
+  <style name="tutorial_content">
+    <item name="android:textSize">18dp</item>
+    <item name="android:textColor">@color/tutorial_content</item>
+    <item name="android:lineSpacingMultiplier">1.25</item>
+  </style>
+
+</resources>

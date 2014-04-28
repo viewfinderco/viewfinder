@@ -1,0 +1,18 @@
+// Copyright 2012 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+import "Location.proto";
+import "Placemark.proto";
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "BreadcrumbPB";
+
+message Breadcrumb {
+  optional Location location = 1;
+  optional Placemark placemark = 2;
+  // The time when the breadcrumb was gathered.
+  optional double timestamp = 3;
+  // Additional non-programmatic data about the breadcrumb (e.g. app state when
+  // the breadcrumb was gathered).
+  optional string debug = 4;
+}

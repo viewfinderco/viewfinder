@@ -1,0 +1,19 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Marc Berhault.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "UsageMetadataPB";
+
+message UsageCategoryMetadata {
+  optional int32 num_photos = 1;
+  optional int64 tn_size = 2;
+  optional int64 med_size = 3;
+  optional int64 full_size = 4;
+  optional int64 orig_size = 5;
+}
+
+message UsageMetadata {
+  optional UsageCategoryMetadata owned_by = 1;
+  optional UsageCategoryMetadata shared_by = 2;
+  optional UsageCategoryMetadata visible_to = 3;
+}

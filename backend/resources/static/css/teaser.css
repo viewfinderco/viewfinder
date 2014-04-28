@@ -1,0 +1,59 @@
+#teaser {
+    position: absolute;
+    top: 45%;
+    right: 8%;
+    color: #555;
+}
+
+#teaser .title {
+}
+
+#teaser .heading {
+    margin-bottom: 2%;
+}
+
+#teaser .dotco {
+    color: #f57527;
+    font-weight: bold;
+}
+
+#teaser-invite {
+    display: none;
+    clear: both;
+}
+
+#teaser-invite .heading {
+}
+
+#teaser-email {
+    margin-left: 20px;
+}
+
+#teaser-status {
+    color: #63cd23;
+    margin-top: 10px;
+}
+
+#teaser-error {
+    color: #e2001e;
+    margin-top: 10px;
+}
+
+#questions {
+    clear: both;
+    float: right;
+    margin-right: 10px;
+    margin-bottom: 8%;
+}
+
+#questions a, #questions a:visited {
+    color: #555;
+}
+
+#register {
+    margin-bottom: 8%;
+}
+
+#register a, #register a:visited {
+    color: #e2001e;
+}

@@ -1,0 +1,329 @@
+{% if is_html %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"></meta>
+  <title>{{ title }}</title>
+
+  <style type="text/css">
+    .ReadMsgBody { width:100%; }
+    .ExternalClass { width:100%; }
+    .ExternalClass, .ExternalClass p, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+      line-height:100%;
+    }
+
+  .dark-block-space { min-height:86px !important; font-size:86px !important; line-height:86px !important; }
+  #light-block { width:600px; }
+  .text-block-horiz { width:62px; }
+  .text-block-vert { min-height:58px !important; font-size:58px !important; line-height:58px !important; }
+  .extra-code-space { min-height:34px !important; font-size:34px !important; line-height:34px !important; }
+
+  @media screen and (max-width: 600px) {
+    .dark-block-space { min-height:0px !important; font-size:0px !important; line-height:0px !important; }
+    #light-block { width:100%; }
+    .text-block-horiz { width:1px; }
+    .text-block-vert { min-height:0px !important; font-size:0px !important; line-height:0px !important; }
+    .extra-code-space { min-height:0px !important; font-size:0px !important; line-height:0px !important; }
+    .mobile-hide { display:none; }
+  }
+  
+  a:link { color:#7C7C7C; }  
+  a:visited { color:#7C7C7C; }  
+  a:hover { color:#4C4C4C; }
+  a:active { color:#7C7C7C; }
+
+  </style>
+</head>
+<body link="#7C7C7C" vlink="#7C7C7C" alink="#4C4C4C" style="
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+  font-family:Arial;
+  font-weight:medium;
+  font-size:18px;
+  background:#FFFFFF;
+  width:100%;
+  height:100%;
+  margin:0 auto 0 auto;
+  padding:0;
+  border:0;">
+  <table id="dark-block" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#E1E1E1" style="
+    width:100%;
+    font-family:Arial;
+    border-radius:0px;
+    background:#E1E1E1;"><tbody>
+    <tr>
+      <td>
+        <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div style="min-height:12px; font-size:12px; line-height:12px;">&nbsp;</div></td></tr>
+        </tbody></table>
+
+        <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div class="dark-block-space" style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+        </tbody></table>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <table id="light-block" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F7F7" style="
+          max-width:600px;
+          border-top:solid 2px #FDFDFD;
+          border-right:solid 1px #EAEAEA;
+          border-bottom:solid 2px #C0C0C0;
+          border-left:solid 1px #EFEFEF;
+          font-family:Arial;
+          margin:0 auto 0 auto;
+          padding:0;
+          background:#F7F7F7;"><tbody>
+          <tr>
+            <td>
+              <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+
+            <td>
+              <table class="text-block-horiz" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+
+            <td>
+              <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div class="text-block-vert" style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:18px; font-size:18px; line-height:18px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:27px; font-weight:bold; color:#FF9600">
+                {% block greeting %}{% end %}
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:20px; font-size:20px; line-height:20px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:17px; line-height:20px; color:#4C4C4C">
+                {% if use_short_token %}
+                {% block intro %}{% end %}
+                {% else %}
+                {% block html_intro %}{% end %}
+                {% end %}
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:24px; font-size:24px; line-height:24px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div class="extra-code-space" style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              {% if use_short_token %}
+
+              <center>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" style="
+                  border:solid 1px #DFDFDF;
+                  border-radius:0px;
+                  font-family:Arial;
+                  background:#FFFFFF;"><tbody>
+                  <tr>
+                    <td>
+                      <table width="28" border="0" cellspacing="0" cellpadding="0"><tbody>
+                        <tr><td><div style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+                      </tbody></table>
+                    </td>
+  
+                    <td>
+                      <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                        <tr><td><div style="min-height:10px; font-size:10px; line-height:10px;">&nbsp;</div></td></tr>
+                      </tbody></table>
+  
+                      <div style="font-size:60px; font-weight:bold; letter-spacing:3px; color:#FF9600;">
+                        {{ access_token }}
+                      </div>
+  
+                      <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                        <tr><td><div style="min-height:10px; font-size:10px; line-height:10px;">&nbsp;</div></td></tr>
+                      </tbody></table>
+                    </td>
+  
+                    <td>
+                      <table width="28" border="0" cellspacing="0" cellpadding="0"><tbody>
+                        <tr><td><div style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+                      </tbody></table>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </center>
+                  
+              {% else %}
+      
+              {% comment WARNING: This is magic HTML/CSS that creates a clickable button. Do *not* modify
+                         this unless you've tested all email clients using emailonacid.com. Anything that
+                         looks strange or unnecessary here is probably needed to trick Microsoft Outlook
+                         into displaying the button correctly.
+              %}
+              <table align="center" cellpadding="0" cellspacing="0" border="0" width="200" style="
+                border-collapse:separate;
+                margin:0 auto 0 auto;
+                padding:0;"><tbody>
+                <tr><td valign="top" align="center" style="
+                  background-color:#F99213;
+                  font-family:Arial;
+                  margin:0 auto 0 auto;
+                  padding:4px 4px 4px 4px;
+                  border:1px #C0700F solid;
+                  border-radius:5px;
+                  box-shadow:0 1px 1px #454545, inset 0 1px 1px #FFF2E5;
+                  text-shadow:#C0700F 0 1px 2px;
+                  -moz-border-radius:3px;
+                  -moz-box-shadow:0 1px 1px #454545, inset 0 1px 1px #FFF2E5;
+                  -moz-text-shadow:#C0700F 0 1px 2px;
+                  -webkit-border-radius:5px;
+                  -webkit-box-shadow:0 1px 1px #454545, inset 0 1px 1px #FFF2E5;
+                  -webkit-text-shadow:#C0700F 0 1px 2px;">
+                  <a href="{{ url }}" style="
+                    display:block;
+                    font-family:Arial;
+                    font-size:18px;
+                    text-align:center;
+                    text-decoration:none;
+                    color:#FFF2E5;
+                    margin:0 auto 0 auto;
+                    padding:12px 4px 12px 4px;
+                    border:0px #F99213 solid;">
+                    {% block button %}{% end %}
+                  </a>
+                </td></tr>
+              </tbody></table>
+              
+              {% end %}
+
+              <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div class="extra-code-space" style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:24px; font-size:24px; line-height:24px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:13px; line-height:16px; color:#7C7C7C">
+                {% block legal %}{% end %}, you confirm that you are at least 13 years old and
+                that you have read and accept our
+                <a href="https://www.viewfinder.co/terms" style="
+                  font-weight:bold;
+                  color:#7C7C7C;">
+                  Terms&nbsp;of&nbsp;Service
+                </a>
+                and
+                <a href="https://www.viewfinder.co/privacy" style="
+                  font-weight:bold;
+                  color:#7C7C7C;">
+                  Privacy&nbsp;Policy</a>.
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:14px; font-size:14px; line-height:14px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:13px; color:#7C7C7C">
+                {% block closing %}{% end %}
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:44px; font-size:44px; line-height:44px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:16px;color:#484848">
+                Thanks,
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:4px; font-size:4px; line-height:4px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:18px; font-weight:bold; color:#484848">
+                The Viewfinder Team
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:20px; font-size:20px; line-height:20px;">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div class="text-block-vert" style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+
+            <td>
+              <table class="text-block-horiz" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+
+            <td>
+              <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div style="min-height:20px; font-size:20px; line-height:20px;">&nbsp;</div></td></tr>
+        </tbody></table>
+
+        <div align="center" style="font-size:14px; font-weight:bold; color:#808080">
+          Problems? &nbsp;&nbsp; Feedback? &nbsp;&nbsp; Email us:
+          <a href="mailto:support@emailscrubbed.com" style="
+            text-decoration:none;
+            color:#808080;">
+            support@emailscrubbed.com
+          </a>
+        </div>
+
+        <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div style="min-height:12px; font-size:12px; line-height:12px;">&nbsp;</div></td></tr>
+        </tbody></table>
+
+        <div align="center" style="font-size:14px; color:#7C7C7C">
+          &#xA9; 2013 Minetta, LLC. All Rights Reserved.
+        </div>
+
+        <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div style="min-height:24px; font-size:24px; line-height:24px;">&nbsp;</div></td></tr>
+        </tbody></table>
+
+        <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div class="dark-block-space" style="min-height:0px; font-size:0px; line-height:0px;">&nbsp;</div></td></tr>
+        </tbody></table>
+
+        <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div style="min-height:12px; font-size:12px; line-height:12px;">&nbsp;</div></td></tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+</body>
+</html>
+{% else %}{% block greeting %}{% end %},
+
+{% if use_short_token %}{% block intro %}{% end %}{% else %}{% block text_intro %}{% end %}{% end %}
+
+  {% if use_short_token %}{{ access_token }}{% else %}{% raw url %}{% end %}
+
+{% block legal %}{% end %}, you confirm that you are at least 13 years old and that you have read and accept our Terms of Service and Privacy Policy.
+
+{% block closing %}{% end %}
+
+Thanks,
+The Viewfinder Team
+{% end %}

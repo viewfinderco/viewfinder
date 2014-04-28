@@ -1,0 +1,32 @@
+{% extends "admin.html" %}
+{% block title %}Staging User Setting{% end %}
+{% block admin-title %}Staging User Setting Admin.{% end %}
+
+{% block admin %}
+<p>
+User Id: <b>{{ user_id }}</b><br>
+User Name: <b>{{ user_name }}</b><br>
+User Email: <b>{{ user_email }}</b><br>
+User Type: <b>
+{%  if is_staging_user %}
+STAGING
+{%  else %}
+PRODUCTION
+{%  end %}
+{% if staging_change_succeeded %}
+  (update succeeded!)
+{% end %}</b>
+</p>
+
+<form id="user-staging-form" action="/admin/staging_users" method="post">
+  {% raw xsrf_form_html() %}
+  <input type="hidden" name="user_id" value="{{ user_id}}" />
+  <input type="hidden" name="user_email" value="{{ user_email}}" />
+  {%  if is_staging_user %}
+    <button type="submit" name="change_user" value="production"><b>Change to PRODUCTION user</b></button>
+  {%  else %}
+    <button type="submit" name="change_user" value="staging"><b>Change to STAGING user</b></button>
+  {%  end %}
+</form>
+
+{% end %}

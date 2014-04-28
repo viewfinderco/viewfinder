@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/auth_resetChangeFragment">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/square_modal"
+      android:paddingTop="24dp"
+      android:paddingLeft="16dp"
+      android:paddingRight="16dp"
+      android:paddingBottom="30dp"
+      android:layout_marginTop="50dp">
+
+    <view
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:id="@+id/auth_changePassword"
+        android:text="@string/auth_changePassword"
+        style="@style/auth_title"
+        android:layout_centerHorizontal="true"/>
+
+    <view
+        android:layout_width="match_parent"
+        class="co.viewfinder.widgets.ViewfinderEditText"
+        android:id="@+id/auth_newPassword"
+        android:hint="@string/auth_newPassword"
+        android:background="@drawable/signup_text_inputs_top"
+        style="@style/input"
+        android:inputType="textPassword"
+        android:layout_below="@+id/auth_changePassword"
+        android:layout_marginTop="8dp"/>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="co.viewfinder.widgets.ViewfinderEditText"
+        android:id="@+id/auth_reEnterPassword"
+        android:hint="@string/auth_reEnterPassword"
+        android:background="@drawable/signup_text_inputs_bottom"
+        style="@style/input"
+        android:inputType="textPassword"
+        android:layout_below="@+id/auth_newPassword"
+        android:imeOptions="actionDone"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/auth_reEnterPassword"
+        android:layout_marginTop="8dp"
+        android:id="@+id/auth_changePasswordButtons">
+
+      <view
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_cancel"
+          android:background="@drawable/big_button_grey_selector"
+          android:text="@string/auth_cancel"
+          style="@style/big_button"
+          android:layout_weight="1"/>
+
+      <view
+          class="co.viewfinder.widgets.ViewfinderButton"
+          android:id="@+id/auth_submit"
+          android:background="@drawable/big_button_green_selector"
+          style="@style/big_button"
+          android:text="@string/auth_submit"
+          android:layout_weight="2"
+          android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+
+  </RelativeLayout>
+
+</RelativeLayout>

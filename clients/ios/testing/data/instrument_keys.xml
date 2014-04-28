@@ -1,0 +1,31 @@
+	    <key>com.apple.dt.instruments.process.analysis</key>
+                <dict>
+                        <key>allow-root</key>
+                        <true/>
+                        <key>class</key>
+                        <string>user</string>
+                        <key>comment</key>
+                        <string>Rights for Instruments</string>
+                        <key>group</key>
+                        <string>admin</string>
+                        <key>shared</key>
+                        <true/>
+                        <key>timeout</key>
+                        <integer>36000</integer>
+                </dict>
+                <key>com.apple.dt.instruments.process.kill</key>
+                <dict>
+                        <key>allow-root</key>
+                        <true/>
+                        <key>class</key>
+                        <string>user</string>
+                        <key>comment</key>
+                        <string>Rights for Instruments</string>
+                        <key>group</key>
+                        <string>admin</string>
+                        <key>shared</key>
+                        <true/>
+                        <key>timeout</key>
+                        <integer>5</integer>
+                </dict>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+  <ImageView android:id="@+id/profile_image"
+             android:layout_width="30dp"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentTop="false"
+             android:src="@drawable/contact_user_viewfinder"
+             android:scaleType="fitCenter"
+             android:layout_centerVertical="true"
+             android:paddingRight="8dp"/>
+
+  <LinearLayout android:id="@+id/contact_name"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_toRightOf="@+id/profile_image"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal"
+                >
+    <co.viewfinder.widgets.ViewfinderTextView android:id="@+id/contact_display_name"
+                                              android:textSize="17dp"
+                                              android:singleLine="true"
+                                              android:textColor="@color/contacts_text"
+                                              android:layout_width="wrap_content"
+                                              android:layout_height="wrap_content"
+      />
+
+    <co.viewfinder.widgets.ViewfinderTextView android:id="@+id/contact_real_name"
+                                              android:textSize="15dp"
+                                              android:textStyle="italic"
+                                              android:singleLine="true"
+                                              android:textColor="@color/contacts_text"
+                                              android:layout_width="wrap_content"
+                                              android:layout_height="wrap_content"
+                                              android:layout_gravity="center_vertical"
+                                              android:paddingLeft="8dp"
+                                              android:visibility="gone"
+        />
+  </LinearLayout>
+
+  <co.viewfinder.widgets.ViewfinderTextView android:id="@+id/contact_email"
+                                            android:textSize="12dp"
+                                            android:singleLine="true"
+                                            android:textColor="@color/contacts_subtext"
+                                            android:layout_toRightOf="@+id/profile_image"
+                                            android:layout_below="@+id/contact_name"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+</RelativeLayout>

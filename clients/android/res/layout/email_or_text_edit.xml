@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+  <view
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      class="co.viewfinder.widgets.ViewfinderEditText"
+      android:id="@+id/emailOrText_text"
+      android:layout_toLeftOf="@+id/emailOrText_keyboardToggle"
+      android:layout_alignParentLeft="true"
+      android:background="@android:color/transparent"
+      android:hint="Email or Mobile"
+      style="@style/input"/>
+
+  <ImageButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/emailOrText_keyboardToggle"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_alignParentEnd="false"
+      android:src="@drawable/keypad_toggle_123"
+      android:background="@android:color/transparent"
+      android:paddingLeft="4dp"
+      android:layout_marginLeft="4dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginRight="8dp"/>
+
+</RelativeLayout>

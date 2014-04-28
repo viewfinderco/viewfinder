@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Log in to Viewfinder{% end %}
+
+{% block content %}
+{% module Script('idlink.js') %}
+{% module Css('button.css') %}
+{% module Css('dialog.css') %}
+<script type="text/javascript">
+$(document).ready(function() {
+  viewfinder.idlink.redirectToApp('{{app_url}}', '{{noapp_url}}');
+});
+</script>
+
+<div id="title" class="h3">Claim photos shared with you on Viewfinder</div>
+<div id="dialog-frame" class="clearfix">
+  <div id="dialog">
+    <div class="center">Is the Viewfinder app installed?</div>
+    <div class="separator"></div>
+    <div id="dialog-content" class="clearfix">
+      <div class="left"><a href="javascript:viewfinder.idlink.redirectToApp('{{app_url}}', '{{noapp_url}}')" class="button">I have the app</a></div>
+      <div class="right"><a href="{{noapp_url}}" class="button">Use the website</a></div>
+    </div>
+  </div>
+</div>
+{% end %}
+
+

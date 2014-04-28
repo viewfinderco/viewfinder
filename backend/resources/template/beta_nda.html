@@ -1,0 +1,233 @@
+{% extends "beta.html" %}
+
+{% block beta %}
+<script type="text/javascript">
+submitNDA = function() {
+  if ($('#address').val()) {
+    return true;
+  } else {
+    $('#address-error').html('<br>Please supply your address first.<br>');
+    $('#address').focus();
+    return false;
+  }
+}
+
+$(document).ready(function() {
+  $('#address').focus();
+});
+</script>
+
+<form id="nda_form" action="{{uri}}" method="post" onsubmit="return submitNDA()">
+{% raw xsrf_form_html() %}
+<span class="h3 dark center">NON-DISCLOSURE AGREEMENT</span>
+
+<p>This Non-Disclosure Agreement (the “Agreement”) is made as of
+{{date}} (the “Effective Date”), by Minetta, LLC, located at 154 Grand
+St, New York, NY 10013, (“Company”),
+and <span class="dark">{{name}}</span>,
+with <span style="text-decoration: underline">mailing address</span>:
+<span id="address-error" class="error"></span>
+<input id="address" type="text" name="address" size="96"
+maxlength="256" type="text" placeholder="Enter your mailing address
+&nbsp;(for example: 5 Curtiss Pl, Maplewood, NJ  07040)"/> (each of
+Company and "<span class="dark">{{name}}</span>" individually a
+“Party” and collectively the “Parties”).<p>
+
+<p>The Parties desire to explore a potential business relationship or
+transaction (the “Transaction”) and, in connection therewith, each
+Party may disclose certain of its Confidential Information (as defined
+below) to the other Party.  The intent of this Agreement is to allow
+the Parties to evaluate the Transaction while protecting each Party’s
+Confidential Information against unauthorized disclosure or use,
+irrespective of whether the Transaction materializes.</p>
+
+<p>Now, therefore, for good and valuable consideration, the receipt
+and sufficiency of which the Parties hereby acknowledge, each Party
+hereby agrees as follows:</p>
+
+<ol>
+<li><span class="dark">Definition of Confidential
+Information</span>. “Confidential Information” means any confidential
+information concerning the business or property of a Party (the
+“Disclosing Party”) including: (i) information relating to the
+Disclosing Party’s technology, products, and services, and (ii)
+information relating to the Disclosing Party’s operations, business,
+financial plans or strategies, including, but not limited to,
+employees, officers, directors, agents, customers, customer lists,
+markets, financial statements, projections, pricing, and marketing,
+financial and other strategic business plans or information, directly
+or indirectly disclosed by the Disclosing Party to the other Party
+(the “Receiving Party”) whether in writing, orally or visually.  The
+term “Confidential Information” does not include any of the foregoing
+that: (a) is or becomes generally available to the public, other than
+as a result of a disclosure by the Receiving Party or any of its
+Representatives in violation of this Agreement; or (b) is either (i)
+known to the Receiving Party prior to being furnished by the
+Disclosing Party or independently developed by the Receiving Party
+without access to or use of the Disclosing Party's Confidential
+Information, in each case as demonstrated by written records, or (ii)
+becomes available to the Receiving Party on a non-confidential basis
+from a source other than the Disclosing Party or its Representatives;
+provided that the source was not prohibited by any legal, contractual,
+or fiduciary obligation to the Disclosing Party or any third party
+from disclosing the Confidential Information.</li>
+
+<li><span class="dark">Maintenance of Confidentiality</span>. The
+Receiving Party: (a) will use the Confidential Information of the
+Disclosing Party solely for the purpose of evaluating the Transaction,
+(b) will keep such Confidential Information confidential, (c) will
+treat the Confidential Information with the same degree of care and
+diligence as it would with respect to its own Confidential
+Information, but not less than a reasonable degree of care and
+diligence, and (d) will not, without the prior written consent of the
+Disclosing Party, disclose it in any manner whatsoever, in whole or in
+part, to any third party.  Notwithstanding the foregoing, the
+Receiving Party may disclose Confidential Information of the
+Disclosing Party to its directors, officers, employees, agents and
+advisors (the “Representatives”) who need to know such information for
+the purpose of evaluating the Transaction, provided that the Receiving
+Party informs such Representatives of the confidential nature of the
+Confidential Information, and such Representatives agree to act in
+accordance with the terms and conditions of this Agreement. The
+Receiving Party will be responsible for any breach of this Agreement
+by any of its Representatives. The Receiving Party shall promptly
+notify Disclosing Party in the event of a breach of the terms of this
+Agreement by itself or by any of its Representatives.</li>
+
+<li><span class="dark">No Representations or Warranties</span>. The
+Parties acknowledge and agree that neither the Disclosing Party nor
+its Representatives have made or make any representation or warranty
+regarding the Disclosing Party’s Confidential Information, including
+any warranties of merchantability, fitness for a particular purpose,
+title, non-infringement, accuracy, or completeness. It is agreed that
+neither the Disclosing Party nor its Representatives will have any
+liability resulting from the use by the Receiving Party of such
+Confidential Information, errors therein, or omissions
+therefrom. Unless and until a definitive agreement between the Parties
+has been executed and delivered, neither Party will be under any
+obligation with respect to the Transaction by virtue of this Agreement
+or any written or oral expression with respect to the Transaction,
+except with respect to the matters specifically agreed to in this
+Agreement. Only those representations or warranties that are made in a
+final definitive agreement regarding the Transaction when, as and if
+executed, and subject to such limitations and restrictions as may be
+specified therein, will have legal effect.</li>
+
+<li><span class="dark">Ownership; Return of Information</span>. All
+Confidential Information of the Disclosing Party, including all
+patents, trade secrets, trademarks, copyrights and other intellectual
+property rights (“IP Rights”) in and to that Confidential Information,
+will be and remain solely the property of the Disclosing Party.  The
+Disclosing Party does not grant the Receiving Party any license of
+those IP Rights, and the Receiving Party hereby assigns to the
+Disclosing Party all rights in and to the Receiving Party’s
+improvements, enhancements, and modifications of, and inventions
+(whether or not patentable), ideas, derivative works and discoveries
+comprising, embodying or based on, the Disclosing Party’s Confidential
+Information. Neither Party may use the other Party’s trademarks,
+service marks, trade names, trade dress, domain names or other source
+identifiers (including referring to the other Party in promotional
+materials) without the other Party’s prior written consent.  Upon
+request of the Disclosing Party, the Receiving Party will promptly
+return or destroy all Confidential Information of the Disclosing Party
+disclosed to it by or on behalf of the Disclosing Party, including all
+copies, memoranda and other writings or recordings prepared by the
+Receiving Party or its Representatives containing any Confidential
+Information.  Any such destruction shall be confirmed in writing by
+the Receiving Party.  Any Confidential Information that is not
+returned or destroyed, including any oral Confidential Information,
+will continue to be kept confidential and subject to the terms of this
+Agreement.</li>
+
+<li><span class="dark">Mandatory Disclosure</span>. In the event a
+Receiving Party or any of its Representatives is legally compelled or
+requested to disclose Confidential Information of the Disclosing
+Party, the Receiving Party shall promptly notify the Disclosing Party
+of each such requirement so that the Disclosing Party may seek a
+protective order or other appropriate remedy and/or waive compliance
+with the provisions of this Agreement. In any such event, the
+Receiving Party will only disclose such Confidential Information that
+it is advised by counsel is legally required to be so disclosed and
+exercise reasonable efforts to obtain assurance that confidential
+treatment will be accorded to such Confidential Information.</li>
+
+<li><span class="dark">Right to Terminate Access</span>. Either Party
+may terminate access to its Confidential Information at any time.
+Either Party will be free to initiate or terminate discussions with,
+solicit offers, and negotiate the terms of and consummate transactions
+with the other Party or any other person or entity, as such Party in
+its sole discretion may determine.</li>
+
+<li><span class="dark">Securities Laws Restrictions</span>. Each Party
+is aware, and will advise its Representatives, that United States
+securities laws prohibit any person who has received from an issuer
+material, non-public information from purchasing or selling securities
+of such issuer or from communicating such information to any other
+person under circumstances in which it is reasonably foreseeable that
+such person is likely to purchase or sell such securities.</li>
+
+<li><span class="dark">Term and Termination</span>. This Agreement
+shall remain valid for a period of two (2) years from the Effective
+Date; provided, however, that the Receiving Party's obligations
+hereunder with respect to all Confidential Information of the
+Disclosing Party that remains subject to trade secret protection under
+applicable law upon expiration of the term hereof shall remain in full
+force and effect until such time as such Confidential Information is
+no longer subject to such protection.</li>
+
+<li><span class="dark">Miscellaneous</span>.
+  <ol style="list-style-type: lower-alpha">
+    <li><span class="semidark">Governing Law</span>. This Agreement,
+including any dispute arising out of or related to this Agreement,
+will be governed and construed in accordance with the internal laws of
+the State of New York applicable to agreements made and wholly
+performed in that state, without giving effect to its conflicts of
+laws rules to the extent those rules wold require applying another
+jurisdiction’s laws.</li>
+    <li><span class="semidark">Notice</span>. Any notice or letter
+sent by one party to another shall be addressed as follows: If to
+Minetta, LLC: to the address first set forth above, Attn: J. Brian
+McGinnis; If to <span class="dark">{{name}}</span>: to the address
+first set forth above.</li>
+    <li><span class="semidark">No Waiver</span>. No failure or delay
+in exercising any right, power, or privilege hereunder will operate as
+a waiver thereof, nor will any single or partial exercise preclude any
+other or further exercise of any such right, power, or privilege.</li>
+    <li><span class="semidark">Merger; Amendment;
+Severability</span>. This Agreement constitutes the entire agreement
+between the parties with respect to the Confidential Information.  No
+amendment or modification of this Agreement will be effective unless
+set forth in a written instrument signed by the Parties. If any
+provision of this Agreement is invalid, illegal or unenforceable under
+any law or public policy, all other provisions will remain in full
+force and effect so long as the economic or legal substance of the
+transactions contemplated by this Agreement is not affected in a
+manner materially adverse to either Party.</li>
+    <li><span class="semidark">Successors and Assigns;
+Assignment</span>. This Agreement will be binding on and inure to the
+benefit of each Party’s successors and assigns, but may not be
+assigned without the prior written consent of the other Party.  Any
+assignment in breach of this Section is null and void.</li>
+    <li><span class="semidark">Relationship</span>. This Agreement
+does not establish a partnership, joint venture, or agency
+relationship between the Parties.  Neither Party may, ha the power to,
+or may represent that it can, assume or create any obligation or
+liability on the other Party’s behalf.</li>
+    <li><span class="semidark">Counterparts</span>. This Agreement may
+be executed in counterparts, each of which will be deemed an original
+but all of which when taken together will be deemed to constitute one
+and the same instrument. Signatures sent by facsimile transmission or
+in portable document format are valid and binding as original
+signatures.</li>
+  </ol>
+</li>
+</ol>
+
+<p><span class="semidark">IN WITNESS WHEREOF</span>, the Parties have
+caused this Agreement to be executed by their respective duly
+authorized representatives as of the Effective Date.</span>
+
+<div class="separator"></div>
+<div class="center"><a class="button" href="javascript:$('#nda_form').submit()">I have read and agree to be bound by the terms of this NDA</a></div>
+</form>
+{% end %}

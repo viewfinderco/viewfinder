@@ -1,0 +1,14 @@
+{% extends "admin.html" %}
+{% block title %}Staging User Lookup{% end %}
+{% block admin-title %}Staging User Admin.{% end %}
+
+{% block admin %}
+<form id="user-staging-form" action="/admin/staging_users" method="get">
+  <input name="user_id" id="user-id-input" type="text" length="50" placeholder="Enter User Name or Id... "/>
+  <input type="submit" value="go" />
+</form>
+{% if query_error is not None %}
+<br>
+<h3>Staging User Query Error: {{ query_error }}</h5>
+{% end %}
+{% end %}

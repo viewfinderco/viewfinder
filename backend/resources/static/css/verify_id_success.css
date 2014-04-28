@@ -1,0 +1,122 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+body.verify_id {
+    height: 100%;
+    background: #F7F4F1;
+    text-align: center;
+}
+body.verify_id #layout {
+    visibility: visible;
+    overflow: hidden;
+    position: relative;
+    top: auto;
+    left: auto; 
+    -webkit-font-smoothing: antialiased;
+    font-family: "proxima-nova-alt", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: rgb(255,255,255);
+    background: none;
+    height: 100%;
+    min-height: 350px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
+    color: #fff;
+}
+#footer .footer-logo {
+    float: left;
+    text-align: left;
+    margin: 0 0 0 10px;
+}
+#footer .footer-logo .white-logo {
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin: 0 10px 0 10px;
+}
+#footer .footer-logo .home-link {
+    color: fff;
+    float: left;
+    font-size: 13px;
+    margin: 9px 0 0 0;
+}
+#footer .footer-logo .home-link a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: normal;
+    font-size: 13px;
+    margin: 10px 0 0 0;
+}
+#footer .support {
+    color: #fff;
+    font-size: 13px;
+    line-height: 17px;
+    float: right;
+    margin: 7px 20px 0 0;
+    text-align: right;
+}
+#footer .support a {
+    font-weight: normal;
+    text-decoration: underline;
+    color: #fff;
+    font-size: 13px;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+#message {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    z-index: 1;
+}
+#message h2 {
+    font-size: 30px;
+    font-weight: normal;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+#message .learn-more {
+    height: 75px;
+    clear: both;
+    display: block;
+    margin-top: 120px;
+}
+#message .open-app {
+    display: none;
+    height: 75px;
+    margin-top: 50px;
+}
+
+
+/* Styles for devices with < 650px horizontal resolution */
+@media only screen and (max-width:  650px) {
+    #footer .footer-logo .home-link { display: none; }
+    #message { width: 70%; }
+    #message h2 { font-size: 24px; }
+    #message .learn-more { display: none; }
+    #message .open-app { display: block; }
+
+    #footer .support { font-size: 12px; }
+    #footer .support a { font-size: 12px; }
+}

@@ -1,0 +1,650 @@
+{% if is_html %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"></meta>
+  <meta name="keywords" content="viewfinder, photos, sharing, conversation"></meta>
+  <meta name="description" content="Viewfinder allows you to access, organize, and share photos in unprecedented ways."></meta>
+  <title>New Viewfinder Features</title>
+
+  <style type="text/css">
+    .ReadMsgBody { width: 100%; }
+    .ExternalClass { width: 100%; }
+    .ExternalClass, .ExternalClass p, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+      line-height: 100%;
+    }
+
+  @media screen and (max-width: 600px) {
+    .mobile-100pc { width:100% !important; height:auto !important; }
+    .mobile-control-image { width:75px !important; height:45px !important; }
+    .mobile-hide { display:none !important; }
+    .mobile-main { width:100% !important; height:auto !important; border-radius:0px !important; }
+  }
+  
+  table {border-collapse: collapse;}
+
+  a:link { color:#909090; }
+  a:visited { color:#909090; }
+  a:hover { color:#4C4C4C; }
+  a:active { color:#909090; }
+
+  </style>
+</head>
+<body link="#909090" vlink="#909090" alink="#4C4C4C" style="
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+  font-family:Arial;
+  font-weight:medium;
+  font-size:18px;
+  -webkit-text-size-adjust:none;
+  -ms-text-size-adjust:100%;
+  background:#ECE9E9;
+  width:100%;
+  height:100%;
+  max-height:100%;
+  margin:0 auto 0 auto;
+  padding:0;
+  border:0;">
+  <table align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F7F7" style="
+    width:100%;
+    font-family:Arial;
+    border-radius:0px;
+    background:#ECE9E9;"><tbody>
+    <tr>
+      <td>
+        <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+          <tr><td><div style="min-height:40px; font-size:40px; line-height:40px">&nbsp;</div></td></tr>
+        </tbody></table>
+
+        <table class="mobile-100pc" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F7F7" style="
+          width:600px;
+          font-family:Arial;
+          border-radius:0px;
+          background:#ECE9E9;"><tbody>
+          <tr>
+            <td>
+              <table class="mobile-main" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="
+                width:600px;
+                font-family:Arial;
+                border:0;
+                border-radius:10px;
+                background:#FFFFFF;"><tbody>
+                <tr class="mobile-hide">
+                  <td colspan="5">
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:36px; font-size:36px; line-height:36px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table><tbody>
+                      <tr>
+                        <td>
+                          <table width="38" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <a href="https://www.viewfinder.co">
+                            <img
+                              class="mobile-100pc"
+                              src="https://www.viewfinder.co/static/emails/2.1_newsletter/viewfinder_mark.png"
+                              border="0"
+                              height="26"
+                              width="192" />
+                          </a>
+                        </td>
+
+                        <td>
+                          <table width="232" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <a href="https://twitter.com/viewfinderco">
+                            <img
+                              src="https://www.viewfinder.co/static/emails/2.1_newsletter/twitter.png"
+                              border="0"
+                              height="26"
+                              width="29" />
+                          </a>
+                        </td>
+
+                        <td>
+                          <table width="23" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <a href="https://www.facebook.com/viewfinder.co">
+                            <img
+                              src="https://www.viewfinder.co/static/emails/2.1_newsletter/facebook.png"
+                              border="0"
+                              height="26"
+                              width="23" />
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody></table>
+
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="
+                      border:none;
+                      border-bottom:1px solid #ece9e9;"><tbody>
+                      <tr><td><div style="min-height:31px; font-size:31px; line-height:31px;">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+
+                  <td>
+                    <table class="mobile-hide" width="28" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+
+                  <td>
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:12px; font-size:12px; line-height:12px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:33px; font-size:33px; line-height:33px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    {% if first_name %}
+                    <div align="left" style="font-size:21px; line-height:24px; font-weight:bold; color: #1F1E1E; font-family:Helvetica;">
+                      Hey {{ first_name }},
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:14px; font-size:14px; line-height:14px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                    {% end %}
+
+                    <div align="left" style="font-size:18px; line-height:24px; color:#5F5D5D">
+                      We've just released an update to Viewfinder, adding new features to improve the way you share.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:28px; font-size:28px; line-height:28px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:30px; font-size:30px; line-height:30px;">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <center>
+                      <img
+                        class="mobile-100pc" 
+                        src="https://www.viewfinder.co/static/emails/2.1_newsletter/section_1.jpg"
+                        border="0"
+                        width="520"
+                        height="260" />
+                    </center>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:18px; line-height:24px; font-weight:bold; color:#1F1E1E; font-family:Helvetica;">
+                      View your Conversations on the web.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:15px; line-height:21px; color:#5F5D5D; font-family:Helvetica;">
+                      Access your inbox from
+                      <a href="https://www.viewfinder.co" style="
+                        text-decoration:underline;
+                        color:#1F1E1E;">viewfinder.co</a>                      
+                      &mdash; add comments and view photos even if you don't have an IOS device.
+                      We've added the ability to share via email and mobile number, so everyone can be part of the Conversation.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:36px; font-size:36px; line-height:36px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:12px; font-size:12px; line-height:12px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <center>
+                      <img
+                        class="mobile-100pc"
+                        src="https://www.viewfinder.co/static/emails/2.1_newsletter/section_2.jpg"
+                        border="0"
+                        width="520"
+                        height="200" />
+                    </center>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:18px; line-height:24px; font-weight:bold; color:#1F1E1E; font-family:Helvetica;">
+                      Control your Conversations.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:15px; line-height:21px; color:#5F5D5D; font-family:Helvetica;">
+                      When a large conversation takes off, the comments and photos really start flying.
+                      We've introduced some impressive new features that give you even more control.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:18px; font-size:18px; line-height:18px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table><tbody>
+                      <tr>
+                        <td valign="top">
+                          <img
+                            class="mobile-control"
+                            src="https://www.viewfinder.co/static/emails/2.1_newsletter/control_A.jpg"
+                            border="0"
+                            width="100"
+                            height="60" />
+                        </td>
+
+                        <td>
+                          <table width="16" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <div align="left" style="font-size:15px; line-height:21px; color:#5F5D5D; font-family:Helvetica;">
+                            <span style="font-weight:bold; color:#1F1E1E;">Mute a Conversation.</span> We've all been there.
+                            You're in a meeting, in class, or asleep, and you just need to quiet the noise.
+                            Mute allows you to take a more passive stance in a convo without missing out on the fun.
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody></table>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:22px; font-size:22px; line-height:22px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table><tbody>
+                      <tr>
+                        <td valign="top">
+                          <img
+                            class="mobile-control"
+                            src="https://www.viewfinder.co/static/emails/2.1_newsletter/control_B.jpg"
+                            border="0"
+                            width="100"
+                            height="60" />
+                        </td>
+
+                        <td>
+                          <table width="16" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <div align="left" style="font-size:15px; line-height:21px; color:#5F5D5D; font-family:Helvetica;">
+                            <span style="font-weight:bold; color:#1F1E1E;">Remove people.</span> Oops!
+                            I added Becky to a Convo where we were <span style="font-style:italic;">just</span>
+                            talking about her. Just when you think everything's gone wrong, Remove
+                            shows up in a tuxedo and solves the problem.
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody></table>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:22px; font-size:22px; line-height:22px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table><tbody>
+                      <tr>
+                        <td valign="top">
+                          <img
+                            class="mobile-control"
+                            src="https://www.viewfinder.co/static/emails/2.1_newsletter/control_C.jpg"
+                            border="0"
+                            width="100"
+                            height="60" />
+                        </td>
+
+                        <td>
+                          <table width="16" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <div align="left" style="font-size:15px; line-height:21px; color:#5F5D5D; font-family:Helvetica;">
+                            <span style="font-weight:bold; color:#1F1E1E;">Save all the Conversation's photos.</span>
+                            Whether it's a best friend's wedding, your latest house party, or a family vacation,
+                            sometimes you know you want all the photos from a Convo. Select "Save All Photos" and
+                            all the photos in the Conversation will be preserved in your Library.
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody></table>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:48px; font-size:48px; line-height:48px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:22px; font-size:22px; line-height:22px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <center>
+                      <img
+                        class="mobile-100pc"
+                        src="https://www.viewfinder.co/static/emails/2.1_newsletter/section_3.jpg"
+                        border="0"
+                        width="520"
+                        height="260" />
+                    </center>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:18px; line-height:24px; font-weight:bold; color:#1F1E1E; font-family:Helvetica;">
+                      Use Smart Groups to start Conversations.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:15px; line-height:21px; color:#5F5D5D; font-family:Helvetica;">
+                      Each Conversation is meant for a particular audience &mdash; we've made it easier
+                      to get the group right. When starting a Conversation, tap the "+" button and
+                      Viewfinder will suggest your most frequently used contacts and groups. If you
+                      add participants, the list of suggestions will update as well. Smart Groups are
+                      created, but you're always in control.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:36px; font-size:36px; line-height:36px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:12px; font-size:12px; line-height:12px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <center>
+                      <img
+                        class="mobile-100pc"
+                        src="https://www.viewfinder.co/static/emails/2.1_newsletter/section_4.jpg"
+                        border="0"
+                        width="520"
+                        height="240" />
+                    </center>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:18px; line-height:24px; font-weight:bold; color:#1F1E1E; font-family:Helvetica;">
+                      Use Viewfinder on iOS 7.
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="left" style="font-size:15px; line-height:21px; color:#5F5D5D; font-family:Helvetica;">
+                      Viewfinder is up and running on iOS 7, so you can get all your tech-savvy beta
+                      friends on Viewfinder now.
+                    </div>
+
+                    <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:26px; font-size:26px; line-height:26px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+
+                  <td>
+                    <table class="mobile-hide" width="28" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+
+                  <td>
+                    <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="5">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="
+                      border:none;
+                      border-bottom:1px solid #ece9e9;"><tbody>
+                      <tr><td><div style="min-height:22px; font-size:22px; line-height:22px;">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table align="left" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="
+                      font-family:Arial;
+                      background:#FFFFFF;"><tbody>
+                      <tr>
+                        <td>
+                          <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <table class="mobile-hide" width="28" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+
+                        <td>
+                          <table class="mobile-100pc" align="left" cellpadding="0" cellspacing="0" border="0" style="
+                            font-family:Arial;
+                            width:292px;"><tbody>
+                            <tr>
+                              <td>
+                                <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                                  <tr><td><div style="min-height:29px; font-size:29px; line-height:29px;">&nbsp;</div></td></tr>
+                                </tbody></table>
+
+                                <div align="left" style="font-size:15px; line-height:20px; font-style:italic; color:#414141">
+                                  Thanks,
+                                </div>
+
+                                <div align="left" style="font-size:15px; line-height:15px; font-weight:bold; color:#5F5D5D">
+                                  All of us at Viewfinder
+                                </div>
+
+                                <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                                  <tr><td><div style="min-height:12px; font-size:12px; line-height:12px;">&nbsp;</div></td></tr>
+                                </tbody></table>
+                              </td>
+                            </tr>
+                          </table>
+
+                          <table class="mobile-100pc" align="right" cellpadding="0" cellspacing="0" border="0" style="
+                            font-family:Arial;
+                            width:228px;"><tbody>
+                            <tr>
+                              <td>
+                                <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                                  <tr><td><div style="min-height:29px; font-size:29px; line-height:29px;">&nbsp;</div></td></tr>
+                                </tbody></table>
+          
+                                <a href="https://www.viewfinder.co/app">
+                                  <img
+                                    src="https://www.viewfinder.co/static/emails/2.1_newsletter/download_app.png"
+                                    border="0"
+                                    width="228"
+                                    height="40" />
+                                </a>
+
+                                <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                                  <tr><td><div style="min-height:15px; font-size:15px; line-height:15px;">&nbsp;</div></td></tr>
+                                </tbody></table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+      
+                        <td>
+                          <table class="mobile-hide" width="28" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+      
+                        <td>
+                          <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </td>
+                      </tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:10px; font-size:10px; line-height:10px;">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+
+        <table class="mobile-100pc" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F7F7" style="
+          width:480px;
+          font-family:Arial;
+          border-radius:0px;
+          background:#ECE9E9;"><tbody>
+          <tr>
+            <td>
+              <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>            
+
+            <td>
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:18px; font-size:18px; line-height:18px">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:12px; color:#9F9C9C;">
+                Let us know what you think on
+                <a href="https://twitter.com/viewfinderco" style="
+                  text-decoration:underline;
+                  color:#A0A0A0;">
+                  Twitter</a>
+                and
+                <a href="https://www.facebook.com/viewfinder.co" style="
+                  text-decoration:underline;
+                  color:#A0A0A0;">
+                  Facebook</a>.
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:18px; font-size:18px; line-height:18px">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:12px; color:#9F9C9C;">
+                Problems? Feedback? Email us at:
+                <a href="mailto:support@emailscrubbed.com" style="
+                  text-decoration:underline;
+                  color:#9F9C9C;">
+                  support@emailscrubbed.com
+                </a>
+              </div>
+
+              <div align="center" style="font-size:12px; color:#9F9C9C;">
+                &#xA9; 2013 Minetta, LLC. All Rights Reserved.
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:14px; font-size:14px; line-height:14px">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:12px; color:#9F9C9C;">
+                By opening this email, you confirm that you are at least 13 years old and that you have
+                read and accepted our 
+                <a href="https://www.viewfinder.co/terms" style="
+                  color:#9F9C9C;
+                  text-decoration:underline;">
+                  Terms&nbsp;of&nbsp;Service
+                </a>
+                and
+                <a href="https://www.viewfinder.co/privacy" style="
+                  color:#9F9C9C;
+                  text-decoration:underline;">
+                  Privacy&nbsp;Policy</a>.
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:14px; font-size:14px; line-height:14px">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:12px; color:#9F9C9C;">
+                You can
+                <a href="{{ unsubscribe_url }}" style="
+                  color:#A0A0A0;
+                  text-decoration:underline;">
+                  unsubscribe</a>
+                from all future Viewfinder announcements, but we'll miss you.
+              </div>
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:40px; font-size:40px; line-height:40px">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+
+            <td>
+              <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>            
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody></table>
+</body>
+</html>
+{% else %}{% if first_name %}Hey {{ first_name }},
+
+{% end %}We've just released an update to Viewfinder, adding new features to improve the way you share:
+
+- View your Conversations on the web: Access your inbox from https://viewfinder.co -- add comments and view photos even if you don't have an IOS device. We've added the ability to share via email and mobile number, so everyone can be part of the Conversation.
+
+- Mute a Conversation: We've all been there. You're in a meeting, in class, or asleep, and you just need to quiet the noise. Mute allows you to take a more passive stance in a convo without missing out on the fun.
+
+- Remove people: Oops! I added Becky to a Convo where we were just talking about her. Just when you think everything's gone wrong, Remove shows up in a tuxedo and solves the problem.
+  
+- Save all the Conversation's photos: Whether it's a best friend's wedding, your latest house party, or a family vacation, sometimes you know you want all the photos from a Convo. Select "Save All Photos" and all the photos in the Conversation will be preserved in your Library.
+
+- Use Smart Groups to start Conversations: Each Conversation is meant for a particular audience -- we've made it easier to get the group right. When starting a Conversation, tap the "+" button and Viewfinder will suggest your most frequently used contacts and groups. If you add participants, the list of suggestions will update as well. Smart Groups are created, but you're always in control.
+
+- Use Viewfinder on iOS 7: Viewfinder is up and running on iOS 7, so you can get all your tech-savvy beta friends on Viewfinder now.
+
+Thanks,
+All of us at Viewfinder
+
+
+To unsubscribe from all future Viewfinder announcements, follow this link: {{ unsubscribe_url }}
+{% end %}

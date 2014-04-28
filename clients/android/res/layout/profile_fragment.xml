@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/profile_fragment"
+    >
+
+  <RelativeLayout
+      android:id="@+id/titlebar"
+      style="@style/titlebar">
+
+    <view
+        style="@style/titlebar_title"
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:text="@string/profile"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_settings"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/title_bar_icon_settings"
+        style="@style/titlebar_button"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        />
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/titlebar"
+      android:id="@+id/titlebar_content"
+      >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:src="@drawable/dashboard_default"
+        android:scaleType="centerCrop"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/dashboard_card_container"
+        android:paddingLeft="12dp"
+        android:paddingTop="10dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="10dp">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/profile_userName"
+          android:clickable="true"
+          android:layout_marginBottom="8dp">
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            android:id="@+id/profile_userNameText"
+            android:text="User Name"
+            android:textColor="@color/profile_userName"
+            android:textSize="28dp"
+            />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/profile_editName"
+            android:src="@drawable/edit_icon"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:adjustViewBounds="false"
+            android:layout_toRightOf="@+id/profile_userNameText"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          style="@style/profile_stat"
+          android:id="@+id/profile_photos"
+          android:layout_below="@+id/profile_userName"
+          >
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/profile_statCount"
+            android:text="12,384"
+            android:id="@+id/profile_photoCount"
+            />
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/profile_statName"
+            android:text="@string/profile_photos"
+            android:layout_below="@+id/profile_photoCount"
+            />
+      </RelativeLayout>
+
+      <RelativeLayout
+          style="@style/profile_stat"
+          android:id="@+id/profile_contacts"
+          android:layout_toRightOf="@+id/profile_photos"
+          android:layout_alignTop="@+id/profile_photos"
+          >
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/profile_statCount"
+            android:text="87"
+            android:id="@+id/profile_contactCount"
+            />
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/profile_statName"
+            android:text="@string/profile_contacts"
+            android:layout_below="@+id/profile_contactCount"
+            />
+      </RelativeLayout>
+
+      <RelativeLayout
+          style="@style/profile_stat"
+          android:id="@+id/profile_convos"
+          android:layout_toRightOf="@+id/profile_contacts"
+          android:layout_alignTop="@+id/profile_contacts"
+          >
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/profile_statCount"
+            android:text="543"
+            android:id="@+id/profile_convoCount"
+            />
+
+        <view
+            class="co.viewfinder.widgets.ViewfinderTextView"
+            style="@style/profile_statName"
+            android:text="@string/profile_convos"
+            android:layout_below="@+id/profile_convoCount"
+            />
+      </RelativeLayout>
+
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+</RelativeLayout>

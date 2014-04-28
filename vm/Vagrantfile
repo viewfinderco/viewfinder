@@ -1,0 +1,13 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+  config.vm.box = "ubuntu12.04"
+
+  # We have to use nfs shared folders because the virtualbox filesystem
+  # doesn't support hard links (and python distutils uses them).
+  config.vm.network :hostonly, "172.19.1.6"
+  config.vm.share_folder("viewfinder", "/viewfinder", "..", :nfs=>true)
+
+  config.vm.provision :shell, :path => "setup.sh"
+end

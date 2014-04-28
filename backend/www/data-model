@@ -1,0 +1,67 @@
+Users
+  - User code
+  - Full name
+  - Email
+  - Auth list
+    - Google
+    - Twitter
+    - Facebook
+  - Phone number (typically pulled from mobile app and broadcast in
+    near-situations so that a newly installed mobile app recognizes
+    people nearby who are also broadcasting back to the viewfinder
+    backend and can ask the user whether to connect with friends.
+    All is done via phone's contact list.
+  - Default privacy
+  - Friends: list of (user code, activity)
+  - Feeds to pull photos automatically for a user from outside sources
+    - Facebook
+    - Twitter
+    - Flickr
+
+AutoShares
+  - Circle name
+  - Duration
+  - Members: list of user codes
+
+Views
+  - Title
+  - Date range
+  - Location + radius
+  - Search query parameters
+  - Owners: list of user code(s)
+
+Photos
+  - Photo code (sha1 hash of image contents)
+  - Photographer: user code
+  - Privacy: { private, friends, public }
+  - Shares: if photo is private, list of user codes of authorized users
+  - Caption
+  - Date (ISO 8601)
+  - Geo location
+  - Photo features (for dup detection, similar photos, etc.)
+  - Popularity (derived from access logs), last update to popularity
+  - Tagged people
+    - People with Viewfinder user codes
+    - Raw names
+  - Tagged objects
+    - Raw names
+  - EXIF tags from camera
+
+
+Search term expansions:
+  - For date: iso 8601
+  - For location:
+    - Geohash
+    - List of places with probs
+    - Geo location matches
+    - Place recognition
+    - City
+    - Country
+    - County
+    - Zip code
+- Objects
+  - Explicit tags
+    - Implicit object recognition
+  - People in image
+    - Explicit tags
+    - Implicit facial recognition (with probs)

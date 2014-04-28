@@ -1,0 +1,12 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Ben Darnell
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "FullTextIndexMetadataPB";
+
+message FullTextLexiconMetadata {
+  optional int64 token_id = 1;
+
+  // The number of times this token appears in the index.
+  optional int64 count = 2;
+}

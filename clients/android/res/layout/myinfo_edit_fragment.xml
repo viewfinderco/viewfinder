@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/myinfo_edit_name">
+
+  <RelativeLayout
+      android:id="@+id/titlebar"
+      style="@style/titlebar">
+
+    <view
+        style="@style/titlebar_title"
+        class="co.viewfinder.widgets.ViewfinderTextView"
+        android:text="@string/myinfo"
+        />
+
+    <view
+        class="co.viewfinder.widgets.ViewfinderButton"
+        android:id="@+id/myinfo_done"
+        android:layout_alignParentRight="true"
+        style="@style/titlebar_greenButton"
+        android:text="@string/myinfo_done"/>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginRight="8dp"
+      android:background="@drawable/table_cell_background_top"
+      android:layout_below="@+id/titlebar">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_icon"
+        android:src="@drawable/contact_info_name_vf_user"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="8dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/contact_icon"
+        android:layout_centerVertical="true">
+
+      <view
+          class="co.viewfinder.widgets.ViewfinderEditText"
+          android:id="@+id/myinfo_first"
+          android:hint="@string/myinfo_first"
+          android:layout_weight="1"
+          android:layout_toLeftOf="@+id/auth_nameSpacer"
+          android:layout_alignParentLeft="true"
+          android:inputType="textCapWords"
+          style="@style/input"
+          android:nextFocusDown="@+id/myinfo_last"
+          android:textSize="17dp"/>
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/auth_nameSpacer"
+          android:layout_centerInParent="true"
+          android:background="@drawable/spacer"/>
+
+      <view
+          class="co.viewfinder.widgets.ViewfinderEditText"
+          android:id="@+id/myinfo_last"
+          android:layout_weight="1"
+          android:hint="@string/myinfo_last"
+          android:layout_toRightOf="@+id/auth_nameSpacer"
+          android:layout_alignParentRight="true"
+          android:inputType="textCapWords"
+          style="@style/input"
+          android:textSize="17dp"
+          android:imeOptions="actionDone"/>
+    </RelativeLayout>
+
+  </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Viewfinder Jobs{% end %}
+{% block page_class %}secondary jobs{% end %}
+
+{% block content %}
+{% module Css('button.css') %}
+{% module Css('page.css') %}
+{% module Css('secondary.css') %}
+
+<div id="page-content">
+
+    <div class="secondary-container">
+        <h1 id="title">Jobs</h1>
+        <div class="separator"></div>
+
+		<h3>Why Viewfinder?</h3>
+		<p>Viewfinder is developing a powerful new platform to change the way the world communicates.  We are bringing users closer to their memories by making photos easier to find, to share, and to preserve.  And we’re having a lot of fun building it.</p>
+		<p>We are a well-funded, fast-growing startup headquartered in a loft space in Noho, Manhattan, with an office in Pioneer Square in Seattle.  We’re offering competitive salary, great benefits, and the opportunity to collaborate on a truly innovative product. </p>
+
+
+		<h3><a href="#" class="job-title" data-job-id="mobile-engineer">Mobile Engineer</a></h3>
+		<div id="mobile-engineer" class="jobs-body">
+			<p>Viewfinder is committed to building a world-class engineering organization. Our pedigrees include senior engineering roles at Google, Microsoft and Dropbox. We believe in excellent engineering and provide an environment with opportunities for individual growth as well as the responsibility of having a significant impact on product development.</p>
+
+			<p>We’re looking for experienced engineers to help design and develop our revolutionary mobile client. You will be building the Viewfinder client for iOS and/or Android and will be working with product designers and server engineers. The ideal candidate will be a self-starter, willing to work outside of their comfort zone and able to learn new technologies quickly.</p>
+
+			<p><b>Requirements</b></p>
+			<ul>
+				<li>College degree in Computer Science or related field.</li>
+				<li>Strong programming skills in C++ or Java.</li>
+				<li>An ability to write robust, well tested code.</li>
+				<li>Knowledge of image processing, OpenGL, networking or OS specific APIs is a plus, though not a requirement.</li>
+				<li>This job is located in Manhattan or Seattle, Washington.</li>
+			</ul>
+		</div>
+
+
+		<h3><a href="#" class="job-title" data-job-id="server-engineer">Server Engineer</a></h3>
+		<div id="server-engineer" class="jobs-body">
+			<p>Viewfinder is committed to building a world-class engineering organization. Our pedigrees include senior engineering roles at Google, Microsoft and Dropbox. We believe in excellent engineering and provide an environment with opportunities for individual growth as well as the responsibility of having a significant impact on product development.</p>
+
+			<p>We’re looking for experienced engineers to help design and develop our scalable, high-performance server infrastructure. You will be building significant components of the Viewfinder server working closely with the mobile engineers and product designers. The ideal candidate will be a self-starter, able to learn new technologies quickly and comfortable with large scale distributed systems.</p>
+
+			<p><b>Requirements</b></p>
+			<ul>
+				<li>College degree in Computer Science or related field.</li>
+				<li>Strong programming skills in C++, Java or Python.</li>
+				<li>An ability to write robust, well tested code.</li>
+				<li>Knowledge of distributed systems, networking or linux/unix programming is a plus.</li>
+				<li>This job is located in Manhattan or Seattle, Washington.</li>
+			</ul>
+		</div>
+
+
+		<h3><a href="#" class="job-title" data-job-id="product-designer">Product Designer</a></h3>
+		<div id="product-designer" class="jobs-body">
+			<p>Location: New York City<br />
+			Type: Full-time<br />
+			Minimum Experience: Experienced</p>
+			<p>The design team at Viewfinder is committed to creating elegant and effective products that solve everyday problems, and is looking to add a capable, detail-orientated product designer to our crew. With the opportunity to craft and define the product experience on multiple platforms, and a lot of room to shape our communications and web presence, it’s important that this designer can utilize their product, interaction, and visual design skills to care for a project from conception to launch and beyond. Above all, we want folks that value collaboration, critical thinking, and empathy.</p>
+
+			<p><strong>Responsibilities</strong></p>
+			<ul>
+				<li>Brainstorm broad concepts and ideas, both individually and with the team, into a consumable, tangible objective.</li>
+				<li>Design flows, experiences, and pixel-perfect mockups with product specs that can be prototyped and refined in partnership with the engineering team.</li>
+				<li>Design materials for communication and marketing needs that live in both print and on the web.</li>
+				<li>Contribute to high-level strategic decisions around product and creative direction.</li>
+			</ul>
+
+			<p><b>Requirements</b></p>
+			<ul>
+				<li>A strong portfolio showing previous visual and interaction design work.</li>
+				<li>Appreciation for the difference between a good design and a great design—details that only other quality designers might consciously recognize. This includes but isn’t limited to obsessing over design theory, user patterns, good typography, design systems, semantic code, etc.</li>
+				<li>Self-motivation with the ability to take charge or play a supporting role.</li>
+				<li>Exceptional verbal and written communication skills. Can articulate design decisions to the design, engineering, and executive teams.</li>
+				<li>Experience with designing/building mobile and/or web products from scratch. The ability to code a simple website or application is a big plus.</li>
+			</ul>
+		</div>
+
+		<h3>Contact Info:</h3>
+		<p>
+			<a href="mailto:jobs@emailscrubbed.com">jobs@viewfinder.co</a><br />
+				Viewfinder Employment<br />
+				636 Broadway<br />
+				Suite 620<br />
+				New York, NY 10012
+		</p>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>
+
+<script type="text/javascript">
+$("a.job-title").click(function(e){
+	e.preventDefault();
+	var job_id = $(this).attr("data-job-id");
+	var job_el = $("#"+job_id);
+	if(job_el.hasClass("open")){
+		job_el.slideUp(400).removeClass("open");
+		return;
+	}
+	job_el.slideDown(400).addClass("open");
+
+});
+
+</script>
+{% include "google_analytics.html" %}
+
+{% end %}

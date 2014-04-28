@@ -1,0 +1,25 @@
+<div id="admin-sidebar">
+  {% if is_root %}
+  <h2>Admin:</h2>
+  <ul>
+    <li><a href="/admin/db">Database Administration</a></li>
+    <li><a href="/admin/logs">Server Logs</a></li>
+    <li><a href="/admin/user_logs">User Logs</a></li>
+    <li><a href="/admin/counters">Counters</a></li>
+    <li><a href="/admin/staging_users">Staging Users</a></li>
+  </ul>
+  {% end %}
+
+  {% if is_support %}
+  <h2>Support:</h2>
+  <ul>
+    <li><a href="/admin/find_user_id">Find User ID</a></li>
+    <li><a href="/admin/logs_counters">Logs Counters</a></li>
+    <li><a href="/admin/metrics">Detailed Metrics</a></li>
+  </ul>
+  {% end %}
+
+  {% if hg_revision %}
+  HG revision: <a href="https://bitbucket.org/viewfinder/viewfinder/commits/{{ hg_revision }}">{{hg_revision}}</a>
+  {% end %}
+</div>

@@ -1,0 +1,20 @@
+// Copyright 2013 Viewfinder. All rights reserved.
+// Author: Peter Mattis.
+
+option java_package = "co.viewfinder.proto";
+option java_outer_classname = "SystemMessagePB";
+
+message SystemMessage {
+  enum Severity {
+    SILENT = 0;
+    INFO = 1;
+    ATTENTION = 2;
+    DISABLE_NETWORK = 3;
+    UNKNOWN = 4;
+  }
+  optional string title = 1;
+  optional string body = 2;
+  optional string link = 3;
+  optional string identifier = 4;
+  optional Severity severity = 5 [default=UNKNOWN];
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/contacts_background">
+
+  <RelativeLayout android:id="@+id/contacts_title"
+                  style="@style/titlebar"
+      >
+
+    <co.viewfinder.widgets.ViewfinderTextView
+        android:text="@string/contact_info_title"
+        android:id="@+id/textView"
+        style="@style/titlebar_title"/>
+
+    <view
+        class="co.viewfinder.widgets.ViewfinderButton"
+        android:id="@+id/button_done"
+        android:layout_alignParentRight="true"
+        style="@style/titlebar_greenButton"
+        android:text="@string/myinfo_done"/>
+  </RelativeLayout>
+
+  <RelativeLayout android:id="@+id/contact_info_container"
+                  android:layout_width="match_parent"
+                  android:layout_height="fill_parent"
+                  android:layout_below="@+id/contacts_title"
+                  android:focusableInTouchMode="true"
+      >
+    <view android:id="@+id/contact_card"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:layout_marginTop="8dp"
+          android:layout_marginLeft="8dp"
+          android:layout_marginRight="8dp"
+          class="co.viewfinder.widgets.ContactCardLayout"
+          android:minHeight="30dp"
+        android:orientation="vertical"/>
+
+    <View android:id="@+id/editing_mask"
+          android:layout_alignParentTop="true"
+          android:layout_height="fill_parent"
+          android:layout_width="fill_parent"
+          android:layout_marginTop="-8dp"
+          android:background="#cc000000"/>
+
+    <LinearLayout android:id="@+id/nickname_card"
+                  android:layout_height="wrap_content"
+                  android:layout_width="fill_parent"
+                  android:layout_below="@+id/contact_card"
+                  android:layout_marginTop="10dp"
+                  android:layout_marginLeft="8dp"
+                  android:layout_marginRight="8dp"
+                  android:orientation="horizontal"
+                  android:background="@drawable/table_cell_background_single"
+                  android:clickable="true"
+        >
+      <ImageView android:layout_width="30dp"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/contact_info_nickname"
+                 android:scaleType="fitCenter"
+                 android:layout_marginLeft="8dp"
+                 android:layout_gravity="center_vertical"/>
+      <co.viewfinder.widgets.ViewfinderEditText android:id="@+id/contact_info_nick_field"
+                                                android:layout_width="fill_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_vertical"
+                                                android:layout_weight="1"
+                                                android:textSize="17dp"
+                                                android:hint="@string/contact_info_add_nickname"
+                                                android:paddingLeft="8dp"
+                                                android:gravity="center_vertical"
+                                                style="@style/input"/>
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/contact_edit"
+          android:src="@drawable/edit_icon"
+          android:layout_gravity="center_vertical"
+          android:layout_marginRight="8dp"/>
+    </LinearLayout>
+
+
+
+  </RelativeLayout>
+
+</RelativeLayout>

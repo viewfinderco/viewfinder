@@ -1,0 +1,17 @@
+{% extends "admin.html" %}
+{% block title %}Exception Encountered: {{ title }}{% end %}
+
+{% block admin %}
+<div id="title" class="h3">We're sorry, but your request failed.</div>
+<div id="dialog-frame" class="clearfix">
+  <div id="dialog">
+    <div class="center">See stack trace and error below.</div>
+    <div class="separator"></div>
+    <div class="dialog-content center dark">
+      <pre>{{ message }}</pre>
+    </div>
+    <div class="separator"></div>
+    <div class="center"><a class="button" href="/admin">Return to Admin Console</a></div>
+  </div>
+</div>
+{% end %}

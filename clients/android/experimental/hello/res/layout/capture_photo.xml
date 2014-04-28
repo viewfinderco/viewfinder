@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Capture Photo"
+    />
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <Button
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_capture_thumbnail"
+        android:onClick="clickButtonThumbnail" />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_capture_full"
+        android:onClick="clickButtonFull" />
+    <Button
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_photos_list"
+        android:onClick="clickButtonList" />
+  </LinearLayout>
+<TextView android:id="@+id/image_info"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text=""
+    />
+
+<!--    android:id="@+id/imageView" -->
+<!--    android:background="@drawable/event_border" -->
+<!-- android:padding="3dip" -->
+<ImageView
+    android:adjustViewBounds="true"
+    android:scaleType="fitCenter"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:src="@drawable/event_layer"
+    android:id="@+id/imageDisplay" />
+</LinearLayout>

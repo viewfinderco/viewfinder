@@ -1,0 +1,9 @@
+{% extends "user_table_base.html" %}
+{% block title %}Staging User Search: "{{ user_id }}"{% end %}
+
+{% block admin-title %}Staging User Search: "{{ user_id }}"{% end %}
+
+{% block admin-footer %}
+<div class="separator"></div>
+<div class="center"><a class="button" href="/admin/staging_users?">Search for another User</a></div>
+{% end %}

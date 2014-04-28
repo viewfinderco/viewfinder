@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name = "viewport" content = "initial-scale = 1, maximum-scale = 1" />
+    <title>Viewfinder Gallery</title>
+    <script type="text/javascript" src="web_code/jquery.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        /mobi/i.test(navigator.userAgent) && setTimeout(
+          function () { window.scrollTo(0, 1); }, 1);
+        });
+
+
+        $(function () {
+          viewfinder.flags.enableInbox = true;
+          viewfinder.flags.enableSignup = false;
+          viewfinder.flags.isRegistered = true;
+          viewfinder.own_user = {% raw json_encode(user_info) %};
+          viewfinder.viewpoint_id = {% raw json_encode(viewpoint_id) %};
+        });
+
+      $(function() {
+      var $body = $('body');
+      viewfinder.app = new viewfinder.views.AppView({el: $body});
+      });
+
+    </script>
+
+    <script type="text/html" id="t-conversation-header">
+      <div class="title"><%- title %></div>
+      <div class="followers"><%- followers %></div>
+      <div class="counts">
+        <span><b><%- photoCount %></b> Photos</span>
+        <span><b><%- commentCount %></b> Comments</span>
+      </div>
+    </script>
+    <script type="text/html" id="t-conversation-footer">
+      <div class="getapp">
+        <span>Your Friends are Waiting for you.</span>
+        <a class="button" href="/auth">Create an Account</a>
+      </div>
+      <div class="bar"></div>
+      <div class="links clearfix">
+        <a class="appstore" href="https://www.viewfinder.co/app"></a>
+        <div class="pages">
+          <a href="/terms" target="_blank">TERMS</a>
+          <a href="/privacy" target="_blank">PRIVACY</a>
+          <a href="/jobs" target="_blank">JOBS</a>
+          <a href="/faq" target="_blank">FAQ</a>
+          <a href="/ifaq" target="_blank">IFAQ</a>
+          <a href="mailto:hello@emailscrubbed.com" target="_blank">HELLO@VIEWFINDER.CO</a>
+        </div>
+      </div>
+      <div class="links clearfix">
+        <a class="copyright" href="/copyright">©2013 VIEWFINDER. ALL RIGHTS RESERVED.</a>
+      </div>
+    </script>
+    <script type="text/html" id="t-episode-header">
+      <div class="metadata">
+        <span class="user"><%- user %></span>
+        <span class="timestamp"></span>
+      </div>
+      <div class="message"><%- loc %></div>
+    </script>
+    <script type="text/html" id="t-comment">
+      <div class="metadata">
+        <span class="user"><%- user %></span>
+        <span class="timestamp"></span>
+      </div>
+      <div class="message"><%= message %></div>
+    </script>
+    <script type="text/html" id="t-add-followers">
+      <div class="metadata">
+        <span class="poster"><%- poster %></span>
+        <span class="added">added <b><%- added %></b></span>
+        <span class="timestamp"></span>
+      </div>
+    </script>
+    <script type="text/html" id="t-add-followers-wide">
+      <div class="metadata">
+        <span class="poster"><%- poster %></span>
+        <span class="timestamp"></span>
+      </div>
+      <div class="message added">added <b><%- added %></b></div>
+    </script>
+    <script type="text/html" id="t-share-new-wide">
+      <div class="metadata">
+        <span class="user"><%- user %></span>
+        <span class="timestamp"></span>
+      </div>
+      <div class="message">Started the <b>Conversation</b></div>
+    </script>
+    <script type="text/html" id="t-share-new">
+      <div class="metadata">
+        <span class="user"><%- user %></span>
+        <span class="started">started the <b>Conversation</b></span>
+        <span class="timestamp"></span>
+      </div>
+    </script>
+    <script type="text/html" id="t-header-mobile">
+      <div class="single-column mobile">
+        <div class="back"></div>
+        <div class="logo"></div>
+      </div>
+    </script>
+    <script type="text/html" id="t-header-one-col">
+      <div class="single-column">
+        <div class="back"></div>
+        <div class="logo"></div>
+      </div>
+    </script>
+    <script type="text/html" id="t-header-two-col">
+      <div class="left-column">
+        <div class="inner">
+          <div class="logo"></div>
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="inner">
+          <div class="back"></div>
+          <a class="on-bar to-top">Back to Top</a>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-header-back">
+      <% if (justBack) { %>
+      <a class="on-bar">Back</a>
+      <% } else { %>
+      <a class="on-bar">Inbox</a>
+      <div class="count <% if (inboxCount > 0) { %>unviewed<% } %>"><%- inboxCount %></div>
+      <% } %>
+    </script>
+    <script type="text/html" id="t-dropdown-menu">
+      <div class="dropdown">
+        <a href="/faq" target="_blank">Help</a>
+        <a href="/terms" target="_blank">Terms</a>
+        <a href="/privacy" target="_blank">Privacy</a>
+        <a href="/tour" target="_black">Tour</a>
+        <a href="/logout" class="bright">Logout</a>
+      </div>
+    </script>
+    <script type="text/html" id="t-inbox-mobile-col">
+      <div class="mobile-column">
+        <div class="inner">
+          <div class="collection"></div>
+          <div class="inbox-pager scrolleffect"></div>
+          <% if (prospective) { %>
+          <div class="ctacard">
+            <div class="message">Join the Conversation.</div>
+            <a class="cta-button">Sign Up / Log In</a>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-inbox-one-col">
+      <div class="single-column">
+        <div class="inner">
+          <% if (prospective) { %>
+          <div class="infocard">
+            <div class="photo cropped"></div>
+            <div class="ctacard">
+              <div class="message">Join the Conversation.</div>
+              <a class="cta-button">Sign Up / Log In</a>
+            </div>
+          </div>
+          <% } else { %>
+          <div class="infocard">
+            <div class="photo cropped"></div>
+            <div class="account-info card"></div>
+          </div>
+          <% } %>
+          <div class="collection"></div>
+          <div class="inbox-pager scrolleffect"></div>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-inbox-two-col">
+      <div class="left-column">
+        <div class="inner">
+          <% if (prospective) { %>
+          <div class="photo fill cropped"></div>
+          <% } else { %>
+          <div class="infocard card">
+            <div class="photo cropped"></div>
+            <div class="account-info"></div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="inner">
+          <div class="collection"></div>
+          <div class="inbox-pager scrolleffect"></div>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-inbox-row">
+      <div class="text">
+        <div class="title"><%- title %></div>
+        <div class="followers"><%- followers %></div>
+        <div class="stats">
+          <span class="timestamp"></span>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-conversation-mobile">
+      <div class="single-column mobile">
+        <div class="inner">
+          <div class="cover"></div>
+          <div class="card">
+            <div class="info"></div>
+            <div class="collection"></div>
+          </div>
+          <div class="footer"></div>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-conversation-one-col">
+      <div class="single-column">
+        <div class="inner">
+          <div class="cover"></div>
+          <div class="card">
+            <div class="info"></div>
+            <div class="collection"></div>
+          </div>
+          <div class="footer"></div>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-conversation-two-col">
+      <div class="left-column">
+        <div class="inner">
+          <div class="card">
+            <div class="cover"></div>
+            <div class="info"></div>
+          </div>
+          <div class="cta"></div>
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="collection"></div>
+      </div>
+    </script>
+    <script type="text/html" id="t-settings-two-col">
+      <div class="left-column">
+        <div class="inner">
+          <div class="card">
+            <a class="link" href="/faq">FAQ</a>
+            <a class="link">Log Out</a>
+          </div>
+        </div>
+      </div>
+      <div class="right-column">
+      </div>
+    </script>
+    <script type="text/html" id="t-settings-one-col">
+      <div class="single-column">
+        <div class="inner">
+          <div class="links">
+            <a class="link" href="/faq">FAQ</a>
+            <a class="link">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-gallery-display">
+      <div class="overlay back"></div>
+      <div class="close-button back"></div>
+      <div class="gallery-info back"></div>
+      <div class="gallery-photos"></div>
+      <div class="gallery-count back"></div>
+      <div class="next-button next"></div>
+      <div class="prev-button prev"></div>
+    </script>
+    <script type="text/html" id="t-gallery-info">
+      <div class="spacer"></div>
+      <div class="container">
+        <div class="location"><%- loc %></div>
+        <div class="stats">
+          <span class="timestamp"></span>
+          <span class="user">by <%- user %></span>
+        </div>
+      </div>
+    </script>
+    <script type="text/html" id="t-gallery-count">
+      <div class="container">
+        <span class="count"><%- index %> of <%- total %></span>
+      </div>
+    </script>
+    <script type="text/html" id="t-prospective-signup">
+      <div class="copy">
+        <div class="title">Account Required</div>
+        <div class="info">
+          This content was shared with <span class="identity"><%- id %></span>.
+          By creating an account, you can view and comment on all conversations shared with this <%- id_type %>.
+        </div>
+      </div>
+      <div class="buttons">
+        <a class="button submit">Create a New Account</a>
+      </div>
+      <div class="buttons">
+        <a class="button alt cancel">Combine with my Existing Account</a>
+      </div>
+      <div class="suboption">
+        <a>Cancel</a>
+      </div>
+    </script>
+    <script type="text/html" id="t-hero-mask">
+      <div class="mask left"></div>
+      <div class="mask right"></div>
+      <div class="mask top"></div>
+      <div class="mask bottom"></div>
+      <div class="logo"></div>
+    </script>
+    <script type="text/html" id="t-add-comment">
+      <form>
+        <div class="activity-info">
+          <div class="metadata">
+            <span class="user">You</span>
+            <span class="timestamp">Now</span>
+          </div>
+          <div class="text-field" data-fields="message"></div>
+          <div class="errors"></div>
+          <div class="instruction">Enter to submit</div>
+        </div>
+      </form>
+    </script>
+    <script type="text/html" id="t-signup-cta">
+      <div class="activity-info signup-cta">
+        <div class="metadata">
+          <span class="user">You</span>
+          <span class="timestamp">Now</span>
+        </div>
+        <div class="message"><b>Sign Up / Log In</b> to comment</div>
+      </div>
+    </script>
+    <script type="text/html" id="t-account-info">
+      <span class="name"><%- name %></span>
+    </script>
+
+
+    <link href="web_code/viewfinder.css" type="text/css" rel="stylesheet"/>
+    <link href="web_code/view.css" type="text/css" rel="stylesheet"/>
+  </head>
+
+  <body>
+    <div id="header">
+      <div id="header-inner">
+        <div id="header-logo"></div>
+        <a id="header-appstore" href="https://www.viewfinder.co/app"></a>
+        <a id="header-logout" href="/logout">Log Out</a>
+      </div>
+    </div>
+    <div id="content">
+      <div id="inbox" class="inbox page"></div>
+      <div id="conversation" class="conversation page"></div>
+      <div id="settings" class="settings page"></div>
+    </div>
+    <div id="fixed">
+      <div id="gallery" class="gallery"></div>
+      <div id="dialog" class="dialog"></div>
+    </div>
+
+    <script src="web_code/underscore.js" type="text/javascript"></script>
+    <script src="web_code/viewfinder.js" type="text/javascript"></script>
+    <script src="web_code/backbone.js" type="text/javascript"></script>
+    <script src="web_code/dateformat.js" type="text/javascript"></script>
+    <script src="web_code/jquery.placeholder.js" type="text/javascript"></script>
+    <script src="web_code/jquery.hammer.js" type="text/javascript"></script>
+    <script src="web_code/fastclick.js" type="text/javascript"></script>
+    <script src="web_code/scrolleffect.js" type="text/javascript"></script>
+    <script src="web_code/models.js" type="text/javascript"></script>
+    <script src="web_code/views.js" type="text/javascript"></script>
+  </body>
+
+</html>

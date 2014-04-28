@@ -1,0 +1,15 @@
+# Test coverage configuration
+# Usage:
+# python -m coverage erase  # clears previous data if any
+# python -m coverage run scripts/run-tests
+# python -m coverage report  # prints to stdout
+# python -m coverage html  # create ./htmlcov/*.html including annotated source
+# open htmlcov/index.html
+[run]
+source =
+    backend
+    scripts
+
+[report]
+# Ignore missing source files, i.e. fake tornado template-generated "files"
+ignore_errors = true

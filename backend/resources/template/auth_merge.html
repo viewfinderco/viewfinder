@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+Link accounts
+{% end %}
+
+{% block content %}
+  <script type="text/javascript">
+    $(function () {
+        var am = viewfinder.authModel = new viewfinder.models.AuthorizationModel({
+          source_identity : {% raw json_encode(identity) %},
+          mode : 'merge_login',
+          access_token : {% raw json_encode(access_token) %}
+        });
+      });
+  </script>
+  {% module Auth() %}
+{% end %}

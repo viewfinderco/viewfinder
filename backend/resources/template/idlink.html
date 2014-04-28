@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Viewfinder Identity Linked!{% end %}
+
+{% block content %}
+{% module Css('button.css') %}
+{% module Css('dialog.css') %}
+
+<div id="title" class="h3">You linked {{identity}} to your Viewfinder account</div>
+<div id="dialog-frame" class="clearfix">
+  <div id="dialog">
+    <div class="center dark">Congratulations!</div>
+    <div class="separator"></div>
+    <div class="dialog-content">
+      You have successfully linked {{ identity }} to your account. All
+      photos shared with this identity going forward will be
+      immediately available through your account.
+    </div>
+    <div class="separator"></div>
+    <div class="center"><a class="button" href="/view">Go to Viewfinder</a></div>
+  </div>
+</div>
+{% end %}

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+  <item android:id="@+id/imageView" android:drawable="@drawable/vf_icon"
+        android:padding="3dip"/>
+  <item>
+    <nine-patch android:src="@drawable/event_border" />
+  </item>
+</layer-list>

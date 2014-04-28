@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="co.viewfinder"
+          android:versionCode="1"
+          android:versionName="1.0">
+  <uses-sdk android:minSdkVersion="9"
+            android:targetSdkVersion="17"/>
+
+  <!-- Open sockets -->
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <!-- Receive GCM messages -->
+  <permission android:name="co.viewfinder.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+  <uses-permission android:name="co.viewfinder.permission.C2D_MESSAGE" />
+  <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+  <!-- GCM requires a Google account for android < 4.0.4. -->
+  <!-- <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
+
+  <!-- Keeps the processor from sleeping when a message is received. -->
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+  <application android:label="@string/app_name"
+               android:name=".AppState"
+               android:icon="@drawable/icon"
+               android:theme="@style/Theme"
+               android:debuggable="true">
+
+    <receiver android:name=".GCMBroadcastReceiver"
+              android:permission="com.google.android.c2dm.permission.SEND" >
+      <intent-filter>
+        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        <category android:name="co.viewfinder" />
+      </intent-filter>
+    </receiver>
+
+    <activity android:name="StartupActivity"
+              android:label="@string/app_name"
+              android:noHistory="true"
+              android:theme="@style/Theme.Fullscreen"
+              android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+    <activity android:name=".AuthActivity"
+              android:label="@string/app_name"
+              android:noHistory="true"
+              android:windowSoftInputMode="stateHidden"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".ViewfinderActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".MyInfoActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".ContactsActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".ContactInfoActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".SettingsActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".WebActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".ConvActivity"
+              android:label="@string/app_name"
+              android:windowSoftInputMode="stateHidden"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".ProfileActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".MyPhotosActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".ComposeActivity"
+              android:label="@string/app_name"
+              android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".SinglePhotoActivity"
+              android:theme="@style/Theme.Fullscreen"
+              android:label="@string/app_name">
+    </activity>
+  </application>
+</manifest>

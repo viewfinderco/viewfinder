@@ -1,0 +1,370 @@
+{% if is_html %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1"></meta>
+  <meta name="keywords" content="viewfinder, photos, sharing, conversation"></meta>
+  <meta name="description" content="Viewfinder allows you to access, organize, and share photos in unprecedented ways."></meta>
+  <title>{{ sharer_name }} added you to a Conversation on Viewfinder</title>
+
+  <style type="text/css">
+    .ReadMsgBody { width: 100%; }
+    .ExternalClass { width: 100%; }
+    .ExternalClass, .ExternalClass p, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+      line-height: 100%;
+    }
+
+  #center-column { width:600px; }
+
+  @media screen and (max-width: 600px) {
+    #center-column { width:100% !important; height:auto !important; }
+    .mobile-100pc { width:100% !important; height:auto !important; }
+    .mobile-hide { display:none; }
+  }
+
+  a:link { color:#909090; }  
+  a:visited { color:#909090; }  
+  a:hover { color:#4C4C4C; }
+  a:active { color:#909090; }
+
+  </style>
+</head>
+<body link="#909090" vlink="#909090" alink="#4C4C4C" style="
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+  font-family:Arial;
+  font-weight:medium;
+  font-size:18px;
+  -webkit-text-size-adjust:none;
+  -ms-text-size-adjust:100%;
+  background:#F7F7F7;
+  width:100%;
+  height:100%;
+  max-height:100%;
+  margin:0 auto 0 auto;
+  padding:0;
+  border:0;">
+  <table align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F7F7" style="
+    width:100%;
+    font-family:Arial;
+    border-radius:0px;
+    background:#F7F7F7;"><tbody>
+    <tr>
+      <td>
+        <table id="center-column" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F7F7" style="
+          max-width:600px;
+          font-family:Arial;
+          border-radius:0px;
+          background:#F7F7F7;"><tbody>
+          <tr class="mobile-hide">
+            <td align="left">
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:24px; font-size:24px; line-height:24px">&nbsp;</div></td></tr>
+              </tbody></table>
+        
+              <img src="https://www.viewfinder.co/static/images/email_logo.png" height="26" width="195" />
+
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:24px; font-size:24px; line-height:24px">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+          </tr>
+    
+          <tr>
+            <td>
+              <table align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="
+                width:100%;
+                font-family:Arial;
+                border:solid 1px #E5E5E5;
+                border-radius:0px;
+                background:#FFFFFF;"><tbody>
+                <tr>
+                  <td>
+                    <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+      
+                  <td>
+                    <table class="mobile-hide" width="80" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+          
+                  <td>
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:12px; font-size:12px; line-height:12px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <table class="mobile-hide" width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:24px; font-size:24px; line-height:24px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    {% if toname %}
+                      <div align="center" style="font-size:15px; font-weight:bold; color:#414141;">
+                        Hello {{ toname }},
+                      </div>
+
+                      <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                        <tr><td><div style="min-height:15px; font-size:15px; line-height:15px">&nbsp;</div></td></tr>
+                      </tbody></table>
+                    {% end %}         
+
+                    <div align="center" style="font-size:15px; color:#414141">
+                      <span style="font-weight:bold">{{ sharer_name }}</span> added you to a Conversation on Viewfinder:
+                    </div>
+
+                    {% if viewpoint_title %}
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:20px; font-size:20px; line-height:20px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <div align="center" style="font-size:22px; font-weight:bold; line-height:30px; color:#FF9625;">
+                      &ldquo;{{ viewpoint_title }}&rdquo;
+                    </div>
+                    {% end %}
+
+                    {% if cover_photo_url %}
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:20px; font-size:20px; line-height:20px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    <center>
+                      <a href="{{ viewpoint_url }}">
+                        <img
+                          class="mobile-100pc"
+                          height="{{ cover_photo_height }}"
+                          width="{{ cover_photo_width }}"
+                          src="{{ cover_photo_url }}"
+                          style="-ms-interpolation-mode:bicubic; border:0; background-color:#DCDCDC;" />
+                      </a>
+                    </center>
+                    {% end %}
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:40px; font-size:40px; line-height:40px">&nbsp;</div></td></tr>
+                    </tbody></table>
+
+                    {% comment WARNING: This is magic HTML/CSS that creates a clickable button. Do *not* modify
+                                        this unless you've tested all email clients using emailonacid.com. Anything that
+                                        looks strange or unnecessary here is probably needed to trick Microsoft Outlook
+                                        into displaying the button correctly.
+                    %}
+                    <table align="center" cellpadding="0" cellspacing="0" border="0" width="220" style="
+                      font-family:Arial;
+                      border-collapse:separate;
+                      margin:0 auto 0 auto;
+                      padding:0;"><tbody>
+                      <tr><td valign="top" align="center" style="
+                        background-color:#ff9625;
+                        margin:0 auto 0 auto;
+                        padding:6px 6px 4px 6px;
+                        border-radius:5px;
+                        box-shadow:0 2px 0px #CACACA;
+                        -moz-border-radius:5px;
+                        -moz-box-shadow:0 2px 0px #CACACA;
+                        -webkit-border-radius:5px;
+                        -webkit-box-shadow:0 2px 0px #CACACA;">
+                        <a href="{{ viewpoint_url }}" style="
+                          display:block;
+                          text-align:center;
+                          text-decoration:none;">
+                          <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:8px; font-size:8px; line-height:8px;">&nbsp;</div></td></tr>
+                          </tbody></table>
+                          
+                          <div style="
+                            display:block;
+                            font-family:Arial;
+                            font-size:17px;
+                            font-weight:bold;
+                            text-align:center;
+                            text-decoration:none;
+                            color:#FFFFFF;
+                            margin:0 auto 0 auto;
+                            padding:0;">
+                            {% if cover_photo_url %}
+                              View&nbsp;All&nbsp;Photos
+                            {% else %}
+                              View&nbsp;Conversation
+                            {% end %}
+                          </div>
+                          
+                          <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                            <tr><td><div style="min-height:8px; font-size:8px; line-height:8px;">&nbsp;</div></td></tr>
+                          </tbody></table>
+                        </a>
+                      </td></tr>
+                    </table>
+    
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:12px; font-size:12px; line-height:12px;">&nbsp;</div></td></tr>
+                    </tbody></table>
+        
+                    <div align="center" style="font-size:14px; color:#BBBBBB;">
+                      Already have an account?
+                      <a href="https://www.viewfinder.co/auth" style="
+                        text-decoration:none;
+                        color:#BBBBBB;
+                        font-weight:bold;">
+                        Log&nbsp;In
+                      </a>
+                    </div>
+        
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:32px; font-size:32px; line-height:32px;">&nbsp;</div></td></tr>
+                    </tbody></table>
+        
+                    <div align="center" style="font-size:15px; color:#414141">
+                      Have an iPhone? Download the
+                      <a href="https://www.viewfinder.co/app" style="
+                        font-weight:bold;
+                        color:#FF9625;
+                        text-decoration:none;">
+                        Viewfinder&nbsp;App
+                      </a>
+                    </div>
+
+                    <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:44px; font-size:44px; line-height:44px;">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+                  
+                  <td>
+                    <table class="mobile-hide" width="80" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+      
+                  <td>
+                    <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+              </tbody></table>
+            </td>
+          </tr>
+    
+          <tr>
+            <td>
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:24px; font-size:24px; line-height:24px">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:12px; font-weight:bold; color:#A0A0A0">
+                Problems? &nbsp;&nbsp;&nbsp; Feedback? &nbsp;&nbsp;&nbsp; Email us:
+                <a href="mailto:support@emailscrubbed.com" style="
+                  text-decoration:none;
+                  color:#A0A0A0;">
+                  support@emailscrubbed.com
+                </a>
+              </div>
+      
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:14px; font-size:14px; line-height:14px">&nbsp;</div></td></tr>
+              </tbody></table>
+      
+              <div align="center" style="font-size:12px; color:#A0A0A0">
+                &#xA9; 2013 Minetta, LLC. All Rights Reserved.
+              </div>
+      
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:18px; font-size:18px; line-height:18px">&nbsp;</div></td></tr>
+              </tbody></table>
+      
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr>
+                  <td><div style="min-height:18px; font-size:18px; line-height:18px">&nbsp;</div></td>
+                  <td><div style="min-height:18px; font-size:18px; line-height:18px">&nbsp;</div></td>
+                </tr>
+              </tbody></table>
+
+              <table class="mobile-100pc" align="center" cellpadding="0" cellspacing="0" border="0" style="
+                width:100%;
+                font-size:12px;
+                color:#A0A0A0;
+                font-family:Arial;"><tbody>
+                <tr>
+                  <td>
+                    <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+
+                  <td>
+                    <table class="mobile-hide" width="80" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+
+                  <td>
+                    <span style="color:#A0A0A0;">
+                      By opening this webpage, you confirm that you are at least 13 years old and
+                      that you have read and accept our
+                    </span>
+                    <a href="https://www.viewfinder.co/terms" style="
+                      font-weight:bold;
+                      color:#A0A0A0;
+                      text-decoration:underline;">
+                      Terms&nbsp;of&nbsp;Service</a>
+                    <span style="color:#A0A0A0;">and</span>
+                    <a href="https://www.viewfinder.co/privacy" style="
+                      font-weight:bold;
+                      color:#A0A0A0;
+                      text-decoration:underline;">
+                      Privacy&nbsp;Policy</a>
+                    <span style="color:#A0A0A0;">.</span>
+                  </td>
+
+                  <td>
+                    <table class="mobile-hide" width="80" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+
+                  <td>
+                    <table width="12" border="0" cellspacing="0" cellpadding="0"><tbody>
+                      <tr><td><div style="min-height:0px; font-size:0px; line-height:0px">&nbsp;</div></td></tr>
+                    </tbody></table>
+                  </td>
+                </tr>
+              </tbody></table>
+          
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:14px; font-size:14px; line-height:14px">&nbsp;</div></td></tr>
+              </tbody></table>
+
+              <div align="center" style="font-size:12px; color:#A0A0A0">
+                To unsubscribe from all future Viewfinder Conversations,
+                <a href="{{ unsubscribe_url }}" style="
+                  font-weight:bold;
+                  color:#A0A0A0;
+                  text-decoration:underline;">
+                  Click&nbsp;Here</a>.
+              </div>
+  
+              <table width="1" border="0" cellspacing="0" cellpadding="0"><tbody>
+                <tr><td><div style="min-height:100px; font-size:100px; line-height:100px">&nbsp;</div></td></tr>
+              </tbody></table>
+            </td>
+          </tr>
+        </tbody></table>
+      </td>
+    </tr>
+  </tbody></table>
+</body>
+</html>
+{% else %}
+Hello,
+
+{{ sharer_name }} has added you to a Conversation on Viewfinder:{% if viewpoint_title %}
+
+  "{{ viewpoint_title }}"{% end %}
+
+  {% raw viewpoint_url %}   
+
+Thanks,   
+The Viewfinder Team
+{% end %}

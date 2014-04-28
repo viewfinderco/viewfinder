@@ -1,0 +1,217 @@
+#body {
+    min-width:600px;
+}
+
+#layout {
+    min-height:400px;
+}
+
+#main {
+    position: absolute; 
+    top:0;
+    height: 50%;
+    min-height: 50px;
+    width: 100%;
+}
+
+#logo { 
+    position: absolute; 
+    bottom:-60px; 
+    left:80px; 
+    width:560px;
+    height:120px; 
+    opacity:0; 
+}
+
+#logo-bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 117px;
+    height: 90px;
+    background: url(images/vf_prelaunch_logo_bottom.png);
+}
+
+#logo-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 117px;
+    height: 60px;
+    background: url(images/vf_prelaunch_logo_topgrey.png) top center no-repeat;
+}
+
+#logo-hilight {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 117px;
+    height: 60px;
+    opacity:0;
+    background: url(images/vf_prelaunch_logo_toporange.png) top center no-repeat;
+}
+
+#welcome-text {
+    display:block;
+    opacity:0;
+    position: absolute;
+    bottom:0px;
+    left: 240px;
+    line-height: 30px;
+    vertical-align: bottom;
+    text-shadow: 0 1px 1px rgba(15,15,15,0.5);
+}
+
+#welcome-tagline {
+    vertical-align: bottom;
+    display: inline;
+    font-size: 30px;
+}
+
+#welcome-button {
+    display: inline-block;
+    position: relative;
+    top: 65px;
+    width: 135px;
+		height:40px;
+    padding-right: 16px;
+    margin-left: -147px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff9213;
+    text-align: right;
+	background: url(images/Available_on_the_App_Store_Badge_US-UK_135x40_0824.png) center center no-repeat;
+}
+/*
+#welcome-text:hover #welcome-button {
+    color:#fff;
+    background-image: url(images/vf_prelaunch_arrow_white.png);
+}
+
+#welcome-button a, #welcome-button a:visited, #welcome-button a:active {
+    color:#ff9213;
+}
+#welcome-button:hover a {
+    color: #fff;
+}
+*/
+
+#email-form {
+    position: absolute;
+    width: 337px;
+    height: 27px;
+    left: 200px;
+    bottom:5px;
+    display:none;
+}
+
+#letterhead {
+    float: left;
+    width: 337px;
+    height: 54px;
+    background: url(images/vf_prelaunch_viewfinder.png) center center no-repeat;
+}
+
+#form-field {
+    position:relative;
+    float: left;
+    opacity: 0;
+    margin-top: 40px;
+    width: 337px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 0;  /* Workaround to avoid whitespace issues with inline-block elements*/
+}
+
+#form-field .field-bkgd { 
+    position:absolute; top:0; left:0;
+    width: 100%;
+    height: 100%;
+    background:#000;
+    border-radius: 10px; 
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 5px; 
+    border-top: 1px solid #333;
+    opacity:0.3;
+}
+
+#form-input {
+    font-family: 'proxima-nova-alt',Helvetica,Arial,sans-serif;
+    vertical-align: middle;
+    background: none;
+    border: none;
+    outline: none;
+    color: rgb(255,255,255);
+    font-size: 16px;
+    font-weight: normal;
+    width: 275px;
+    position:absolute; top:14px; left:20px;
+}
+
+#form-arrow {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    height: 50px;
+    width: 17px;
+    position:absolute; top:0; right:10px;
+    background: url(images/vf_prelaunch_emailarrow_white.png) center center no-repeat;
+}
+
+#form-arrow.orange {
+    background-image: url(images/vf_prelaunch_emailarrow_orange.png);
+}
+
+#form-message {
+    float: right;
+    text-align: right;
+    opacity: 1;
+    font-size: 16px;
+    line-height: 1em;
+    margin-top: 10px;
+    text-shadow: 0 1px 1px rgba(15,15,15,0.5);
+}
+
+#form-message.error {
+    color: rgb(259, 146, 19);
+}
+
+#footer {
+    position: absolute;
+    bottom: 30px;
+    left: 80px;
+    right: 80px;
+    height:13px;
+    text-shadow: 0 1px 1px rgba(15,15,15,0.5);
+    display:none;
+}
+
+#footer-left {
+    float: left;
+    font-size: 13px;
+}
+
+#footer-left a, #footer-left a:visited, #footer-left a:active {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 30px;
+}
+
+#footer-right {
+    float: right;
+    font-size: 11px;
+    text-align: right;
+}
+#footer.narrow {
+    bottom:40px; height:30px;
+}
+#footer.narrow #footer-right {
+    clear:both;
+    float:left;
+    margin:10px 0 0 0;
+}
+
+span.orange {
+    color: #ff9213;
+}

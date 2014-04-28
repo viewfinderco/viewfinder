@@ -1,0 +1,101 @@
+{% extends "verify_id_base.html" %}
+{% block page_class %}verify_id{% end %}
+
+
+{% block body_content %}
+    <div id="phone-holder">
+        <img src="/static/css/images/verify_id/iphone_activate2.png" width="100%" class="activate1" />
+    </div>
+    <div id="message-holder">
+        {% if redirect_failed %}
+        <h2 class="orange">Hmm...<br />We're having trouble loading the Viewfinder app.</h2>
+        {% else %}
+        <h2 class="orange">Looks like you opened the {{ email_type }} email outside your iPhone.</h2>
+        {% end %}
+        <p class="dark">No problem. Go to the Viewfinder Account screen and enter this <b>access code</b>:</p>
+        <div class="access-code-holder">
+            <div class="code-partial">{{ code_1 }}</div>
+            <div class="code-partial">{{ code_2 }}</div>
+            <div class="code-partial">{{ code_3 }}</div>
+        </div>
+        <div class="support">
+            Having an issue?<br />
+            Email us at <a href="mailto:support@emailscrubbed.com">support@viewfinder.co</a>
+        </div>
+        <div class="footer-logo">
+            <img src="/static/css/images/verify_id/dark_logo.png" width="32" height="32" class="dark-logo" />
+            <div class="home-link">
+                Go to <a href="/">viewfinder.co</a>
+            </div>
+        </div>
+    </div>
+    <div id="support-sticky-footer">
+        Having an issue? Email us at <a href="mailto:support@emailscrubbed.com">support@viewfinder.co</a>.
+    </div>
+    <!-- For graying out entire background -->
+    <div id="opaque" class="mask"></div>
+{% end %}
+
+
+{% block script_content %}
+$(document).ready(function() {
+    {% if may_have_app %}
+        // This device *may* contain the app, so try to switch to it.
+
+
+        // After a short timeout, send request to server, which will determine if verification completes.
+        setTimeout(function() {
+            window.location = "?redirected=True";
+        }, 100);
+
+        // Attempt to switch to app.
+        app_url = "viewfinder://verify_id?";
+        app_url += "identity={{ url_escape(identity_key) }}&";
+        app_url += "access_token={{ url_escape(access_token) }}";
+        window.location = app_url;
+
+
+    {% else %}
+        // No app on this device, so prompt user to type in code.
+
+
+        function resize() {
+            var windowWidth = $(window).width();
+            var windowHeight = $(window).height();
+
+            if (windowWidth <= 650) {
+                if (!$("#layout").hasClass("lte_650")) {
+                    $("#layout").addClass("lte_650");
+                    var phoneElement = $("#phone-holder").detach();
+                    $("#message-holder").after(phoneElement);
+                }
+
+                $("#message-holder").css({ 'margin-top': 0 });
+
+            } else {
+                if ($("#layout").hasClass("lte_650")) {
+                    $("#layout").removeClass("lte_650");
+                    var phoneElement = $("#phone-holder").detach();
+                    $("#message-holder").before(phoneElement);
+                }
+
+                var messageHeight = $("#message-holder").height();
+                var phoneHeight = $("#phone-holder").outerHeight(true);
+                var messageTop = (phoneHeight - messageHeight) / 2;
+                $("#message-holder").css({ 'margin-top': messageTop + 'px' });
+            }
+        }
+
+        // Don't call resize() or show the layout until the phone image is loaded. If we don't do this,
+        // then resize() will assume that the phone holder height is 0, and make bad calculations that
+        // result in an on-screen mess.
+        $("#phone-holder img.activate1").load(function() {
+          $("#layout").show();
+          $(window).resize(resize);
+          resize();
+        });
+
+    {% end %}
+
+});
+{% end %}
