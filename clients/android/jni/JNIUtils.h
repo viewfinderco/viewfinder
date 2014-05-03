@@ -1,5 +1,5 @@
 // Copyright 2013 Viewfinder. All rights reserved.
-// Author: Marc Berhault
+// Author: Peter Mattis
 
 #ifndef VIEWFINDER_JNI_JNI_UTILS_H
 #define VIEWFINDER_JNI_JNI_UTILS_H
