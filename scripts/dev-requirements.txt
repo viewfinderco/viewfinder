@@ -7,7 +7,7 @@ html5lib==0.95
 keyring==0.10
 # Used to generate PDF summary reports. Requires libfreetype.
 # matplotlib==1.2.1
-mercurial==2.3.2
+mercurial
 nose==1.2.1
 py==1.4.9
 pyflakes==0.5.0
